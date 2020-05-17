@@ -1,0 +1,7 @@
+git+htpps://github.com/Rapptz/discord.py
+PyNaCl
+pandas
+numpy
+datetime
+random
+async-timeout
