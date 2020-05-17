@@ -3,5 +3,4 @@ PyNaCl
 pandas
 numpy
 datetime
-random
 async-timeout
