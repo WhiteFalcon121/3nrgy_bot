@@ -1,1 +1,1 @@
-worker: python 3nrgy.py
+worker: python 3nrgy_bot.py
