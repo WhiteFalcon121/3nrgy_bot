@@ -1,4 +1,4 @@
-git+httpps://github.com/Rapptz/discord.py
+git+https://github.com/Rapptz/discord.py
 PyNaCl
 pandas
 numpy
