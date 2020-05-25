@@ -3,4 +3,5 @@ PyNaCl
 pandas
 numpy
 datetime
+pytz
 async-timeout
