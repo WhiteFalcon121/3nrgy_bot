@@ -6,4 +6,3 @@ datetime
 pytz
 async-timeout
 python-dotenv
-boto.s3.connection
