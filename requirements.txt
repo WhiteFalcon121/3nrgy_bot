@@ -6,3 +6,4 @@ datetime
 pytz
 async-timeout
 python-dotenv
+boto
