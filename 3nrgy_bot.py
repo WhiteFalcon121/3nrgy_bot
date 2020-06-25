@@ -38,7 +38,7 @@ async def see_inv(ctx):
     global player_invs
     person = ctx.author
     if player_invs.get(person) != None:
-        await ctx.send("Looking through your inventory.")
+        await ctx.send("Looking through your inventory.", player_invs[person])
         for i in player_invs[person]:
             await ctx.send("You have", i)
     else:
