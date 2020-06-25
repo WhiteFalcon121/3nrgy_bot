@@ -28,7 +28,7 @@ async def new_inv(ctx):
     global player_invs # call global var
     person = ctx.author
     if player_invs.get(person) == None: # if player does not have an inv
-        player_invs.update({person:["starter"]})
+        player_invs.update({person:[]})
         await ctx.send("New inventory initialised. \n You're all set.")
     else:
         await ctx.send("You already have an inventory. If you want to reset, use the reset command.")
@@ -39,8 +39,11 @@ async def see_inv(ctx):
     person = ctx.author
     if player_invs.get(person) != None:
         await ctx.send("Looking through your inventory...")
-        for i in player_invs[person]:
-            await ctx.send("You have " + i)
+        if len(player_invs[person]) != 0:
+            for i in player_invs[person]:
+                await ctx.send(i.upper())  # cannot send multiple vars at once
+        else:
+            await ctx.send("You have nothing atm.")
     else:
         await ctx.send("You do not have an inventory yet. Use 'new_inv' command to make one.")
 
