@@ -19,15 +19,25 @@ async def on_ready(ctx): #asynchronous function - when bot is ready (first event
     print("I'm ready, now!")
     await ctx.send("I'm ready!")
 '''
-@client.event #another event
-async def on_member_join(member): #when member object joins server
-    print(f'{member} popped in.')
-    await ctx.send(f'{member} popped in.')
 
-@client.event #3rd event
-async def on_member_remove(member):
-    print(f'{member} popped out.')
-    await ctx.send(f'{member} popped out.')
+# trading system command_prefix
+player_invs = {}
+
+@client.command(description = "start a new inventory to start trading")
+async def new_inv(ctx):
+    global player_invs # call global var
+    person = ctx.author
+    if player_invs.get(person) != None: # if player does not have an inv
+        player_invs.update({person:[]})
+        ctx.send("")
+    else:
+        ctx.send("You already have an inventory. If you want to reset, use the reset command.")
+
+# view inv command
+# roulette command
+#reset inv command
+#trade command
+#view others' invs command
 
 @client.command(description = "tells you the bot's ping")
 async def ping(ctx): #ctx is context
