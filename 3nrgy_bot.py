@@ -27,11 +27,21 @@ player_invs = {}
 async def new_inv(ctx):
     global player_invs # call global var
     person = ctx.author
-    if player_invs.get(person) != None: # if player does not have an inv
+    if player_invs.get(person) == None: # if player does not have an inv
         player_invs.update({person:[]})
-        await ctx.send("")
+        await ctx.send("New inventory initialised. \n You're all set.")
     else:
         await ctx.send("You already have an inventory. If you want to reset, use the reset command.")
+
+@client.command(description = "view inventory")
+async def see_inv(ctx):
+    global player_invs
+    person = ctx.author
+    if player_invs.get(person) != None:
+        for i in player_invs[person]:
+            await ctx.send(i)
+    else:
+        await ctx.send("You do not have an inventory yet. Use 'new_inv' command to make one.")
 
 # view inv command
 # roulette command
