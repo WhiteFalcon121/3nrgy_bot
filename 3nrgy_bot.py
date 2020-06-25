@@ -29,9 +29,9 @@ async def new_inv(ctx):
     person = ctx.author
     if player_invs.get(person) != None: # if player does not have an inv
         player_invs.update({person:[]})
-        ctx.send("")
+        await ctx.send("")
     else:
-        ctx.send("You already have an inventory. If you want to reset, use the reset command.")
+        await ctx.send("You already have an inventory. If you want to reset, use the reset command.")
 
 # view inv command
 # roulette command
