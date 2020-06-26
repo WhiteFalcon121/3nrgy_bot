@@ -26,7 +26,7 @@ player_invs = {}
 @client.command(description = "start a new inventory to start trading")
 async def new_inv(ctx):
     global player_invs # call global var
-    person = ctx.author[name]
+    person = ctx.author
     if player_invs.get(person) == None: # if player does not have an inv
         player_invs.update({person:[]})
         await ctx.send("New inventory initialised. \n You're all set.")
