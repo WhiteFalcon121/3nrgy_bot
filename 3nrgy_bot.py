@@ -55,6 +55,15 @@ async def add(ctx):
     person_inv.append("starter")
     player_invs[person] = person_inv
     await ctx.send("Starter item added.")
+
+@client.command(description="start a trade")
+async def ask_trade(ctx, recipient, skin, trade_skin):
+    global player_invs
+    person = ctx.author
+    person_inv = player_invs[person]
+    recipient_inv = player[recipient]
+    if skin in person_inv and trade_skin in recipient_inv: #if they actually have skins, proceed
+        await ctx.send(recipient.mention()+ " do you want to trade" + skin + "for your" + trade_skin + "? (from{})".format(person))
 # view inv command
 # roulette command
 #reset inv command
