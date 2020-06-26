@@ -51,7 +51,7 @@ async def see_inv(ctx):
 @client.command(description="testing - add item to inv")
 async def add(ctx): # add check to see if inv is real
     global player_invs
-    person = ctx.author.name.name
+    person = ctx.author.name
     person_inv = player_invs[person]
     person_inv.append("starter")
     player_invs[person] = person_inv
