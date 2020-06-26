@@ -60,7 +60,10 @@ async def add(ctx): # add check to see if inv is real
 async def ask_trade(ctx, recipient, skin, trade_skin):
     global player_invs
     person = ctx.author
-    await ctx.send(person + recipient + skin + trade_skin)
+    await ctx.send(person)
+    await ctx.send(recipient)
+    await ctx.send(skin)
+    await ctx.send(trade_skin)
     person_inv = player_invs[person]
     recipient_inv = player[recipient]
     await ctx.send("Checking skins...")
