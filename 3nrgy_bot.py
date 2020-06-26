@@ -37,7 +37,7 @@ async def new_inv(ctx):
 @client.command(description = "view inventory")
 async def see_inv(ctx):
     global player_invs
-    person = ctx.author
+    person = ctx.author.name
     if player_invs.get(person) != None:
         await ctx.send("Looking through your inventory...")
         if len(player_invs[person]) != 0:
@@ -51,7 +51,7 @@ async def see_inv(ctx):
 @client.command(description="testing - add item to inv")
 async def add(ctx): # add check to see if inv is real
     global player_invs
-    person = ctx.author
+    person = ctx.author.name.name
     person_inv = player_invs[person]
     person_inv.append("starter")
     player_invs[person] = person_inv
@@ -60,7 +60,7 @@ async def add(ctx): # add check to see if inv is real
 @client.command(description="start a trade")
 async def ask_trade(ctx, recipient, skin, trade_skin):
     global player_invs
-    person = ctx.author
+    person = ctx.author.name
     recipient = recipient
     await ctx.send(person)
     await ctx.send(recipient)
