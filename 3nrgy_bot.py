@@ -70,7 +70,7 @@ async def ask_trade(ctx, recipient, skin, trade_skin):
     await ctx.send(player_invs[person])
     await ctx.send('lastone' + player_invs[recipient])
     person_inv = player_invs[person]
-    recipient_inv = player[recipient]
+    recipient_inv = player_invs[recipient]
     await ctx.send("Checking the skins...")
     if skin in person_inv and trade_skin in recipient_inv: #if they actually have skins, proceed
         await ctx.send(recipient.mention()+ " do you want to trade" + skin + "for your" + trade_skin + "? (from{})".format(person))
