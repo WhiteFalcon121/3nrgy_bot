@@ -69,6 +69,8 @@ async def ask_trade(ctx, recipient, skin, trade_skin):
     await ctx.send("Checking skins...")
     if skin in person_inv and trade_skin in recipient_inv: #if they actually have skins, proceed
         await ctx.send(recipient.mention()+ " do you want to trade" + skin + "for your" + trade_skin + "? (from{})".format(person))
+    else:
+        await ctx.send("That is an invalid trade - check both of you have those skins.")
 # view inv command
 # roulette command
 #reset inv command
