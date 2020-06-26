@@ -61,19 +61,13 @@ async def add(ctx): # add check to see if inv is real
 async def ask_trade(ctx, recipient, skin, trade_skin):
     global player_invs
     person = ctx.author.name
-    await ctx.send(person)
-    await ctx.send(recipient)
-    await ctx.send(skin)
-    await ctx.send(trade_skin)
-    await ctx.send(player_invs)
-    await ctx.send(player_invs[person])
-    await ctx.send(player_invs[recipient])
+    # add ctx.send(TRADE STATEMENT)
     person_inv = player_invs[person]
     recipient_inv = player_invs[recipient]
     await ctx.send("Checking the skins...")
     if skin in person_inv and trade_skin in recipient_inv: #if they actually have skins, proceed
         await ctx.send("Ok I'll ask.")
-        await ctx.send(recipient.mention()+ " do you want to trade" + skin + "for your" + trade_skin + "? (from{})".format(person))
+        #await ctx.send(recipient.mention()+ " do you want to trade" + skin + "for your" + trade_skin + "? (from{})".format(person))
     else:
         await ctx.send("That is an invalid trade - check both of you have those skins.")
 # view inv command
