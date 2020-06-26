@@ -53,7 +53,7 @@ async def add(ctx):
     person = ctx.author
     person_inv = player_invs[person]
     person_inv.append("starter")
-    player_invs[person] = [person_inv]
+    player_invs[person] = person_inv
     await ctx.send("Starter item added.")
 # view inv command
 # roulette command
