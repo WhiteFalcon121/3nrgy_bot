@@ -48,7 +48,7 @@ async def see_inv(ctx):
         await ctx.send("You do not have an inventory yet. Use 'new_inv' command to make one.")
 
 @client.command(description="testing - add item to inv")
-async def add(ctx):
+async def add(ctx): # add check to see if inv is real
     global player_invs
     person = ctx.author
     person_inv = player_invs[person]
@@ -60,7 +60,7 @@ async def add(ctx):
 async def ask_trade(ctx, recipient, skin, trade_skin):
     global player_invs
     person = ctx.author
-    await ctx.send(person)
+    await ctx.send(person + recipient + skin + trade_skin)
     person_inv = player_invs[person]
     recipient_inv = player[recipient]
     await ctx.send("Checking skins...")
