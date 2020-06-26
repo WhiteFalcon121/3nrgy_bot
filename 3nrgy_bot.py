@@ -26,10 +26,11 @@ player_invs = {}
 @client.command(description = "start a new inventory to start trading")
 async def new_inv(ctx):
     global player_invs # call global var
-    person = ctx.author
+    person = ctx.author[name]
     if player_invs.get(person) == None: # if player does not have an inv
         player_invs.update({person:[]})
         await ctx.send("New inventory initialised. \n You're all set.")
+        await ctx.send(player_invs)
     else:
         await ctx.send("You already have an inventory. If you want to reset, use the reset command.")
 
@@ -60,7 +61,7 @@ async def add(ctx): # add check to see if inv is real
 async def ask_trade(ctx, recipient, skin, trade_skin):
     global player_invs
     person = ctx.author
-    recipient = str(recipient)
+    recipient = recipient
     await ctx.send(person)
     await ctx.send(recipient)
     await ctx.send(skin)
