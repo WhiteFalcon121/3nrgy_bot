@@ -47,6 +47,14 @@ async def see_inv(ctx):
     else:
         await ctx.send("You do not have an inventory yet. Use 'new_inv' command to make one.")
 
+@client.command(description="testing - add item to inv")
+async def add(ctx):
+    global player_invs
+    person = ctx.author
+    person_inv = player_invs[person]
+    person_inv.append("starter")
+    player_invs[person] = [person_inv]
+    await ctx.send("Starter item added.")
 # view inv command
 # roulette command
 #reset inv command
