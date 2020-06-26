@@ -64,6 +64,9 @@ async def ask_trade(ctx, recipient, skin, trade_skin):
     await ctx.send(recipient)
     await ctx.send(skin)
     await ctx.send(trade_skin)
+    await ctx.send(player_invs)
+    await ctx.send(player_invs[person])
+    await ctx.send(player_invs[recipient])
     person_inv = player_invs[person]
     recipient_inv = player[recipient]
     await ctx.send("Checking skins...")
