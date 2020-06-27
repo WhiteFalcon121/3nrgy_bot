@@ -9,7 +9,6 @@ from discord.ext import commands #discord extension
 
 #load_dotenv() # make .env file accessible
 #token = os.getenv("BOT_TOKEN") ---if you want to run locally
-asdasdasd
 token = os.environ.get("BOT_TOKEN") # discord bot token goes here
 client = commands.Bot(command_prefix = '//') #bot instance created, called client
 '''
@@ -62,20 +61,28 @@ async def ask_trade(ctx, recipient, skin, trade_skin):
     global player_invs
     person = str(ctx.author) # person is ALWAYS PERSON WHO STARTS TRADE
     trade = [person, recipient, skin, trade_skin] #always this TRADE STRUCTURE
-    await ctx.send(initialised trade)
     # add ctx.send(TRADE STATEMENT)
     person_inv = player_invs[person]
     recipient_inv = player_invs[recipient]
-    await ctx.send("Checking the skins...")
+    await ctx.send("Processing trade...")
     if skin in person_inv and trade_skin in recipient_inv: #if they actually have skins, proceed
-        await ctx.send("Ok I'll ask.")
         trades_num = len(ongoing_trades)
         ongoing_trades.update({trades_num:trade})
+        #await ctx.send("Ask" + recipient + "to accept the trade.")
         await ctx.send(ongoing_trades)
+        await ctx.send("@" + recipient + "\n Do you want to trade your " + trade_skin + "for a " + skin + "?")
         # add .mention() here
         #await ctx.send(recipient.mention()+ " do you want to trade" + skin + "for your" + trade_skin + "? (from{})".format(person))
     else:
         await ctx.send("That is an invalid trade - check both of you have those skins.")
+@client.command()
+async def test1(ctx, member:discord.Member):
+    person = str(ctx.author)
+    await ctx.send(person+ " ")
+    await ctx.send(member)
+    await ctx.send(str(member))
+    if player_invs.get(member) != None:
+        await ctx.send("you have inventory")
 
 # view inv command
 # roulette command
