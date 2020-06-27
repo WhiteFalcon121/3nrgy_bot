@@ -101,7 +101,7 @@ async def howareyou(ctx):
     randreply = random.choice(replies)
     if randreply == replies[4]:
         randreply = "Don't bother me - you know for well that I'm doing your Homework,"
-    await ctx.send(randreply + ' ' + name + discrim)
+    await ctx.send(randreply + ' ' + name)
 
 @client.command(description = "tells you the date")
 async def date(ctx):
