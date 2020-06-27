@@ -2,15 +2,14 @@ import discord
 import os
 import random
 import datetime
-from boto.s3.connection import S3Connection
 import pytz
-from dotenv import load_dotenv
+#from dotenv import load_dotenv -- for local
 from pytz import timezone
 from discord.ext import commands #discord extension
 
 #load_dotenv() # make .env file accessible
 #token = os.getenv("BOT_TOKEN") ---if you want to run locally
-
+asdasdasd
 token = os.environ.get("BOT_TOKEN") # discord bot token goes here
 client = commands.Bot(command_prefix = '//') #bot instance created, called client
 '''
