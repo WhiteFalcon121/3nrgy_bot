@@ -96,8 +96,6 @@ async def hello(ctx):
 async def howareyou(ctx):
     replies = ['A bit sad,', 'Ok, I guess,', 'Good,', 'Really happy,', "Don't bother me - I'm doing Karthik's Maths homework. Why do you think he does that well?", 'I feel human.']
     name = str(ctx.author)
-    #name = str(name[:-5])
-    #discrim = ("#" + ctx.author.discriminator)
     randreply = random.choice(replies)
     if randreply == replies[4]:
         randreply = "Don't bother me - you know for well that I'm doing your Homework,"
