@@ -26,7 +26,7 @@ player_invs = {}
 @client.command(description = "start a new inventory to start trading")
 async def new_inv(ctx):
     global player_invs # call global var
-    person = ctx.author.name
+    person = str(ctx.author)
     if player_invs.get(person) == None: # if player does not have an inv
         player_invs.update({person:[]})
         await ctx.send("New inventory initialised. \n You're all set.")
@@ -37,7 +37,7 @@ async def new_inv(ctx):
 @client.command(description = "view inventory")
 async def see_inv(ctx):
     global player_invs
-    person = ctx.author.name
+    person = str(ctx.author)
     if player_invs.get(person) != None:
         await ctx.send("Looking through your inventory...")
         if len(player_invs[person]) != 0:
@@ -51,7 +51,7 @@ async def see_inv(ctx):
 @client.command(description="testing - add item to inv")
 async def add(ctx): # add check to see if inv is real
     global player_invs
-    person = ctx.author.name
+    person = str(ctx.author)
     person_inv = player_invs[person]
     person_inv.append("starter")
     player_invs[person] = person_inv
@@ -60,7 +60,7 @@ async def add(ctx): # add check to see if inv is real
 @client.command(description="start a trade")
 async def ask_trade(ctx, recipient, skin, trade_skin):
     global player_invs
-    person = ctx.author.name
+    person = str(ctx.author)
     # add ctx.send(TRADE STATEMENT)
     person_inv = player_invs[person]
     recipient_inv = player_invs[recipient]
@@ -79,7 +79,6 @@ async def ask_trade(ctx, recipient, skin, trade_skin):
 
 @client.command(description = "tells you the bot's ping")
 async def ping(ctx): #ctx is context
-    person = ctx.author
     await ctx.send(f'Pong! {round(client.latency * 1000, 2)}ms')
 
 @client.command(aliases = ['8ball', 'eightball'], description = "ask the virtual 8ball (always correct)") #setting other ways to invoke command
