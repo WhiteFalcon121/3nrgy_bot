@@ -11,7 +11,7 @@ from discord.ext import commands #discord extension
 #load_dotenv() # make .env file accessible
 #token = os.getenv("BOT_TOKEN") ---if you want to run locally
 
-token = os.environ.get("BOT_TOKEN") # discord bot token goes here
+#token = os.environ.get("BOT_TOKEN") # discord bot token goes here
 client = commands.Bot(command_prefix = '//') #bot instance created, called client
 '''
 @client.event #function represents event (1st event)
@@ -49,11 +49,11 @@ async def see_inv(ctx):
         await ctx.send("You do not have an inventory yet. Use 'new_inv' command to make one.")
 
 @client.command(description="testing - add item to inv")
-async def add(ctx): # add check to see if inv is real
+async def add(ctx, item): # add check to see if inv is real
     global player_invs
     person = str(ctx.author)
     person_inv = player_invs[person]
-    person_inv.append("starter")
+    person_inv.append(item)
     player_invs[person] = person_inv
     await ctx.send("Starter item added.")
 
