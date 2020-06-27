@@ -63,6 +63,7 @@ async def ask_trade(ctx, recipient, skin, trade_skin):
     global player_invs
     person = str(ctx.author) # person is ALWAYS PERSON WHO STARTS TRADE
     trade = [person, recipient, skin, trade_skin] #always this TRADE STRUCTURE
+    await ctx.send(initialised trade)
     # add ctx.send(TRADE STATEMENT)
     person_inv = player_invs[person]
     recipient_inv = player_invs[recipient]
