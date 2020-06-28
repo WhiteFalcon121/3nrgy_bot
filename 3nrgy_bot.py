@@ -6,10 +6,13 @@ import pytz
 #from dotenv import load_dotenv -- for local
 from pytz import timezone
 from discord.ext import commands #discord extension
-asdfggg
+
 #load_dotenv() # make .env file accessible
 #token = os.getenv("BOT_TOKEN") ---if you want to run locally
-token = os.environ.get("BOT_TOKEN") # discord bot token goes here
+
+
+#token = os.environ.get("BOT_TOKEN") # discord bot token goes here
+token = "NzEwMDE3NDE3MTYxNjA1MjIy.XvENkA.8-2F0XQOgPH2RMJm8cMKr2EaY6U"
 client = commands.Bot(command_prefix = '//') #bot instance created, called client
 '''
 @client.event #function represents event (1st event)
@@ -20,12 +23,12 @@ async def on_ready(ctx): #asynchronous function - when bot is ready (first event
 
 # trading system command_prefix
 player_invs = {}
-ongoing_trades = {}
+ongoing_trades = [] # make code to delete same trades
 
 @client.command(description = "start a new inventory to start trading")
 async def new_inv(ctx):
     global player_invs # call global var
-    person = str(ctx.author)
+    person = str(ctx.author.id)
     if player_invs.get(person) == None: # if player does not have an inv
         player_invs.update({person:[]})
         await ctx.send("New inventory initialised. \n You're all set.")
@@ -36,7 +39,7 @@ async def new_inv(ctx):
 @client.command(description = "view inventory")
 async def see_inv(ctx):
     global player_invs
-    person = str(ctx.author)
+    person = str(ctx.author.id)
     if player_invs.get(person) != None:
         await ctx.send("Looking through your inventory...")
         if len(player_invs[person]) != 0:
@@ -50,42 +53,52 @@ async def see_inv(ctx):
 @client.command(description="testing - add item to inv")
 async def add(ctx, item): # add check to see if inv is real
     global player_invs
-    person = str(ctx.author)
+    person = str(ctx.author.id)
     person_inv = player_invs[person]
     person_inv.append(item)
     player_invs[person] = person_inv
     await ctx.send("Starter item added.")
 
 @client.command(description="start a trade")
-async def ask_trade(ctx, recipient, skin, trade_skin):
+async def ask_trade(ctx, recipient:discord.Member, skin, trade_skin):
     global player_invs
-    person = str(ctx.author) # person is ALWAYS PERSON WHO STARTS TRADE
+    person = str(ctx.author.id) # person is ALWAYS PERSON WHO STARTS TRADE
+    recipient_name = str(recipient)
+    recipient = str(recipient.id)
     trade = [person, recipient, skin, trade_skin] #always this TRADE STRUCTURE
     # add ctx.send(TRADE STATEMENT)
     person_inv = player_invs[person]
     recipient_inv = player_invs[recipient]
     await ctx.send("Processing trade...")
     if skin in person_inv and trade_skin in recipient_inv: #if they actually have skins, proceed
-        trades_num = len(ongoing_trades)
-        ongoing_trades.update({trades_num:trade})
+        ongoing_trades.append(trade)
         #await ctx.send("Ask" + recipient + "to accept the trade.")
         await ctx.send(ongoing_trades)
-        await ctx.send("@" + recipient + "\n Do you want to trade your " + trade_skin + "for a " + skin + "?")
+        await ctx.send("When " + recipient_name + " accepts the trade, the items will swap.")
         # add .mention() here
         #await ctx.send(recipient.mention()+ " do you want to trade" + skin + "for your" + trade_skin + "? (from{})".format(person))
     else:
         await ctx.send("That is an invalid trade - check both of you have those skins.")
-@client.command()
-async def test1(ctx, member:discord.Member):
-    person = str(ctx.author)
-    await ctx.send(person+ " ")
-    await ctx.send(member)
-    await ctx.send(str(member))
-    if player_invs.get(member) != None:
-        await ctx.send("you have inventory")
 
-# view inv command
+@client.command(description="accept a trade")
+async def yes_trade(ctx, starter:discord.Member, trade_skin, skin):
+    global player_invs
+    person = str(ctx.author.id)
+    starter = str(starter.id) # recipient is actual person who STARTED trade
+    person_inv = player_invs[person]
+    starter_inv = player_invs[starter] #guy who started trade
+    trade = [starter, person, skin, trade_skin] # because people are swapped
+    if trade in ongoing_trades:
+        skin_index = starter_inv.index(skin)
+        trade_skin_index = person_inv.index(trade_skin)
+        starter_inv[skin_index], person_inv[trade_skin_index] = person_inv[trade_skin_index], starter_inv[skin_index] # swap skins
+        player_invs[starter], player_invs[person] = starter_inv, person_inv # update invs
+        await ctx.send("Trade complete.")
+        await ctx.send(player_invs)
+    else:
+        await ctx.send("This trade hasn't been requested so you can't accept it? Lol. \n Request it if you want it.")
 # roulette command
+# see trade requests cmd
 #reset inv command
 #trade command
 #view others' invs command
