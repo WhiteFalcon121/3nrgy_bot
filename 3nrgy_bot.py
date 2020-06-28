@@ -11,8 +11,7 @@ from discord.ext import commands #discord extension
 #token = os.getenv("BOT_TOKEN") ---if you want to run locally
 
 
-#token = os.environ.get("BOT_TOKEN") # discord bot token goes here
-token = "NzEwMDE3NDE3MTYxNjA1MjIy.XvENkA.8-2F0XQOgPH2RMJm8cMKr2EaY6U"
+token = os.environ.get("BOT_TOKEN") # discord bot token goes here
 client = commands.Bot(command_prefix = '//') #bot instance created, called client
 '''
 @client.event #function represents event (1st event)
