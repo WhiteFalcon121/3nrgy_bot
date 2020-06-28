@@ -6,7 +6,7 @@ import pytz
 #from dotenv import load_dotenv -- for local
 from pytz import timezone
 from discord.ext import commands #discord extension
-
+asdfggg
 #load_dotenv() # make .env file accessible
 #token = os.getenv("BOT_TOKEN") ---if you want to run locally
 token = os.environ.get("BOT_TOKEN") # discord bot token goes here
