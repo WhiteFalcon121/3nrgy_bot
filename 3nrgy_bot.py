@@ -56,7 +56,7 @@ async def add(ctx, item): # add check to see if inv is real
     person_inv = player_invs[person]
     person_inv.append(item)
     player_invs[person] = person_inv
-    await ctx.send("Starter item added.")
+    await ctx.send("item added.")
 
 @client.command(description="start a trade")
 async def ask_trade(ctx, recipient:discord.Member, skin, trade_skin):
@@ -96,10 +96,41 @@ async def yes_trade(ctx, starter:discord.Member, trade_skin, skin):
         await ctx.send(player_invs)
     else:
         await ctx.send("This trade hasn't been requested so you can't accept it? Lol. \n Request it if you want it.")
-# roulette command
+
+#drop percentages = Unc = 40%, Rare = 30%, Epic = 15%, Legendary = 8%, Relic = 4%, Contr = 2%, Unob = 1%
+@client.command(description="use a spin on the roulette")
+async def roulette(ctx):
+    global player_invs
+    person = str(ctx.author.id)
+    person_inv = player_invs[person]
+    randnum = random.randint(0, 100)
+    if randnum > 60:
+        item = "uncommon"
+        await ctx.send("Uncommon")
+    elif 30 < randnum <= 60:
+        item = "rare"
+        await ctx.send("Rare")
+    elif 15 < randnum <= 30:
+        item = "epic"
+        await ctx.send("Epic")
+    elif 7 < randnum <= 15:
+        item = "legendary"
+        await ctx.send("Legendary")
+    elif 3 < randnum <= 7:
+        item = "relic"
+        await ctx.send("Relic")
+    elif 1 < randnum <= 3:
+        item = "contraband"
+        await ctx.send("Contraband")
+    else:
+        item = "unobtainable"
+        await ctx.send("Wow. Unobtainable.")
+    #add(ctx, item)
+    person_inv.append(item)
+    await ctx.send("Item added.")
+
 # see trade requests cmd
 #reset inv command
-#trade command
 #view others' invs command
 
 @client.command(description = "tells you the bot's ping")
