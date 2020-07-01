@@ -107,24 +107,31 @@ async def roulette(ctx):
     if randnum > 60:
         item = "uncommon"
         await ctx.send("Uncommon")
+        await ctx.send(file=discord.File('uncommon.gif')) #make it display different gifs
     elif 30 < randnum <= 60:
         item = "rare"
         await ctx.send("Rare")
+        await ctx.send(file=discord.File('rare.gif'))
     elif 15 < randnum <= 30:
         item = "epic"
         await ctx.send("Epic")
+        await ctx.send(file=discord.File('epic.gif'))
     elif 7 < randnum <= 15:
         item = "legendary"
         await ctx.send("Legendary")
+        await ctx.send(file=discord.File('legendary.gif'))
     elif 3 < randnum <= 7:
         item = "relic"
         await ctx.send("Relic")
+        await ctx.send(file=discord.File('relic.gif'))
     elif 1 < randnum <= 3:
         item = "contraband"
         await ctx.send("Contraband")
+        await ctx.send(file=discord.File('contraband.gif'))
     else:
         item = "unobtainable"
         await ctx.send("Wow. Unobtainable.")
+        await ctx.send(file=discord.File("unobtainable.gif"))
     #add(ctx, item)
     person_inv.append(item)
     await ctx.send("Item added.")
