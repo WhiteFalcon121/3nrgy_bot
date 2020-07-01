@@ -92,6 +92,8 @@ async def yes_trade(ctx, starter:discord.Member, trade_skin, skin):
         trade_skin_index = person_inv.index(trade_skin)
         starter_inv[skin_index], person_inv[trade_skin_index] = person_inv[trade_skin_index], starter_inv[skin_index] # swap skins
         player_invs[starter], player_invs[person] = starter_inv, person_inv # update invs
+        trade_index = ongoing_trades.index(trade)
+        ongoing_trades.remove(trade)
         await ctx.send("Trade complete.")
         await ctx.send(player_invs)
     else:
