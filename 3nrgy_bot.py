@@ -6,6 +6,7 @@ import pytz
 #from dotenv import load_dotenv -- for local
 from pytz import timezone
 from discord.ext import commands #discord extension
+from all_functions import *
 
 #load_dotenv() # make .env file accessible
 #token = os.getenv("BOT_TOKEN") ---if you want to run locally
@@ -53,26 +54,18 @@ async def see_inv(ctx):
 async def add(ctx, item): # add check to see if inv is real
     global player_invs
     person = str(ctx.author.id)
-    person_inv = player_invs[person]
-    person_inv.append(item)
-    player_invs[person] = person_inv
-    await ctx.send("item added.")
+    await ctx.send(add_specified_to_inv(player_invs, person, item))
 
 @client.command(description="start a trade")
 async def ask_trade(ctx, recipient:discord.Member, skin, trade_skin):
     global player_invs
-    person = str(ctx.author.id) # person is ALWAYS PERSON WHO STARTS TRADE
-    recipient_name = str(recipient)
-    recipient = str(recipient.id)
+    person, recipient_name, recipient = str(ctx.author.id), str(recipient), str(recipient.id) # person is ALWAYS PERSON WHO STARTS TRADE
     trade = [person, recipient, skin, trade_skin] #always this TRADE STRUCTURE
-    # add ctx.send(TRADE STATEMENT)
-    person_inv = player_invs[person]
-    recipient_inv = player_invs[recipient]
+    person_inv, recipient_inv = player_invs[person], player_invs[recipient]
     await ctx.send("Processing trade...")
     if skin in person_inv and trade_skin in recipient_inv: #if they actually have skins, proceed
         ongoing_trades.append(trade)
-        #await ctx.send("Ask" + recipient + "to accept the trade.")
-        await ctx.send(ongoing_trades)
+        await ctx.send(ongoing_trades) # testing purposes
         await ctx.send("When " + recipient_name + " accepts the trade, the items will swap.")
         # add .mention() here
         #await ctx.send(recipient.mention()+ " do you want to trade" + skin + "for your" + trade_skin + "? (from{})".format(person))
