@@ -27,13 +27,7 @@ ongoing_trades = [] # make code to delete same trades
 
 @client.command(description = "start a new inventory to start trading")
 async def new_inv(ctx):
-    global player_invs # call global var
-    person = str(ctx.author.id)
-    if player_invs.get(person) == None: # if player does not have an inv
-        player_invs.update({person:[]})
-        await ctx.send("New inventory initialised. \n You're all set.")
-    else:
-        await ctx.send("You already have an inventory. If you want to reset, use the reset command.")
+    await ctx.send(create_new_inventory(ctx, player_invs))
 
 @client.command(description = "view inventory")
 async def see_inv(ctx):
