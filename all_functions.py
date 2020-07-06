@@ -10,7 +10,7 @@ def add_specified_to_inv(player_invs, ctx, item):
 def read_inv(ctx, player_invs):
     person = str(ctx.author.id)
     if player_invs.get(person) != None:
-        await ctx.send("Looking through your inventory...")
+        #await ctx.send("Looking through your inventory...")
         if len(player_invs[person]) != 0:
             for i in player_invs[person]:
                 await ctx.send(i.upper())  # cannot send multiple vars at once
