@@ -12,12 +12,11 @@ def read_inv(ctx, player_invs):
     if player_invs.get(person) != None:
         #await ctx.send("Looking through your inventory...")
         if len(player_invs[person]) != 0:
-            for i in player_invs[person]:
-                await ctx.send(i.upper())  # cannot send multiple vars at once
+            return player_invs[person]
         else:
-            return "You have nothing atm."
+            return ["You have nothing atm."]
     else:
-        return "You do not have an inventory yet. Use 'new_inv' command to make one."
+        return ["You do not have an inventory yet. Use 'new_inv' command to make one."]
 
 def create_new_inventory(ctx, player_invs):
     person = str(ctx.author.id)

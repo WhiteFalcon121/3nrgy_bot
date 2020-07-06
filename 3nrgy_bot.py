@@ -33,7 +33,8 @@ async def new_inv(ctx):
 @client.command(description = "view inventory")
 async def see_inv(ctx):
     global player_invs
-    await ctx.send(read_inv(ctx, player_invs))
+    for i in read_inv(ctx, player_invs):
+        await ctx.send(i)
 
 @client.command(description="testing - add item to inv")
 async def add(ctx, item): # add check to see if inv is real
