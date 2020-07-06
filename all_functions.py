@@ -28,7 +28,7 @@ def create_new_inventory(ctx, player_invs):
 
 
 
-def ask_user_for_trade(ctx, ongoing_trades, recipient, skin, trade_skin):
+def ask_user_for_trade(player_invs, ctx, ongoing_trades, recipient, skin, trade_skin):
     person, recipient_name, recipient = str(ctx.author.id), str(recipient), str(recipient.id) # person is ALWAYS PERSON WHO STARTS TRADE
     trade = [person, recipient, skin, trade_skin] #always this TRADE STRUCTURE
     person_inv, recipient_inv = player_invs[person], player_invs[recipient]
