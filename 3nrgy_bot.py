@@ -43,13 +43,9 @@ async def add(ctx, item): # add check to see if inv is real
 
 @client.command(description="start a trade") # make it so that you can't trade with yourself
 async def ask_trade(ctx, recipient:discord.Member, skin, trade_skin):
-    global player_invs
-    global ongoing_trades
-    person, recipient_name, recipient = str(ctx.author.id), str(recipient), str(recipient.id) # person is ALWAYS PERSON WHO STARTS TRADE
-    trade = [person, recipient, skin, trade_skin] #always this TRADE STRUCTURE
-    person_inv, recipient_inv = player_invs[person], player_invs[recipient]
+    global player_invs, ongoing_trades
     await ctx.send("Processing trade...")
-    await ctx.send(ask_user_for_trade(ongoing_trades, person, recipient_name, recipient, trade, person_inv, recipient_inv, skin, trade_skin))
+    await ctx.send(ask_user_for_trade(ctx, ongoing_trades, recipient_name, recipient, skin, trade_skin))
 
 @client.command(description="accept a trade")
 async def yes_trade(ctx, starter:discord.Member, trade_skin, skin):
