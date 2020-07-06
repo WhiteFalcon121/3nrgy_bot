@@ -1,6 +1,7 @@
 import discord
 
-def add_specified_to_inv(player_invs, person, item):
+def add_specified_to_inv(player_invs, ctx, item):
+    person = str(ctx.author.id)
     person_inv = player_invs[person]
     person_inv.append(item)
     player_invs[person] = person_inv

@@ -27,6 +27,7 @@ ongoing_trades = [] # make code to delete same trades
 
 @client.command(description = "start a new inventory to start trading")
 async def new_inv(ctx):
+    global player_invs
     await ctx.send(create_new_inventory(ctx, player_invs))
 
 @client.command(description = "view inventory")
@@ -46,8 +47,7 @@ async def see_inv(ctx):
 @client.command(description="testing - add item to inv")
 async def add(ctx, item): # add check to see if inv is real
     global player_invs
-    person = str(ctx.author.id)
-    await ctx.send(add_specified_to_inv(player_invs, person, item))
+    await ctx.send(add_specified_to_inv(player_invs, ctx, item))
 
 @client.command(description="start a trade") # make it so that you can't trade with yourself
 async def ask_trade(ctx, recipient:discord.Member, skin, trade_skin):
