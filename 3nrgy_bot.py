@@ -33,16 +33,7 @@ async def new_inv(ctx):
 @client.command(description = "view inventory")
 async def see_inv(ctx):
     global player_invs
-    person = str(ctx.author.id)
-    if player_invs.get(person) != None:
-        await ctx.send("Looking through your inventory...")
-        if len(player_invs[person]) != 0:
-            for i in player_invs[person]:
-                await ctx.send(i.upper())  # cannot send multiple vars at once
-        else:
-            await ctx.send("You have nothing atm.")
-    else:
-        await ctx.send("You do not have an inventory yet. Use 'new_inv' command to make one.")
+    await ctx.send(read_inv(ctx, player_invs))
 
 @client.command(description="testing - add item to inv")
 async def add(ctx, item): # add check to see if inv is real

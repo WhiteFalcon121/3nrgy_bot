@@ -7,6 +7,28 @@ def add_specified_to_inv(player_invs, ctx, item):
     player_invs[person] = person_inv
     return "item added."
 
+def read_inv(ctx, player_invs):
+    person = str(ctx.author.id)
+    if player_invs.get(person) != None:
+        await ctx.send("Looking through your inventory...")
+        if len(player_invs[person]) != 0:
+            for i in player_invs[person]:
+                await ctx.send(i.upper())  # cannot send multiple vars at once
+        else:
+            return "You have nothing atm."
+    else:
+        return "You do not have an inventory yet. Use 'new_inv' command to make one."
+
+def create_new_inventory(ctx, player_invs):
+    person = str(ctx.author.id)
+    if player_invs.get(person) == None: # if player does not have an inv
+        player_invs.update({person:[]})
+        return "New inventory initialised. \n You're all set."
+    else:
+        return "You already have an inventory. If you want to reset, use the reset command."
+
+
+
 def ask_user_for_trade(ongoing_trades, person, recipient_name, recipient, trade, person_inv, recipient_inv, skin, trade_skin):
     if skin in person_inv and trade_skin in recipient_inv and person!=recipient: #if they actually have skins, proceed
         ongoing_trades.append(trade)
@@ -25,11 +47,3 @@ def execute_trade(ongoing_trades, person, starter, person_inv, starter_inv, trad
         return "Trade complete."
     else:
         return "This trade hasn't been requested so you can't accept it? Lol. \n Request it if you want it."
-
-def create_new_inventory(ctx, player_invs):
-    person = str(ctx.author.id)
-    if player_invs.get(person) == None: # if player does not have an inv
-        player_invs.update({person:[]})
-        return "New inventory initialised. \n You're all set."
-    else:
-        return "You already have an inventory. If you want to reset, use the reset command."
