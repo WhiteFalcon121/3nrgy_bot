@@ -58,7 +58,7 @@ async def roulette(ctx):
     global player_invs
     result = spin_roulette(ctx, player_invs)
     await ctx.send(result[0])
-    await ctx.send(file=discord.File(result[1])
+    await ctx.send(file=discord.File(result[1]))
 
 # see trade requests cmd
 #reset inv command
