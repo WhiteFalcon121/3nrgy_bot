@@ -26,8 +26,6 @@ def create_new_inventory(ctx, player_invs):
     else:
         return "You already have an inventory. If you want to reset, use the reset command."
 
-
-
 def ask_user_for_trade(player_invs, ctx, ongoing_trades, recipient, skin, trade_skin):
     person, recipient_name, recipient = str(ctx.author.id), str(recipient), str(recipient.id) # person is ALWAYS PERSON WHO STARTS TRADE
     trade = [person, recipient, skin, trade_skin] #always this TRADE STRUCTURE
@@ -38,7 +36,13 @@ def ask_user_for_trade(player_invs, ctx, ongoing_trades, recipient, skin, trade_
     else:
         return "That is an invalid trade."
 
-def execute_trade(ongoing_trades, person, starter, person_inv, starter_inv, trade, player_invs, trade_skin, skin):
+def execute_trade(ctx, player_invs, ongoing_trades, starter, trade_skin, skin):
+    person = str(ctx.author.id)
+    starter = str(starter.id)
+    person_inv = player_invs[person]
+    starter_inv = player_invs[starter]
+    # recipient/starter is actual person who STARTED trade
+    trade = [starter, person, skin, trade_skin] # because people are swapped
     if trade in ongoing_trades:
         skin_index = starter_inv.index(skin)
         trade_skin_index = person_inv.index(trade_skin)

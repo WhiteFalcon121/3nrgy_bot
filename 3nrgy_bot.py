@@ -49,15 +49,8 @@ async def ask_trade(ctx, recipient:discord.Member, skin, trade_skin):
 
 @client.command(description="accept a trade")
 async def yes_trade(ctx, starter:discord.Member, trade_skin, skin):
-    global player_invs
-    global ongoing_trades
-    person = str(ctx.author.id)
-    starter = str(starter.id)
-    person_inv = player_invs[person]
-    starter_inv = player_invs[starter]
-    # recipient/starter is actual person who STARTED trade
-    trade = [starter, person, skin, trade_skin] # because people are swapped
-    await ctx.send(execute_trade(ongoing_trades, person, starter, person_inv, starter_inv, trade, player_invs, trade_skin, skin))
+    global player_invs, ongoing_trades
+    await ctx.send(execute_trade(ctx, player_invs, ongoing_trades, starter, trade_skin, skin))
 
 #drop percentages = Unc = 40%, Rare = 30%, Epic = 15%, Legendary = 8%, Relic = 4%, Contr = 2%, Unob = 1%
 @client.command(description="use a spin on the roulette")
