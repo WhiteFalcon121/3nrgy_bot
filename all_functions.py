@@ -87,5 +87,6 @@ def spin_roulette(ctx, player_invs):
         item = "unobtainable"
         gif = 'unobtainable.gif'
         return "Wow. Unobtainable.", gif
+    print(item)
     add_specified_to_inv(player_invs, ctx, item)
     return statement, gif
