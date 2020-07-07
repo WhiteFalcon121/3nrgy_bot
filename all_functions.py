@@ -61,31 +61,31 @@ def spin_roulette(ctx, player_invs):
     randnum = random.randint(0, 100)
     if randnum > 60:
         item = "uncommon"
-        gif = file=discord.File('uncommon.gif')
+        gif = 'uncommon.gif'
         return "You got uncommon.", gif #make it display different gifs
     elif 30 < randnum <= 60:
         item = "rare"
-        gif = file=discord.File('rare.gif')
+        gif = 'rare.gif'
         return "You got rare.", gif
     elif 15 < randnum <= 30:
         item = "epic"
-        gif = file=discord.File('epic.gif')
+        gif = 'epic.gif'
         return "You span Epic.", gif
     elif 7 < randnum <= 15:
         item = "legendary"
-        gif = file=discord.File('legendary.gif')
+        gif = 'legendary.gif'
         return "Legendary!", gif
     elif 3 < randnum <= 7:
         item = "relic"
-        gif = file=discord.File('relic.gif')
+        gif = 'relic.gif'
         return "Nice, you got relic.", gif
     elif 1 < randnum <= 3:
         item = "contraband"
-        gif = file=discord.File('contraband.gif')
+        gif = 'contraband.gif'
         return "You got contraband.", gif
     else:
         item = "unobtainable"
-        gif = file=discord.File('unobtainable.gif')
+        gif = 'unobtainable.gif'
         return "Wow. Unobtainable.", gif
     #add(ctx, item)
     person_inv.append(item)

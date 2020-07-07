@@ -56,8 +56,9 @@ async def yes_trade(ctx, starter:discord.Member, trade_skin, skin):
 @client.command(description="use a spin on the roulette")
 async def roulette(ctx):
     global player_invs
-    for i in (spin_roulette(ctx, player_invs)):
-        await ctx.send(i)
+    result = spin_roulette(ctx, player_invs)
+    await ctx.send(result[0])
+    await ctx.send(file=discord.File(result[1])
     await ctx.send("Item added.")
 
 # see trade requests cmd
