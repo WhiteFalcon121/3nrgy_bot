@@ -66,26 +66,26 @@ def spin_roulette(ctx, player_invs):
     elif 30 < randnum <= 60:
         item = "rare"
         gif = 'rare.gif'
-        return "You got rare.", gif
+        statement = "You got rare."
     elif 15 < randnum <= 30:
         item = "epic"
         gif = 'epic.gif'
-        return "You span Epic.", gif
+        statement = "You span Epic."
     elif 7 < randnum <= 15:
         item = "legendary"
         gif = 'legendary.gif'
-        return "Legendary!", gif
+        statement = "Legendary!"
     elif 3 < randnum <= 7:
         item = "relic"
         gif = 'relic.gif'
-        return "Nice, you got relic.", gif
+        statement = "Nice, you got relic."
     elif 1 < randnum <= 3:
         item = "contraband"
         gif = 'contraband.gif'
-        return "You got contraband.", gif
+        statement = "You got contraband."
     else:
         item = "unobtainable"
         gif = 'unobtainable.gif'
         return "Wow. Unobtainable.", gif
-    #add(ctx, item)
     add_specified_to_inv(player_invs, ctx, item)
+    return statement, gif
