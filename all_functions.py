@@ -62,7 +62,7 @@ def spin_roulette(ctx, player_invs):
     if randnum > 60:
         item = "uncommon"
         gif = 'uncommon.gif'
-        return "You got uncommon.", gif #make it display different gifs
+        statement = "You got uncommon." #make it display different gifs
     elif 30 < randnum <= 60:
         item = "rare"
         gif = 'rare.gif'
@@ -87,6 +87,5 @@ def spin_roulette(ctx, player_invs):
         item = "unobtainable"
         gif = 'unobtainable.gif'
         return "Wow. Unobtainable.", gif
-    print(item)
     add_specified_to_inv(player_invs, ctx, item)
     return statement, gif
