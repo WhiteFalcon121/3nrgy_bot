@@ -1,4 +1,5 @@
 import discord
+import random
 
 def add_specified_to_inv(player_invs, ctx, item):
     person = str(ctx.author.id)
