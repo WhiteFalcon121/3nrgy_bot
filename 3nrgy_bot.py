@@ -59,7 +59,6 @@ async def roulette(ctx):
     result = spin_roulette(ctx, player_invs)
     await ctx.send(result[0])
     await ctx.send(file=discord.File(result[1])
-    await ctx.send("Item added.")
 
 # see trade requests cmd
 #reset inv command
