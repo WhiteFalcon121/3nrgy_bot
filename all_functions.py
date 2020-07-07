@@ -88,4 +88,4 @@ def spin_roulette(ctx, player_invs):
         gif = 'unobtainable.gif'
         return "Wow. Unobtainable.", gif
     #add(ctx, item)
-    person_inv.append(item)
+    add_specified_to_inv(player_invs, ctx, item)
