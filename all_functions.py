@@ -10,8 +10,8 @@ def add_specified_to_inv(player_invs, ctx, item):
 
 def read_inv(ctx, player_invs, person):
     if person != None:
-        print("The person var = " + person)
         person == str(person.id)
+        print("The person var = " + person)
     else:
         person = str(ctx.author.id)
         print("person is author")
