@@ -31,7 +31,7 @@ async def new_inv(ctx):
     await ctx.send(create_new_inventory(ctx, player_invs))
 
 @client.command(description = "view inventory")
-async def see_inv(ctx):
+async def see_inv(ctx): #add feature to display number of rarity (e.g. if skin.count() > 1: return skin + "x" + skin.count()
     global player_invs
     for i in read_inv(ctx, player_invs):
         await ctx.send(i)
@@ -41,7 +41,7 @@ async def add(ctx, item): # add check to see if inv is real
     global player_invs
     await ctx.send(add_specified_to_inv(player_invs, ctx, item))
 
-@client.command(description="start a trade") # make it so that you can't trade with yourself
+@client.command(description="start a trade")
 async def ask_trade(ctx, recipient:discord.Member, skin, trade_skin):
     global player_invs, ongoing_trades
     await ctx.send("Processing trade...")

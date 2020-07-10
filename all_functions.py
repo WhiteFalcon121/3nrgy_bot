@@ -55,37 +55,53 @@ def execute_trade(ctx, player_invs, ongoing_trades, starter, trade_skin, skin):
     else:
         return "This trade hasn't been requested so you can't accept it? Lol. \n Request it if you want it."
 
+def get_item(list_name):
+    item = list_name[random.randint(0, len(list_name)-1)] #-1 because indexing starts with 0
+    return item
+
 def spin_roulette(ctx, player_invs):
-    person = str(ctx.author.id)
-    person_inv = player_invs[person]
     randnum = random.randint(0, 100)
     if randnum > 60:
-        item = "uncommon"
+        uncommon_list = ["aqua", "bark auto", "blushed mma", "carbon mmr", "commo", "digital auto", "dropper"]
+        #item = "uncommon"
+        item = get_item(uncommon_list)
         gif = 'uncommon.gif'
-        statement = "You got uncommon." #make it display different gifs
+        statement = "You got " + item #make it display different gifs
     elif 30 < randnum <= 60:
-        item = "rare"
+        rare_list = ["artic auto", "auto machinist", "autumn auto", "bloodripper", "flecken auto", "hazard auto", "jade", "kodac auto"]
+        #item = "rare"
+        item = get_item(rare_list)
         gif = 'rare.gif'
-        statement = "You got rare."
+        statement = "You got " + item
     elif 15 < randnum <= 30:
-        item = "epic"
+        epic_list = ["black ice", "barbed auto", "blaze auto", "m14 chartreuse", "mma cygento", "mma octo"]
+        #item = "epic"
+        item = get_item(epic_list)
         gif = 'epic.gif'
-        statement = "You span Epic."
+        statement = "You span " + item
     elif 7 < randnum <= 15:
-        item = "legendary"
+        legendary_list = ["magnis", "shot element", "acid breath", "101 skullbreaker", "haste", "lava bolt"]
+        #item = "legendary"
+        item = get_item(legendary_list)
         gif = 'legendary.gif'
-        statement = "Legendary!"
+        statement = "Legendary " + item + "!"
     elif 3 < randnum <= 7:
-        item = "relic"
+        relic_list = ["mma plasma", "neuromance", "awp pacemaker", "awp stream", "neon reaver", "razor"]
+        #item = "relic"
+        item = get_item(relic_list)
         gif = 'relic.gif'
-        statement = "Nice, you got relic."
+        statement = "Nice, you got relic - " + item
     elif 1 < randnum <= 3:
-        item = "contraband"
+        contraband_list = ["raynb0w", "1ad-da0", "xon-vox", "exos", "futuristic", "izula", "hackusate", "pellucid"]
+        #item = "contraband"
+        item = get_item(contraband_list)
         gif = 'contraband.gif'
-        statement = "You got contraband."
+        statement = "You got " + item
     else:
-        item = "unobtainable"
+        unobtainable_list = ["disintegrator", "anti-matter", "wutdatime_exclusive"]
+        #item = "unobtainable"
+        item = get_item(unobtainable_list)
         gif = 'unobtainable.gif'
-        return "Wow. Unobtainable.", gif
+        statement = "Wow. Unobtainable - " + item
     add_specified_to_inv(player_invs, ctx, item)
     return statement, gif
