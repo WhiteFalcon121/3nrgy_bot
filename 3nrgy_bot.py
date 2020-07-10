@@ -28,7 +28,7 @@ ongoing_trades = [] # make code to delete same trades
 @client.command(description = "start a new inventory to start trading")
 async def new_inv(ctx):
     global player_invs
-    await ctx.send(create_new_inventory(ctx, player_invs))
+    await ctx.send(*create_new_inventory(ctx, player_invs), sep=", ")
 
 @client.command(description = "view inventory")
 async def see_inv(ctx): #add feature to display number of rarity (e.g. if skin.count() > 1: return skin + "x" + skin.count()
