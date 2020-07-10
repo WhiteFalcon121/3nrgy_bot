@@ -118,4 +118,4 @@ def check_trades(ctx, player_invs, ongoing_trades):
         if trade[0] == user or trade[1] == user:
             display_list.append(trade)
             print(trade)
-    return ", ".join(display_list)
+    return ', '.join(map(str,display_list)) #converts each element to string so that it can be join()
