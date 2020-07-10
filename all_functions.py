@@ -13,7 +13,7 @@ def read_inv(ctx, player_invs):
     if player_invs.get(person) != None:
         #await ctx.send("Looking through your inventory...")
         if len(player_invs[person]) != 0:
-            return player_invs[person]
+            return ', '.join(player_invs[person])
         else:
             return ["You have nothing atm."]
     else:

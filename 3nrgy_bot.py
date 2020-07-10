@@ -35,7 +35,7 @@ async def see_inv(ctx): #add feature to display number of rarity (e.g. if skin.c
     global player_invs
     #for i in read_inv(ctx, player_invs):
         #await ctx.send(i)
-    await ctx.send(*read_inv(ctx, player_invs), sep=", ")
+    await ctx.send(send_statement)
 
 @client.command(description="testing - add item to inv")
 async def add(ctx, item): # add check to see if inv is real
