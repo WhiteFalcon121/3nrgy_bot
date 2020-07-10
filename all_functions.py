@@ -8,16 +8,17 @@ def add_specified_to_inv(player_invs, ctx, item):
     player_invs[person] = person_inv
     return "item added."
 
-def read_inv(ctx, player_invs):
-    person = str(ctx.author.id)
+def read_inv(ctx, player_invs, person):
+    if person == None:
+        person = str(ctx.author.id)
     if player_invs.get(person) != None:
         #await ctx.send("Looking through your inventory...")
         if len(player_invs[person]) != 0:
             return ', '.join(player_invs[person])
         else:
-            return "You have nothing atm."
+            return "Nothing in there atm."
     else:
-        return "You do not have an inventory yet. Use 'new_inv' command to make one."
+        return "No inventory yet. Use 'new_inv' command to make one."
 
 def create_new_inventory(ctx, player_invs):
     person = str(ctx.author.id)
