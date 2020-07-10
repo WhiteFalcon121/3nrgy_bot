@@ -11,6 +11,7 @@ def add_specified_to_inv(player_invs, ctx, item):
 def read_inv(ctx, player_invs, person):
     if person == None:
         person = str(ctx.author.id)
+    print(person)
     if player_invs.get(person) != None:
         #await ctx.send("Looking through your inventory...")
         if len(player_invs[person]) != 0:

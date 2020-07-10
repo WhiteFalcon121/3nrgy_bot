@@ -33,6 +33,7 @@ async def new_inv(ctx):
 @client.command(description = "view inventory")
 async def see_inv(ctx, person:discord.Member = None): #add feature to display number of rarity (e.g. if skin.count() > 1: return skin + "x" + skin.count()
     global player_invs
+    print(person)
     await ctx.send(read_inv(ctx, player_invs, person))
 
 @client.command(description="testing - add item to inv")
