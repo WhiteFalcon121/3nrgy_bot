@@ -59,8 +59,11 @@ async def roulette(ctx):
     await ctx.send(result[0])
     await ctx.send(file=discord.File(result[1]))
 
-# see trade requests cmd
-# add MULTI WORD skin names
+@client.command(description="shows any pending trade you're involved in")
+async def any_trades(ctx):
+    global player_invs, ongoing_trades
+    await ctx.send(check_trades(ctx, player_invs, ongoing_trades))
+# see trade requests involving user cmd
 #reset inv command
 
 @client.command(description = "tells you the bot's ping")

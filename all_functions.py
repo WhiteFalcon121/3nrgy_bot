@@ -14,7 +14,6 @@ def read_inv(ctx, player_invs, person):
     else:
         person = str(ctx.author.id)
     if player_invs.get(person) != None:
-        #await ctx.send("Looking through your inventory...")
         if len(player_invs[person]) != 0:
             if len(player_invs[person]) > 11:
                 statement = "Your inv is quite big - to avoid clogging up the chat, here are your 10 most recent: \n" + ', '.join(player_invs[person][-10:])
@@ -37,7 +36,7 @@ def ask_user_for_trade(player_invs, ctx, ongoing_trades, recipient, skin, trade_
     person, recipient_name, recipient = str(ctx.author.id), str(recipient), str(recipient.id) # person is ALWAYS PERSON WHO STARTS TRADE
     trade = [person, recipient, skin, trade_skin] #always this TRADE STRUCTURE
     person_inv, recipient_inv = player_invs[person], player_invs[recipient]
-    if skin in person_inv and trade_skin in recipient_inv and person!=recipient: #if they actually have skins, proceed
+    if skin in person_inv and trade_skin in recipient_inv and person!=recipient: #if they actually have skins, proceed, ADD check if trade already thing
         ongoing_trades.append(trade)
         return "When " + recipient_name + " accepts the trade, the items will swap."
     else:
@@ -111,3 +110,11 @@ def spin_roulette(ctx, player_invs):
         statement = "Wow. Unobtainable - " + item
     add_specified_to_inv(player_invs, ctx, item)
     return statement, gif
+
+def check_trades(ctx, player_invs, ongoing_trades):
+    user = str(ctx.author.id)
+    display_list = []
+    for trade in ongoing_trades:
+        if trade[0] == user or trade[1] == user:
+            display_list.append(trade)
+    return ", ".join(display_list)
