@@ -13,6 +13,7 @@ def read_inv(ctx, player_invs, person):
         person = str(ctx.author.id)
     else:
         person == str(person.id)
+        print("person is not None")
     print(person)
     if player_invs.get(person) != None:
         #await ctx.send("Looking through your inventory...")
