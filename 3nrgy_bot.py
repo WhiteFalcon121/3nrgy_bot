@@ -22,7 +22,7 @@ async def on_ready(ctx): #asynchronous function - when bot is ready (first event
 '''
 
 # trading system command_prefix
-player_invs = {}
+player_invs = {} #move into other file later on
 ongoing_trades = [] # make code to delete same trades
 
 @client.command(description = "start a new inventory to start trading")
@@ -33,8 +33,9 @@ async def new_inv(ctx):
 @client.command(description = "view inventory")
 async def see_inv(ctx): #add feature to display number of rarity (e.g. if skin.count() > 1: return skin + "x" + skin.count()
     global player_invs
-    for i in read_inv(ctx, player_invs):
-        await ctx.send(i)
+    #for i in read_inv(ctx, player_invs):
+        #await ctx.send(i)
+    await ctx.send(read_inv(ctx, player_invs))
 
 @client.command(description="testing - add item to inv")
 async def add(ctx, item): # add check to see if inv is real
