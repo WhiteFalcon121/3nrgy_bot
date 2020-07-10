@@ -117,4 +117,5 @@ def check_trades(ctx, player_invs, ongoing_trades):
     for trade in ongoing_trades:
         if trade[0] == user or trade[1] == user:
             display_list.append(trade)
+            print(trade)
     return ", ".join(display_list)
