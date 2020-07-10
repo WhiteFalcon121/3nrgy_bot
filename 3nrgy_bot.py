@@ -30,7 +30,7 @@ async def new_inv(ctx):
     global player_invs
     await ctx.send(create_new_inventory(ctx, player_invs))
 
-@client.command(description = "view inventory")
+@client.command(description = "view inventory") # fix optional member feature
 async def see_inv(ctx, person:discord.Member = None): #add feature to display number of rarity (e.g. if skin.count() > 1: return skin + "x" + skin.count()
     global player_invs
     print(person)
@@ -61,6 +61,7 @@ async def roulette(ctx):
     await ctx.send(file=discord.File(result[1]))
 
 # see trade requests cmd
+# add MULTI WORD skin names
 #reset inv command
 #view others' invs command
 
