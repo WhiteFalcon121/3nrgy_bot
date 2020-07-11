@@ -48,8 +48,10 @@ def ask_user_for_trade(player_invs, ctx, ongoing_trades, recipient, skin, trade_
 def execute_trade(ctx, player_invs, ongoing_trades, starter, trade_skin, skin):
     person = str(ctx.author.id)
     starter = str(starter.id)
-    person_inv = player_invs[person]
-    starter_inv = player_invs[starter]
+    if player_invs.get(person) and player_invs.get(recipient)!= None:
+        person_inv, recipient_inv = player_invs[person], player_invs[recipient]
+    else:
+        return "Missing inventories."
     # recipient/starter is actual person who STARTED trade
     trade = [starter, person, skin, trade_skin] # because people are swapped
     if trade in ongoing_trades:
