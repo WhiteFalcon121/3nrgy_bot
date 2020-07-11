@@ -28,7 +28,9 @@ ongoing_trades = [] # make code to delete same trades
 @client.command(description = "start a new inventory to start trading")
 async def new_inv(ctx):
     global player_invs
-    await ctx.send(create_new_inventory(ctx, player_invs))
+    embed = discord.Embed(color = 0x61cc33)
+    embed.add_field(name="3nrgy",value=create_new_inventory(ctx, player_invs))
+    await ctx.send(embed=embed)
 
 @client.command(description = "view inventory")
 async def see_inv(ctx, person:discord.Member = None): #optional parameter of member (so you can view other people's invs)
@@ -65,6 +67,7 @@ async def any_trades(ctx):
     await ctx.send(check_trades(ctx, player_invs, ongoing_trades))
 # see trade requests involving user cmd
 #reset inv command
+#make check_trades return statement more userfriendly
 
 @client.command(description = "tells you the bot's ping")
 async def ping(ctx): #ctx is context
