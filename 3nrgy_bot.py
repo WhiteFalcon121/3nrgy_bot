@@ -28,9 +28,7 @@ ongoing_trades = [] # make code to delete same trades
 @client.command(description = "start a new inventory to start trading")
 async def new_inv(ctx):
     global player_invs
-    embed = discord.Embed(color = 0x61cc33)
-    embed.add_field(name="3nrgy",value=create_new_inventory(ctx, player_invs))
-    await ctx.send(embed=embed)
+    await ctx.send(embed_it(create_new_inventory(ctx, player_invs)))
 
 @client.command(description = "view inventory")
 async def see_inv(ctx, person:discord.Member = None): #optional parameter of member (so you can view other people's invs)
