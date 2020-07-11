@@ -38,7 +38,7 @@ async def see_inv(ctx, person:discord.Member = None): #optional parameter of mem
 @client.command(description="testing - add item to inv")
 async def add(ctx, item): # add check to see if inv is real
     global player_invs
-    await ctx.send(add_specified_to_inv(player_invs, ctx, item))
+    await ctx.send(add_specified_to_inv(player_invs, ctx, item)) # --- REMOVE CMD AFTER TESTING
 
 @client.command(description="start a trade")
 async def ask_trade(ctx, recipient:discord.Member, skin, trade_skin):
