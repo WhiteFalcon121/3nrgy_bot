@@ -35,7 +35,7 @@ def create_new_inventory(ctx, player_invs):
 def ask_user_for_trade(player_invs, ctx, ongoing_trades, recipient, skin, trade_skin):
     person, recipient_name, recipient = str(ctx.author.id), str(recipient), str(recipient.id) # person is ALWAYS PERSON WHO STARTS TRADE
     trade = [person, recipient, skin, trade_skin] #always this TRADE STRUCTURE
-    if player_invs.get(person) and player_invs.get(recipient)!= None:
+    if player_invs.get(person) and player_invs.get(recipient)!= None: #make this into check_validity function
         person_inv, recipient_inv = player_invs[person], player_invs[recipient]
     else:
         return "Missing inventories."
@@ -123,7 +123,10 @@ def check_trades(ctx, player_invs, ongoing_trades):
         if trade[0] == user or trade[1] == user:
             display_list.append(trade)
             print(trade)
-    return ', '.join(map(str,display_list)) #converts each element to string so that it can be join()
+    if len(display_list) > 0:
+        return ', '.join(map(str,display_list)) #converts each element to string so that it can be join()
+    else:
+        return "No ongoing trades involving you."
 
 def embed_it(the_value):
     embed = discord.Embed(color = 0x61cc33)
