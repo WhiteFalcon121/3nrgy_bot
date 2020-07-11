@@ -38,7 +38,7 @@ def ask_user_for_trade(player_invs, ctx, ongoing_trades, recipient, skin, trade_
     if player_invs.get(person) and player_invs.get(recipient)!= None:
         person_inv, recipient_inv = player_invs[person], player_invs[recipient]
     else:
-        return "One of you doesn't have an inventory."
+        return "Missing inventories."
     if skin in person_inv and trade_skin in recipient_inv and person!=recipient: #if they actually have skins, proceed, ADD check if trade already thing
         ongoing_trades.append(trade)
         return "When " + recipient_name + " accepts the trade, the items will swap."

@@ -43,8 +43,8 @@ async def add(ctx, item): # add check to see if inv is real
 @client.command(description="start a trade")
 async def ask_trade(ctx, recipient:discord.Member, skin, trade_skin):
     global player_invs, ongoing_trades
-    await ctx.send("Processing trade...")
-    await ctx.send(ask_user_for_trade(player_invs, ctx, ongoing_trades, recipient, skin, trade_skin))
+    #await ctx.send("Processing trade...")
+    await ctx.send(embed=embed_it(ask_user_for_trade(player_invs, ctx, ongoing_trades, recipient, skin, trade_skin)))
 
 @client.command(description="accept a trade")
 async def yes_trade(ctx, starter:discord.Member, trade_skin, skin):
