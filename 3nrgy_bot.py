@@ -33,9 +33,7 @@ async def new_inv(ctx):
 @client.command(description = "view inventory")
 async def see_inv(ctx, person:discord.Member = None): #optional parameter of member (so you can view other people's invs)
     global player_invs
-    embed = discord.Embed(color = 0x61cc33)
-    embed.add_field(name="3nrgy", value=read_inv(ctx, player_invs, person))
-    await ctx.send(embed = embed)
+    await ctx.send(embed = embed_it(read_inv(ctx, player_invs, person)))
 
 @client.command(description="testing - add item to inv")
 async def add(ctx, item): # add check to see if inv is real
