@@ -49,7 +49,7 @@ async def ask_trade(ctx, recipient:discord.Member, skin, trade_skin):
 @client.command(description="accept a trade")
 async def yes_trade(ctx, starter:discord.Member, trade_skin, skin):
     global player_invs, ongoing_trades
-    await ctx.send(execute_trade(ctx, player_invs, ongoing_trades, starter, trade_skin, skin))
+    await ctx.send(embed=embed_it(execute_trade(ctx, player_invs, ongoing_trades, starter, trade_skin, skin)))
 
 #drop percentages = Unc = 40%, Rare = 30%, Epic = 15%, Legendary = 8%, Relic = 4%, Contr = 2%, Unob = 1%
 @client.command(description="use a spin on the roulette")
