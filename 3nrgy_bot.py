@@ -12,7 +12,8 @@ from all_functions import *
 #token = os.getenv("BOT_TOKEN") ---if you want to run locally
 
 
-token = os.environ.get("BOT_TOKEN") # discord bot token goes here#
+#token = os.environ.get("BOT_TOKEN") # discord bot token goes here#
+token = "NzEwMDE3NDE3MTYxNjA1MjIy.Xvi-VA.NVbL9OREK08GKpjAELkSFFIepjU"
 client = commands.Bot(command_prefix = '//') #bot instance created, called client
 '''
 @client.event #function represents event (1st event)
@@ -28,12 +29,12 @@ ongoing_trades = [] # make code to delete same trades
 @client.command(description = "start a new inventory to start trading")
 async def new_inv(ctx):
     global player_invs
-    await ctx.send(embed = embed_it(create_new_inventory(ctx, player_invs)))
+    await ctx.send(embed = embed_it(ctx, create_new_inventory(ctx, player_invs)))
 
 @client.command(description = "view inventory")
 async def see_inv(ctx, person:discord.Member = None): #optional parameter of member (so you can view other people's invs)
     global player_invs
-    await ctx.send(embed = embed_it(read_inv(ctx, player_invs, person)))
+    await ctx.send(embed = embed_it(ctx, read_inv(ctx, player_invs, person)))
 
 @client.command(description="testing - add item to inv")
 async def add(ctx, item): # add check to see if inv is real
@@ -44,42 +45,46 @@ async def add(ctx, item): # add check to see if inv is real
 async def ask_trade(ctx, recipient:discord.Member, skin, trade_skin):
     global player_invs, ongoing_trades
     #await ctx.send("Processing trade...")
-    await ctx.send(embed=embed_it(ask_user_for_trade(player_invs, ctx, ongoing_trades, recipient, skin, trade_skin)))
+    await ctx.send(embed=embed_it(ctx, ask_user_for_trade(player_invs, ctx, ongoing_trades, recipient, skin, trade_skin)))
 
 @client.command(description="accept a trade")
 async def yes_trade(ctx, starter:discord.Member, trade_skin, skin):
     global player_invs, ongoing_trades
-    await ctx.send(embed=embed_it(execute_trade(ctx, player_invs, ongoing_trades, starter, trade_skin, skin)))
+    await ctx.send(embed=embed_it(ctx, execute_trade(ctx, player_invs, ongoing_trades, starter, trade_skin, skin)))
 
 #drop percentages = Unc = 40%, Rare = 30%, Epic = 15%, Legendary = 8%, Relic = 4%, Contr = 2%, Unob = 1%
 @client.command(description="use a spin on the roulette")
 async def roulette(ctx):
     global player_invs
     result = spin_roulette(ctx, player_invs)
-    await ctx.send(result[0])
+    await ctx.send(embed=embed_it(ctx, result[0]))
     await ctx.send(file=discord.File(result[1]))
 
 @client.command(description="shows any pending trade you're involved in")
 async def any_trades(ctx):
     global player_invs, ongoing_trades
-    await ctx.send(check_trades(ctx, player_invs, ongoing_trades))
+    await ctx.send(embed=embed_it(ctx, check_trades(ctx, player_invs, ongoing_trades)))
 # see trade requests involving user cmd
 #reset inv command
 #make check_trades return statement more userfriendly
+#add avatar to embeds
+#tier list
+#for roulette, have a random gif play after roulette? (find faster route for roulette)
+#make a check validity cmd
 
 @client.command(description = "tells you the bot's ping")
 async def ping(ctx): #ctx is context
-    await ctx.send(f'Pong! {round(client.latency * 1000, 2)}ms')
+    await ctx.send(embed=embed_it(ctx, f'Pong! {round(client.latency * 1000, 2)}ms'))
 
 @client.command(aliases = ['8ball', 'eightball'], description = "ask the virtual 8ball (always correct)") #setting other ways to invoke command
 async def _8ball(ctx, *, question): #asterisk allows multiple arguments as one
     responses = ['It is certain.', 'Definitely.', 'Never in your life.', 'Maybe.', 'Probably not.']
-    await ctx.send(f'Question: {question}\n Answer: {random.choice(responses)}')
+    await ctx.send(embed=embed_it(ctx, f'Question: {question}\n Answer: {random.choice(responses)}'))
 
 @client.command(aliases = ['Hello', 'hi', 'Hi', 'hey', 'Hey'], description = "says hello")
 async def hello(ctx):
     greetings = ['Hello there!', 'wassup', 'Yolo.', 'Ayyyy my guy.', 'Why are you trying to talk to me? \n jkkkkkk']
-    await ctx.send(random.choice(greetings))
+    await ctx.send(embed=embed_it(ctx, random.choice(greetings)))
 
 @client.command(aliases = ['how_are_you', 'how_are_you?', 'Howareyou'], description = "tells you how it's feeling")
 async def howareyou(ctx):
@@ -88,7 +93,7 @@ async def howareyou(ctx):
     randreply = random.choice(replies)
     if randreply == replies[4]:
         randreply = "Don't bother me - you know for well that I'm doing your Homework,"
-    await ctx.send(randreply + ' ' + name)
+    await ctx.send(embed=embed_it(ctx, randreply + ' ' + name))
 
 @client.command(description = "tells you the date")
 async def date(ctx):
@@ -108,7 +113,7 @@ async def date(ctx):
         day_num = day_num + "th"
 
     full_date = day_of_week + " the " + day_num + " of " + month
-    await ctx.send(full_date)
+    await ctx.send(embed=embed_it(ctx, full_date))
 
 @client.command(description = "tells you the time right now")
 async def time(ctx):
@@ -116,6 +121,6 @@ async def time(ctx):
     tz = pytz.timezone('GB')
     fullinfo = datetime.datetime.now(tz)
     time = str(fullinfo)[11:16]
-    await ctx.send("It's " + time)
+    await ctx.send(embed=embed_it(ctx, "It's " + time))
 
 client.run(token) #run client
