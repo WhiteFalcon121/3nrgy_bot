@@ -12,8 +12,7 @@ from all_functions import *
 #token = os.getenv("BOT_TOKEN") ---if you want to run locally
 
 
-#token = os.environ.get("BOT_TOKEN") # discord bot token goes here#
-token = "NzEwMDE3NDE3MTYxNjA1MjIy.Xvi-VA.NVbL9OREK08GKpjAELkSFFIepjU"
+token = os.environ.get("BOT_TOKEN") # discord bot token goes here#
 client = commands.Bot(command_prefix = '//') #bot instance created, called client
 '''
 @client.event #function represents event (1st event)
