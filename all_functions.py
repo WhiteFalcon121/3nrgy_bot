@@ -119,13 +119,14 @@ def spin_roulette(ctx, player_invs):
 def check_trades(ctx, player_invs, ongoing_trades):
     user = str(ctx.author.id)
     display_list = []
-    for trade in ongoing_trades:
-        if trade[0] == user or trade[1] == user:
-            display_list.append(trade)
-            print(trade)
-    if len(display_list) > 0:
-        return ', '.join(map(str,display_list)) #converts each element to string so that it can be join()
-    else:
+    try:
+        for trade in ongoing_trades:
+            if trade[0] == user or trade[1] == user:
+                display_list.append(trade)
+                print(trade)
+        if len(display_list) > 0:
+            return ', '.join(map(str,display_list)) #converts each element to string so that it can be join()
+    except:
         return "No ongoing trades involving you."
 
 def embed_it(the_value):
