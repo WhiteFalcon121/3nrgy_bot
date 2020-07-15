@@ -129,4 +129,11 @@ async def time(ctx):
 #client.loop.run_until_complete(create_db_pool())
 DATABASE_URL = os.environ['DATABASE_URL']
 con = psycopg2.connect(DATABASE_URL, sslmode = 'require')
+cursor = con.cursor() #used to execute commands like a mouse cursor is used to click things
+all_query = "select * from user_info"
+cursor.execute(all_query)
+everything = cursor.fetchall()
+print(everything)
+
+
 client.run(token) #run client
