@@ -8,7 +8,7 @@ from pytz import timezone
 from discord.ext import commands #discord extension
 from all_functions import *
 import asyncpg
-#import psycopg2
+import psycopg2
 
 #load_dotenv() # make .env file accessible
 #token = os.getenv("BOT_TOKEN") ---if you want to run locally
