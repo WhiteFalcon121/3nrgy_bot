@@ -15,9 +15,6 @@ def read_inv(ctx, player_invs, person):
         person = str(ctx.author.id)
     if player_invs.get(person) != None:
         if len(player_invs[person]) != 0:
-            if len(player_invs[person]) > 11:
-                statement = "Your inv is quite big - to avoid clogging up the chat, here are your 10 most recent: \n" + ', '.join(player_invs[person][-10:])
-                return statement
             return ', '.join(player_invs[person])
         else:
             return "Nothing in there atm."
