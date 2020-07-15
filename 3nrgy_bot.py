@@ -7,10 +7,11 @@ import pytz
 from pytz import timezone
 from discord.ext import commands #discord extension
 from all_functions import *
+import asyncpg
+#import psycopg2
 
 #load_dotenv() # make .env file accessible
 #token = os.getenv("BOT_TOKEN") ---if you want to run locally
-
 
 token = os.environ.get("BOT_TOKEN") # discord bot token goes here#
 client = commands.Bot(command_prefix = '//') #bot instance created, called client
@@ -122,4 +123,10 @@ async def time(ctx):
     time = str(fullinfo)[11:16]
     await ctx.send(embed=embed_it(ctx, "It's " + time))
 
+#async def create_db_pool():
+   #client.db_con = await asyncpg.create_pool(database = os.environ.get("DATABASE_URL"))
+
+#client.loop.run_until_complete(create_db_pool())
+DATABASE_URL = os.environ['DATABASE_URL']
+con = psycopg2.connect(DATABASE_URL, sslmode = 'require')
 client.run(token) #run client

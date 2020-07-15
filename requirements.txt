@@ -7,3 +7,5 @@ pytz
 async-timeout
 python-dotenv
 boto
+asyncpg
+psycopg2
