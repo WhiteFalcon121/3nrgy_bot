@@ -142,7 +142,7 @@ async def db_send_all(ctx):
 
 @client.command()
 async def db_get_inv(ctx, person):
-    print(person)
+    person = str(person)
     get_inv_query = "select user_inv from user_info WHERE user_id = '&s' " % person
     cursor.execute(user_inv_query)
     person_inv = cursor.fetchall()
