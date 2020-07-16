@@ -139,15 +139,17 @@ async def db_send_all(ctx):
     cursor.execute(all_query)
     everything = cursor.fetchall()
     await ctx.send(everything)
-'''
+
 @client.command()
 async def db_get_inv(ctx, person):
     person = str(person)
     get_inv_query = "select user_inv from user_info WHERE user_id = '&s' " % person
+    print(get_inv_query)
     cursor.execute(user_inv_query)
     person_inv = cursor.fetchall()
+    print(person_inv)
     await ctx.send(person_inv)
-'''
+
 # user_inv_query = "select user_inv from user_info WHERE user_id = '&s' " % person
 # add_new_inv_query = "INSERT INTO user_info (user_id, user_inv); VALUES ('&s', '%s')" %(person, []) ----- Check how to use arrays and lists
 
