@@ -8,12 +8,17 @@ def add_specified_to_inv(player_invs, ctx, item):
     player_invs[person] = person_inv
     return "item added."
 
+    #sql:   ---- ADD PARAMETER 'cursor' to this function
+    #add_item_query = "UPDATE user_info SET user_inv[CARDINALITY(user_inv)+1] = '%s'" %item
+    #cursor.execute(get_inv_query)
+    #await ctx.send(STATEMENT HERE)
+
 def read_inv(ctx, player_invs, person):
     if person != None: #if person variable is provided
         person = str(person.id)
     else:
         person = str(ctx.author.id)
-    if player_invs.get(person) != None:
+    if player_invs.get(person) != None:  #get_inv_query = "select user_inv from user_info WHERE user_id = '&s' " % person; cursor.execute(user_inv_query); person_inv = cursor.fetchall()
         if len(player_invs[person]) != 0:
             return ', '.join(player_invs[person])
         else:

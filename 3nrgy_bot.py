@@ -9,6 +9,7 @@ from discord.ext import commands #discord extension
 from all_functions import *
 import asyncpg
 import psycopg2
+#------MOVE ALL IMPORTS + VARS INTO ALL_FUNCTIONS
 
 #load_dotenv() # make .env file accessible
 #token = os.getenv("BOT_TOKEN") ---if you want to run locally
@@ -139,6 +140,13 @@ async def db_send_all(ctx):
     everything = cursor.fetchall()
     await ctx.send(everything)
 
+@client.command()
+async def db_get_inv(ctx, person):
+    print(person)
+    get_inv_query = "select user_inv from user_info WHERE user_id = '&s' " % person
+    cursor.execute(user_inv_query)
+    person_inv = cursor.fetchall()
+    await ctx.send(person_inv)
 # user_inv_query = "select user_inv from user_info WHERE user_id = '&s' " % person
 # add_new_inv_query = "INSERT INTO user_info (user_id, user_inv); VALUES ('&s', '%s')" %(person, []) ----- Check how to use arrays and lists
 
