@@ -130,11 +130,14 @@ async def time(ctx):
 DATABASE_URL = os.environ['DATABASE_URL']
 con = psycopg2.connect(DATABASE_URL, sslmode = 'require')
 cursor = con.cursor() #used to execute commands like a mouse cursor is used to click things
+
 #read everything:
-all_query = "select * from user_info"
-cursor.execute(all_query)
-everything = cursor.fetchall()
-print(everything)
+@client.command()
+async def db_send_all(ctx):
+    all_query = "select * from user_info"
+    cursor.execute(all_query)
+    everything = cursor.fetchall()
+    await ctx.send(everything)
 
 # user_inv_query = "select user_inv from user_info WHERE user_id = '&s' " % person
 # add_new_inv_query = "INSERT INTO user_info (user_id, user_inv); VALUES ('&s', '%s')" %(person, []) ----- Check how to use arrays and lists
