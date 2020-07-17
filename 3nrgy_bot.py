@@ -155,6 +155,7 @@ async def db_make_inv(ctx):
     person = str(ctx.author.id)
     add_new_inv_query = "insert into user_info (user_id, user_inv) VALUES ('{}', '{}')".format(person, {})
     cursor.execute(add_new_inv_query)
+    con.commit()
     await ctx.send("New inventory added to database.")
 
 #add_new_inv_query = "INSERT INTO user_info (user_id, user_inv); VALUES ('{}', '{}')".format(person, {})
