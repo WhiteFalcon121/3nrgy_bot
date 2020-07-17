@@ -145,7 +145,7 @@ async def db_get_inv(ctx):
     person = 'test1'
     get_inv_query = "select user_inv from user_info WHERE user_id = '{}'".format(person)
     print(get_inv_query)
-    cursor.execute(user_inv_query)
+    cursor.execute(get_inv_query)
     person_inv = cursor.fetchall()
     print(person_inv)
     await ctx.send(person_inv)
