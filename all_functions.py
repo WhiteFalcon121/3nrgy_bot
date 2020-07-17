@@ -1,5 +1,16 @@
 import discord
 import random
+import discord
+import os
+import random
+import datetime
+import pytz
+#from dotenv import load_dotenv -- for local
+from pytz import timezone
+from discord.ext import commands #discord extension
+from all_functions import *
+import asyncpg
+import psycopg2
 
 def add_specified_to_inv(player_invs, ctx, item):
     person = str(ctx.author.id)
@@ -33,6 +44,14 @@ def create_new_inventory(ctx, player_invs):
         return "New inventory initialised. \n You're all set."
     else:
         return "You already have an inventory. If you want to reset, use the reset command."
+
+def create_new_inventory_db(ctx):
+    person = str(ctx.author.id)
+    # check if person has inventory
+    result = query_manage("insert into user_info (user_id, user_inv) VALUES ('{}', '{}')".format(person, {}))
+    if result == 1:
+        return "New inventory created."
+    return "Error - do you already have one?"
 
 def ask_user_for_trade(player_invs, ctx, ongoing_trades, recipient, skin, trade_skin):
     person, recipient_name, recipient = str(ctx.author.id), str(recipient), str(recipient.id) # person is ALWAYS PERSON WHO STARTS TRADE
@@ -137,3 +156,16 @@ def embed_it(ctx, the_value):
     embed = discord.Embed(color = 0x61cc33)
     embed.add_field(name=str(ctx.author),value=the_value)
     return embed
+
+def query_manage(the_query): # handles queries
+    DATABASE_URL = os.environ['DATABASE_URL']
+    con = psycopg2.connect(DATABASE_URL, sslmode = 'require')
+    cursor = con.cursor() #used to execute commands like a mouse cursor is used to click things
+    try:
+        cursor.execute(the_query)
+        con.commit()
+        return 1
+    except:
+        return 0
+    finally:
+        con.close()

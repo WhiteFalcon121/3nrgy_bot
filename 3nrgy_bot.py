@@ -156,6 +156,7 @@ async def db_get_inv(ctx):
 
 @client.command()
 async def db_make_inv(ctx):
+    '''
     con = psycopg2.connect(DATABASE_URL, sslmode = 'require')
     cursor = con.cursor() #used to execute commands like a mouse cursor is used to click things
     person = str(ctx.author.id)
@@ -164,7 +165,10 @@ async def db_make_inv(ctx):
     con.commit()
     con.close()
     await ctx.send("New inventory added to database.") #try and except for dup key error (dup inv)
+    '''
+    await ctx.send(create_new_inventory_db(ctx))
 
-#create function for opening and closing db connections
-#add_new_inv_query = "INSERT INTO user_info (user_id, user_inv); VALUES ('{}', '{}')".format(person, {})
+#query functions MUST return the query
+#create function for opening and closing db connections & move all functions to other file
+#UPDATE user_info SET user_inv[CARDINALITY(user_inv)+1] = 'ITEM TO BE ADDED' where user_id = 'PERSON ID' - to append items
 client.run(token) #run client
