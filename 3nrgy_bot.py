@@ -150,7 +150,12 @@ async def db_get_inv(ctx):
     print(person_inv)
     await ctx.send(person_inv)
 
-# user_inv_query = "select user_inv from user_info WHERE user_id = '&s' " % person
-# add_new_inv_query = "INSERT INTO user_info (user_id, user_inv); VALUES ('&s', '%s')" %(person, []) ----- Check how to use arrays and lists
+@client.command()
+async def db_make_inv(ctx):
+    person = str(ctx.author.id)
+    add_new_inv_query = "INSERT INTO user_info (user_id, user_inv); VALUES ('{}', '{}')".format(person, {})
+    cursor.execute(add_new_inv_query)
+    await ctx.send("New inventory added to database.")
 
+#add_new_inv_query = "INSERT INTO user_info (user_id, user_inv); VALUES ('{}', '{}')".format(person, {})
 client.run(token) #run client
