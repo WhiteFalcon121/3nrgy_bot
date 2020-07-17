@@ -156,6 +156,8 @@ async def db_get_inv(ctx):
 
 @client.command()
 async def db_make_inv(ctx):
+    con = psycopg2.connect(DATABASE_URL, sslmode = 'require')
+    cursor = con.cursor() #used to execute commands like a mouse cursor is used to click things
     person = str(ctx.author.id)
     add_new_inv_query = "insert into user_info (user_id, user_inv) VALUES ('{}', '{}')".format(person, {})
     cursor.execute(add_new_inv_query)
