@@ -59,7 +59,9 @@ def read_inv_db(ctx):
     if result != 0 and result != []: # result is [] when the table is empty
         person_inv = ', '.join(result[0][0])
         print(len(person_inv))
-        return person_inv
+        if len(person_inv) > 0:
+            return person_inv
+        return "You have nothing atm."
     return "Error - do you have an inventory?"
 
 def ask_user_for_trade(player_invs, ctx, ongoing_trades, recipient, skin, trade_skin):
