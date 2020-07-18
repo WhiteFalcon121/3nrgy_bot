@@ -49,7 +49,6 @@ def create_new_inventory_db(ctx):
     person = str(ctx.author.id)
     # check if person has inventory
     result = query_manage("insert into user_info (user_id, user_inv) VALUES ('{}', '{}')".format(person, {}))
-    print(result)
     if result != 0:
         return "New inventory created."
     return "Error - do you already have an inventory?"
@@ -57,7 +56,6 @@ def create_new_inventory_db(ctx):
 def read_inv_db(ctx):
     person = str(ctx.author.id)
     result = query_manage("select user_inv from user_info WHERE user_id = '{}'".format(person))
-    print(result)
     if result != 0 and result != []:
         return result
     return "Error - do you have an inventory?"
