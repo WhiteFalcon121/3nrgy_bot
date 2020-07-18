@@ -56,7 +56,8 @@ def create_new_inventory_db(ctx):
 def read_inv_db(ctx):
     person = str(ctx.author.id)
     result = query_manage("select user_inv from user_info WHERE user_id = '{}'".format(person))
-    if result != 0 and result != []:
+    print(result, type(result))
+    if result != 0 and result != []: # result is [] when the table is empty
         return result
     return "Error - do you have an inventory?"
 
