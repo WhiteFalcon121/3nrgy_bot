@@ -131,7 +131,7 @@ async def time(ctx):
 DATABASE_URL = os.environ['DATABASE_URL']
 
 #read everything:
-@client.command()   # test cmd
+@client.command()   # test cmd + ADD DESCRIPTIONS TO ALL DB CMDS
 async def db_send_all(ctx):
     con = psycopg2.connect(DATABASE_URL, sslmode = 'require')
     cursor = con.cursor() #used to execute commands like a mouse cursor is used to click things
@@ -156,11 +156,11 @@ async def db_get_inv(ctx): # test cmd
 
 @client.command()
 async def db_make_inv(ctx):
-    await ctx.send(create_new_inventory_db(ctx))
+    await ctx.send(embed=embed_it(ctx, create_new_inventory_db(ctx)))
 
 @client.command()
 async def db_view_inv(ctx):
-    await ctx.send(read_inv_db(ctx))
+    await ctx.send(embed=embed_it(ctx, read_inv_db(ctx)))
 #query functions MUST return the query
 #create function for opening and closing db connections & move all functions to other file
 #UPDATE user_info SET user_inv[CARDINALITY(user_inv)+1] = 'ITEM TO BE ADDED' where user_id = 'PERSON ID' - to append items
