@@ -56,9 +56,9 @@ def create_new_inventory_db(ctx):
 def read_inv_db(ctx):
     person = str(ctx.author.id)
     result = query_manage("select user_inv from user_info WHERE user_id = '{}'".format(person))
-    print(result, result[0][0], len(result[0][0]))
     if result != 0 and result != []: # result is [] when the table is empty
-        return result
+        person_inv = ', '.join(result[0][0])
+        return person_inv
     return "Error - do you have an inventory?"
 
 def ask_user_for_trade(player_invs, ctx, ongoing_trades, recipient, skin, trade_skin):
