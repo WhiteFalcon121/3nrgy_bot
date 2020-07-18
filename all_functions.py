@@ -172,8 +172,13 @@ def query_manage(the_query): # handles queries
     cursor = con.cursor() #used to execute commands like a mouse cursor is used to click things
     try:
         cursor.execute(the_query)
-        con.commit()
-        return cursor.fetchall()
+        try:
+            result = cursor.fetchall()
+            return result
+        except:
+            return 1
+        finally:
+            con.commit()
     except:
         return 0
     finally:

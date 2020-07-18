@@ -158,6 +158,7 @@ async def db_get_inv(ctx): # test cmd
 async def db_make_inv(ctx):
     await ctx.send(create_new_inventory_db(ctx))
 
+@client.command()
 async def db_view_inv(ctx):
     await ctx.send(read_inv_db(ctx))
 #query functions MUST return the query
