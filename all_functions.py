@@ -49,9 +49,18 @@ def create_new_inventory_db(ctx):
     person = str(ctx.author.id)
     # check if person has inventory
     result = query_manage("insert into user_info (user_id, user_inv) VALUES ('{}', '{}')".format(person, {}))
-    if result == 1:
+    print(result)
+    if result != 0:
         return "New inventory created."
-    return "Error - do you already have one?"
+    return "Error - do you already have an inventory?"
+
+def read_inv_db(ctx):
+    person = str(ctx.author.id)
+    result = query_manage("select user_inv from user_info WHERE user_id = '{}'".format(person))
+    print(result)
+    if result != 0:
+        return result
+    return "Error - do you have an inventory?"
 
 def ask_user_for_trade(player_invs, ctx, ongoing_trades, recipient, skin, trade_skin):
     person, recipient_name, recipient = str(ctx.author.id), str(recipient), str(recipient.id) # person is ALWAYS PERSON WHO STARTS TRADE
@@ -164,7 +173,7 @@ def query_manage(the_query): # handles queries
     try:
         cursor.execute(the_query)
         con.commit()
-        return 1
+        return cursor.fetchall()
     except:
         return 0
     finally:

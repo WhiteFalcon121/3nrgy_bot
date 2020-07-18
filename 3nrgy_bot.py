@@ -131,7 +131,7 @@ async def time(ctx):
 DATABASE_URL = os.environ['DATABASE_URL']
 
 #read everything:
-@client.command()
+@client.command()   # test cmd
 async def db_send_all(ctx):
     con = psycopg2.connect(DATABASE_URL, sslmode = 'require')
     cursor = con.cursor() #used to execute commands like a mouse cursor is used to click things
@@ -142,7 +142,7 @@ async def db_send_all(ctx):
     await ctx.send(everything)
 
 @client.command()
-async def db_get_inv(ctx):
+async def db_get_inv(ctx): # test cmd
     con = psycopg2.connect(DATABASE_URL, sslmode = 'require')
     cursor = con.cursor() #used to execute commands like a mouse cursor is used to click things
     person = 'test1'
@@ -156,18 +156,10 @@ async def db_get_inv(ctx):
 
 @client.command()
 async def db_make_inv(ctx):
-    '''
-    con = psycopg2.connect(DATABASE_URL, sslmode = 'require')
-    cursor = con.cursor() #used to execute commands like a mouse cursor is used to click things
-    person = str(ctx.author.id)
-    add_new_inv_query = "insert into user_info (user_id, user_inv) VALUES ('{}', '{}')".format(person, {})
-    cursor.execute(add_new_inv_query)
-    con.commit()
-    con.close()
-    await ctx.send("New inventory added to database.") #try and except for dup key error (dup inv)
-    '''
     await ctx.send(create_new_inventory_db(ctx))
 
+async def db_view_inv(ctx):
+    await ctx.send(read_inv_db(ctx))
 #query functions MUST return the query
 #create function for opening and closing db connections & move all functions to other file
 #UPDATE user_info SET user_inv[CARDINALITY(user_inv)+1] = 'ITEM TO BE ADDED' where user_id = 'PERSON ID' - to append items
