@@ -58,7 +58,6 @@ def read_inv_db(ctx):
     result = query_manage("select user_inv from user_info WHERE user_id = '{}'".format(person))
     if result != 0 and result != []: # result is [] when the table is empty
         person_inv = ', '.join(result[0][0])
-        print(len(person_inv))
         if len(person_inv) > 0:
             return person_inv
         return "You have nothing atm."
