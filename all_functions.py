@@ -114,7 +114,7 @@ def spin_roulette_db(ctx):
         item = get_item(unobtainable_list)
         gif = 'unobtainable.gif'
         statement = "Wow. Unobtainable - " + item
-    result = add_specified_to_inv_db(ctx, item)
+    result = add_item_to_inv_db(ctx, item)
     if result == 1:
         return statement, gif
     return "Error, not able to add item."
