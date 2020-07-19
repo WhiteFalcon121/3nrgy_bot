@@ -165,6 +165,7 @@ async def db_view_inv(ctx):
 @client.command(description="use a spin on the roulette")
 async def roulette_db(ctx):
     result = spin_roulette_db(ctx)
+    print(result)
     if len(result) == 2:
         await ctx.send(embed=embed_it(ctx, result[0]))
         await ctx.send(file=discord.File(result[1]))

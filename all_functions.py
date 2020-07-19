@@ -12,17 +12,13 @@ from all_functions import *
 import asyncpg
 import psycopg2
 
+'''
 def add_specified_to_inv(player_invs, ctx, item):
     person = str(ctx.author.id)
     person_inv = player_invs[person]
     person_inv.append(item)
     player_invs[person] = person_inv
     return "item added."
-
-    #sql:   ---- ADD PARAMETER 'cursor' to this function
-    #add_item_query = "UPDATE user_info SET user_inv[CARDINALITY(user_inv)+1] = '%s'" %item
-    #cursor.execute(get_inv_query)
-    #await ctx.send(STATEMENT HERE)
 
 def read_inv(ctx, player_invs, person):
     if person != None: #if person variable is provided
@@ -36,7 +32,6 @@ def read_inv(ctx, player_invs, person):
             return "Nothing in there atm."
     else:
         return "No inventory yet. Use 'new_inv' command to make one."
-
 def create_new_inventory(ctx, player_invs):
     person = str(ctx.author.id)
     if player_invs.get(person) == None: # if player does not have an inv
@@ -44,6 +39,7 @@ def create_new_inventory(ctx, player_invs):
         return "New inventory initialised. \n You're all set."
     else:
         return "You already have an inventory. If you want to reset, use the reset command."
+'''
 
 def create_new_inventory_db(ctx):
     person = str(ctx.author.id)
@@ -66,9 +62,14 @@ def read_inv_db(ctx):
 def add_item_to_inv_db(ctx, item):
     person = str(ctx.author.id)
     result = query_manage("update user_info SET user_inv[CARDINALITY(user_inv)+1] = '{}' where user_id = '{}'".format(item, person))
+    print(result)
     if result != 0:
         return 1
     return 0
+
+def get_item(list_name):
+    item = list_name[random.randint(0, len(list_name)-1)] #-1 because indexing starts with 0
+    return item
 
 def spin_roulette_db(ctx):
     randnum = random.randint(0, 100)
@@ -115,10 +116,10 @@ def spin_roulette_db(ctx):
         gif = 'unobtainable.gif'
         statement = "Wow. Unobtainable - " + item
     result = add_item_to_inv_db(ctx, item)
+    print(result)
     if result == 1:
         return statement, gif
     return "Error, not able to add item."
-
 
 def ask_user_for_trade(player_invs, ctx, ongoing_trades, recipient, skin, trade_skin):
     person, recipient_name, recipient = str(ctx.author.id), str(recipient), str(recipient.id) # person is ALWAYS PERSON WHO STARTS TRADE
@@ -152,10 +153,6 @@ def execute_trade(ctx, player_invs, ongoing_trades, starter, trade_skin, skin):
         return "Trade complete."
     else:
         return "This trade hasn't been requested so you can't accept it? Lol. \n Request it if you want it."
-
-def get_item(list_name):
-    item = list_name[random.randint(0, len(list_name)-1)] #-1 because indexing starts with 0
-    return item
 
 def spin_roulette(ctx, player_invs):
     randnum = random.randint(0, 100)
