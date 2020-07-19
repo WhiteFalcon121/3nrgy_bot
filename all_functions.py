@@ -229,6 +229,7 @@ def query_manage(the_query): # handles queries
         cursor.execute(the_query)
         try:
             result = cursor.fetchall()
+            print('qm ', result)
             return result
         except:
             return 1
