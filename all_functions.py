@@ -61,11 +61,14 @@ def read_inv_db(ctx):
 
 def add_item_to_inv_db(ctx, item):
     person = str(ctx.author.id)
-    result = query_manage("update user_info SET user_inv[CARDINALITY(user_inv)+1] = '{}' where user_id = '{}'".format(item, person))
-    print(result)
-    if result != 0:
-        return 1
-    return 0
+    inv_check = read_inv_db(ctx)
+    if inv_check != "Error - do you have an inventory?":
+        result = query_manage("update user_info SET user_inv[CARDINALITY(user_inv)+1] = '{}' where user_id = '{}'".format(item, person))
+        if result != 0:
+            return 1
+        return 0
+    else:
+        return 0
 
 def get_item(list_name):
     item = list_name[random.randint(0, len(list_name)-1)] #-1 because indexing starts with 0
@@ -229,11 +232,10 @@ def query_manage(the_query): # handles queries
         cursor.execute(the_query)
         try:
             result = cursor.fetchall()
-            print('qm ', result, type(result))
             return result
         except Exception as e:
             print(e)
-            return 1
+            return 1 #query was carried out
         finally:
             con.commit()
     except:
