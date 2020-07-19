@@ -161,6 +161,15 @@ async def db_make_inv(ctx):
 @client.command()
 async def db_view_inv(ctx):
     await ctx.send(embed=embed_it(ctx, read_inv_db(ctx)))
+
+@client.command(description="use a spin on the roulette")
+async def roulette_db(ctx):
+    result = spin_roulette_db(ctx)
+    if len(result) == 2:
+        await ctx.send(embed=embed_it(ctx, result[0]))
+        await ctx.send(file=discord.File(result[1]))
+    else:
+        await ctx.send(embed=embed_it(ctx, result))
 #query functions MUST return the query
 #create function for opening and closing db connections & move all functions to other file
 #UPDATE user_info SET user_inv[CARDINALITY(user_inv)+1] = 'ITEM TO BE ADDED' where user_id = 'PERSON ID' - to append items
