@@ -229,7 +229,7 @@ def query_manage(the_query): # handles queries
         cursor.execute(the_query)
         try:
             result = cursor.fetchall()
-            print('qm ', result)
+            print('qm ', result, type(result))
             return result
         except Exception as e:
             print(e)
