@@ -231,7 +231,8 @@ def query_manage(the_query): # handles queries
             result = cursor.fetchall()
             print('qm ', result)
             return result
-        except:
+        except Exception as e:
+            print(e)
             return 1
         finally:
             con.commit()
