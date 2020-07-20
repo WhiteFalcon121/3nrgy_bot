@@ -181,7 +181,7 @@ async def roulette_db(ctx):
 
 @client.command(description="ask someone for a trade (trade structure is: the_recipient/other_person, your_skin, their_skin - even when you accept).")
 async def ask_trade_db(ctx, recipient:discord.Member, skin, trade_skin):
-    await ctx.send(embed=embed_it(ctx, ask_for_trade_db(recipient, skin, trade_skin)))
+    await ctx.send(embed=embed_it(ctx, ask_for_trade_db(ctx, recipient, skin, trade_skin)))
 #insert into ongoing_trades (person, recipient, skin, trade_skin) VALUES ('test2', 'recipient_id2', 'aqua_ski2n', 'commo_trade_ski2n')  -- trades
 
 client.run(token) #run client
