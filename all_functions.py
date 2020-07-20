@@ -49,26 +49,23 @@ def create_new_inventory_db(ctx):
         return "New inventory created."
     return "Error - do you already have an inventory?"
 
-def read_inv_db(ctx):
-    person = str(ctx.author.id)
+def read_inv_db(person): #read inventory of any specified person as an optional parameter
     result = query_manage("select user_inv from user_info WHERE user_id = '{}'".format(person))
     if result != 0 and result != []: # result is [] when the table is empty
         person_inv = ', '.join(result[0][0])
         if len(person_inv) > 0:
             return person_inv
-        return "You have nothing atm."
-    return "Error - do you have an inventory?"
+        return "" #"You have nothing atm."
+    return 0 #"Error - do you have an inventory?"
 
 def add_item_to_inv_db(ctx, item):
     person = str(ctx.author.id)
-    inv_check = read_inv_db(ctx)
-    if inv_check != "Error - do you have an inventory?":
+    if read_inv_db(person) != 0:
         result = query_manage("update user_info SET user_inv[CARDINALITY(user_inv)+1] = '{}' where user_id = '{}'".format(item, person))
         if result != 0:
             return 1
         return 0
-    else:
-        return 0
+    return 0
 
 def get_item(list_name):
     item = list_name[random.randint(0, len(list_name)-1)] #-1 because indexing starts with 0
@@ -123,6 +120,27 @@ def spin_roulette_db(ctx):
     if result == 1:
         return statement, gif
     return "Error, not able to add item."
+
+def ask_for_trade_db(ctx, recipient, skin, trade_skin):
+    person, recipient_name, recipient = str(ctx.author.id), str(recipient), str(recipient.id)
+    #if person != recipient and inv_check(person)==1 and inv_check(recipient)==1: # (if trade already a thing)if person isn't recipient, if they have invs, then if they have skins
+    # if trade already available:
+    #   return "Trade already pending."
+    if person == recipient:
+        return "You can't trade with yourself. Lol."
+    #elif inv_check(person) != 1 or inv_check(person) != 1:
+        #return "You need to have inventories to trade."
+    person_inv, recipient_inv = read_inv_db(person), read_inv_db(recipient)
+    elif person_inv == 0 and recipient_inv == 0: #doesn't need to be elif - can be if as return statement ends the function
+        return "Check if you both have inventories."
+    elif skin not in person_inv and trade_skin not in recipient_inv:
+        return "Check both of you have the skins you want to trade."
+    result = query_manage("insert into ongoing_trades (person, recipient, skin, trade_skin) VALUES ('{}', '{}', '{}', '{}')".format(person, recipient, skin, trade_skin))
+    if result == 1:
+        return "When " + recipient_name + " accepts the trade, the items will be swapped."
+    else:
+        return "Error. Trade was valid but trade was not able to be added to database."
+
 
 def ask_user_for_trade(player_invs, ctx, ongoing_trades, recipient, skin, trade_skin):
     person, recipient_name, recipient = str(ctx.author.id), str(recipient), str(recipient.id) # person is ALWAYS PERSON WHO STARTS TRADE
@@ -234,7 +252,7 @@ def query_manage(the_query): # handles queries
             result = cursor.fetchall()
             return result
         except Exception as e:
-            print(e)
+            print(e) # see what exception happened
             return 1 #query was carried out
         finally:
             con.commit()
