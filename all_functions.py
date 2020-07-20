@@ -131,9 +131,9 @@ def ask_for_trade_db(ctx, recipient, skin, trade_skin):
     #elif inv_check(person) != 1 or inv_check(person) != 1:
         #return "You need to have inventories to trade."
     person_inv, recipient_inv = read_inv_db(person), read_inv_db(recipient)
-    elif person_inv == 0 and recipient_inv == 0: #doesn't need to be elif - can be if as return statement ends the function
+    if person_inv == 0 and recipient_inv == 0:
         return "Check if you both have inventories."
-    elif skin not in person_inv and trade_skin not in recipient_inv:
+    if skin not in person_inv and trade_skin not in recipient_inv:
         return "Check both of you have the skins you want to trade."
     result = query_manage("insert into ongoing_trades (person, recipient, skin, trade_skin) VALUES ('{}', '{}', '{}', '{}')".format(person, recipient, skin, trade_skin))
     if result == 1:
