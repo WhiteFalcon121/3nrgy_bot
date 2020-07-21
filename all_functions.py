@@ -131,6 +131,7 @@ def ask_for_trade_db(ctx, recipient, skin, trade_skin):
     #elif inv_check(person) != 1 or inv_check(person) != 1:
         #return "You need to have inventories to trade."
     person_inv, recipient_inv = read_inv_db(person), read_inv_db(recipient)
+    print(person_inv, recipient_inv)
     if person_inv == 0 and recipient_inv == 0:
         return "Check if you both have inventories."
     if skin not in person_inv and trade_skin not in recipient_inv:
