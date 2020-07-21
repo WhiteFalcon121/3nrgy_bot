@@ -161,7 +161,8 @@ async def db_make_inv(ctx):
 @client.command()
 async def db_view_inv(ctx):
     #await ctx.send(embed=embed_it(ctx, read_inv_db(ctx)))
-    result = read_inv_db(ctx)
+    person = str(ctx.author.id)
+    result = read_inv_db(person)
     if result == 0:
         statement = "Error - do you have an inventory?"
     elif result == "":
