@@ -138,8 +138,10 @@ def ask_for_trade_db(ctx, recipient, skin, trade_skin):
     print("'{}','{}'".format(skin, trade_skin))
     if person_inv == 0 or recipient_inv == 0:
         return "Check if you both have inventories."
-    if skin not in person_inv and trade_skin not in recipient_inv and skin != "" and trade_skin != "": # check this
+    if skin not in person_inv and trade_skin not in recipient_inv: # check this
         return "Check both of you have the skins you want to trade."
+    if skin == "" and trade_skin == "":
+        return "You can't trade nothing."
     result = query_manage("insert into ongoing_trades (person, recipient, skin, trade_skin) VALUES ('{}', '{}', '{}', '{}')".format(person, recipient, skin, trade_skin))
     if result == 1:
         return "When " + recipient_name + " accepts the trade, the items will be swapped."
