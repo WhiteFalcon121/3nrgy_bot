@@ -140,7 +140,8 @@ def ask_for_trade_db(ctx, recipient, skin, trade_skin):
     # select * from ongoing_trades where ((person = 'PERSON_ID' and recipient = 'RECIPIENT_ID') or (person = 'RECIPIENT_ID' and recipient = 'PERSON_ID')) and ((skin = 'SKIN' and trade_skin = 'TRADE_SKIN') or (skin='TRADE_SKIN' and trade_skin='SKIN'))
     check_for_dup = query_manage("select * from ongoing_trades where ((person = '{}' and recipient = '{}') or (person = '{}' and recipient = '{}')) and ((skin = '{}' and trade_skin = '{}') or (skin='{}' and trade_skin='{}'))".format(person, recipient, recipient, person, skin, trade_skin, trade_skin, skin))
     print('dup_check = ', check_for_dup)
-    if check_for_dup != 1 or check_for_dup!=[]:
+    print(type(check_for_dup))
+    if check_for_dup != 1 or check_for_dup!='[]':
         return "This trade is already a pending trade."
     add_trade_to_db = query_manage("insert into ongoing_trades (person, recipient, skin, trade_skin) VALUES ('{}', '{}', '{}', '{}')".format(person, recipient, skin, trade_skin))
     if add_trade_to_db == 1:
