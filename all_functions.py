@@ -164,7 +164,7 @@ def ask_for_trade_db(ctx, recipient, skin, trade_skin):
     else:
         return "Error. Trade was valid but trade was not able to be added to database."
 
-def accept_trade_db(ctx, starter, skin, trade_skin):
+def accept_trade(ctx, starter, skin, trade_skin):
     person, starter_name, starter = str(ctx.author.id), str(starter), str(starter.id)
     trade_check = already_trade(person, starter, skin, trade_skin)
     print(trade_check)

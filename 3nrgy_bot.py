@@ -187,6 +187,6 @@ async def ask_trade_db(ctx, recipient:discord.Member, skin, trade_skin):
 
 @client.command(description="accept a trade (trade structure is: starter of trade/the other person, your_skin, their_skin).")
 async def accept_trade_db(ctx, starter:discord.Member, skin, trade_skin):
-    await ctx.send(embed=embed_it(ctx, accept_trade_db(ctx, starter, skin, trade_skin)))
+    await ctx.send(embed=embed_it(ctx, accept_trade(ctx, starter, skin, trade_skin)))
 
 client.run(token) #run client
