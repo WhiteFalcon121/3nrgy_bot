@@ -128,13 +128,6 @@ def ask_for_trade_db(ctx, recipient, skin, trade_skin):
     if person == recipient:
         return "You can't trade with yourself. Lol."
 
-    # if trade already available:
-    #   return "Trade already pending."
-    #                             select * from ongoing_trades where ((person = 'PERSON_ID' and recipient = 'RECIPIENT_ID') or (person = 'RECIPIENT_ID' and recipient = 'PERSON_ID')) and ((skin = 'SKIN' and trade_skin = 'TRADE_SKIN') or (skin='TRADE_SKIN' and trade_skin='SKIN'))
-    check_for_dup = query_manage("select * from ongoing_trades where ((person = '{}' and recipient = '{}') or (person = '{}' and recipient = '{}')) and ((skin = '{}' and trade_skin = '{}') or (skin='{}' and trade_skin='{}'))".format(person, recipient, recipient, person, skin, trade_skin, trade_skin, skin))
-    print('dup_check = ', check_for_dup)
-    if check_for_dup != 1:
-        return "This trade is already a pending trade."
     person_inv, recipient_inv = read_inv_db(person), read_inv_db(recipient)
     if person_inv == 0 or recipient_inv == 0:
         return "Check if you both have inventories."
@@ -142,6 +135,13 @@ def ask_for_trade_db(ctx, recipient, skin, trade_skin):
         return "Check both of you have the skins you want to trade."
     if skin == "" or trade_skin == "":
         return "You can't trade nothing."
+    # if trade already available:
+    #   return "Trade already pending."
+    # select * from ongoing_trades where ((person = 'PERSON_ID' and recipient = 'RECIPIENT_ID') or (person = 'RECIPIENT_ID' and recipient = 'PERSON_ID')) and ((skin = 'SKIN' and trade_skin = 'TRADE_SKIN') or (skin='TRADE_SKIN' and trade_skin='SKIN'))
+    check_for_dup = query_manage("select * from ongoing_trades where ((person = '{}' and recipient = '{}') or (person = '{}' and recipient = '{}')) and ((skin = '{}' and trade_skin = '{}') or (skin='{}' and trade_skin='{}'))".format(person, recipient, recipient, person, skin, trade_skin, trade_skin, skin))
+    print('dup_check = ', check_for_dup)
+    if check_for_dup != 1:
+        return "This trade is already a pending trade."
     add_trade_to_db = query_manage("insert into ongoing_trades (person, recipient, skin, trade_skin) VALUES ('{}', '{}', '{}', '{}')".format(person, recipient, skin, trade_skin))
     if add_trade_to_db == 1:
         return "When " + recipient_name + " accepts the trade, the items will be swapped."
