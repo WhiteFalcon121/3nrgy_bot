@@ -121,6 +121,18 @@ def spin_roulette_db(ctx):
         return statement, gif
     return "Error, not able to add item."
 
+def any_dup(person1, person2, skin, trade_skin): #person1 = author
+    check_for_dup = query_manage("select * from ongoing_trades where ((person = '{}' and recipient = '{}') or (person = '{}' and recipient = '{}')) and ((skin = '{}' and trade_skin = '{}') or (skin='{}' and trade_skin='{}'))".format(person1, person2, person2, person, skin, trade_skin, trade_skin, skin))
+    if check_for_dup != 1 and check_for_dup!=[]:
+        return 1 # there are dupes     "This trade is already a pending trade."
+    return 0 # no dupes
+
+def already_trade(person, starter, skin, trade_skin):
+    result = query_manage("select * from ongoing_trades where person = '{}' and recipient = '{}' and skin='{}' and trade_skin='{}' ".format(starter, person, trade_skin, skin))
+    if result != 1 and result != []:
+        return 1
+    return 0
+
 def ask_for_trade_db(ctx, recipient, skin, trade_skin):
     person, recipient_name, recipient = str(ctx.author.id), str(recipient), str(recipient.id)
     #if person != recipient and inv_check(person)==1 and inv_check(recipient)==1: # (if trade already a thing)if person isn't recipient, if they have invs, then if they have skins
@@ -135,21 +147,43 @@ def ask_for_trade_db(ctx, recipient, skin, trade_skin):
         return "Check both of you have the skins you want to trade."
     if skin == "" or trade_skin == "":
         return "You can't trade nothing."
+
+    dup_check = any_dup(person, recipient, recipient, person, skin, trade_skin, trade_skin, skin)
+    if dup_check == 1:
+        return "This trade is already a pending trade."
     # if trade already available:
     #   return "Trade already pending."
     # select * from ongoing_trades where ((person = 'PERSON_ID' and recipient = 'RECIPIENT_ID') or (person = 'RECIPIENT_ID' and recipient = 'PERSON_ID')) and ((skin = 'SKIN' and trade_skin = 'TRADE_SKIN') or (skin='TRADE_SKIN' and trade_skin='SKIN'))
-    check_for_dup = query_manage("select * from ongoing_trades where ((person = '{}' and recipient = '{}') or (person = '{}' and recipient = '{}')) and ((skin = '{}' and trade_skin = '{}') or (skin='{}' and trade_skin='{}'))".format(person, recipient, recipient, person, skin, trade_skin, trade_skin, skin))
-    print('dup_check = ', check_for_dup)
-    print(type(check_for_dup))
-    if check_for_dup != 1 and check_for_dup!=[]:
-        return "This trade is already a pending trade."
+    #check_for_dup = query_manage("select * from ongoing_trades where ((person = '{}' and recipient = '{}') or (person = '{}' and recipient = '{}')) and ((skin = '{}' and trade_skin = '{}') or (skin='{}' and trade_skin='{}'))".format(person, recipient, recipient, person, skin, trade_skin, trade_skin, skin))
+    #if check_for_dup != 1 and check_for_dup!=[]:
+        #return "This trade is already a pending trade."
+
     add_trade_to_db = query_manage("insert into ongoing_trades (person, recipient, skin, trade_skin) VALUES ('{}', '{}', '{}', '{}')".format(person, recipient, skin, trade_skin))
     if add_trade_to_db == 1:
         return "When " + recipient_name + " accepts the trade, the items will be swapped."
     else:
         return "Error. Trade was valid but trade was not able to be added to database."
 
+def accept_trade_db(ctx, starter, skin, trade_skin):
+    person, starter_name, starter = str(ctx.author.id), str(starter), str(starter.id)
+    trade_check = already_trade(person, starter, skin, trade_skin)
+    print(trade_check)
+    if trade_check == 1: # if trade already in ongoing_trades
+        #swap items
+        # update user_info SET user_inv = array_replace(user_inv, 'SKIN', 'SKIN TO BE ADDED') where user_id = 'USER_ID'
+        result1 = query_manage("update user_info SET user_inv = array_replace(user_inv, '{}', '{}') where user_id = '{}'".format(trade_skin, skin, starter))
+        result2 = query_manage("update user_info SET user_inv = array_replace(user_inv, '{}', '{}') where user_id = '{}'".format(skin, trade_skin, person))
+        print(result1, result2)
+        if result1 != 0 and result2 != 0:
+            #delete from ongoing_trades where person = 'STARTER' and recipient = 'PERSON' and skin='TRADE_SKIN' and trade_skin='SKIN'
+            result3 = query_manage("delete from ongoing_trades where person = '{}' and recipient = '{}' and skin='{}' and trade_skin='{}'".format(starter, person, trade_skin, skin)) # delete from ongoing_trades
+            if result3 != 3:
+                return "Trade with " + starter_name + " was complete."
+            return "Error. Unable to delete from ongoing_trades."
+        return "Error. Unable to add and remove items from inventories."
+    return "You can't accept a trade that hasn't been requested."
 
+'''
 def ask_user_for_trade(player_invs, ctx, ongoing_trades, recipient, skin, trade_skin):
     person, recipient_name, recipient = str(ctx.author.id), str(recipient), str(recipient.id) # person is ALWAYS PERSON WHO STARTS TRADE
     trade = [person, recipient, skin, trade_skin] #always this TRADE STRUCTURE
@@ -162,7 +196,7 @@ def ask_user_for_trade(player_invs, ctx, ongoing_trades, recipient, skin, trade_
         return "When " + recipient_name + " accepts the trade, the items will swap."
     else:
         return "That is an invalid trade."
-
+'''
 def execute_trade(ctx, player_invs, ongoing_trades, starter, trade_skin, skin):
     person = str(ctx.author.id)
     starter = str(starter.id)
@@ -182,7 +216,7 @@ def execute_trade(ctx, player_invs, ongoing_trades, starter, trade_skin, skin):
         return "Trade complete."
     else:
         return "This trade hasn't been requested so you can't accept it? Lol. \n Request it if you want it."
-
+'''
 def spin_roulette(ctx, player_invs):
     randnum = random.randint(0, 100)
     if randnum > 60:
@@ -229,7 +263,7 @@ def spin_roulette(ctx, player_invs):
         statement = "Wow. Unobtainable - " + item
     add_specified_to_inv(player_invs, ctx, item)
     return statement, gif
-
+'''
 def check_trades(ctx, player_invs, ongoing_trades):
     user = str(ctx.author.id)
     display_list = []
