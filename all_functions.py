@@ -122,7 +122,7 @@ def spin_roulette_db(ctx):
     return "Error, not able to add item."
 
 def any_dup(person1, person2, skin, trade_skin): #person1 = author
-    check_for_dup = query_manage("select * from ongoing_trades where ((person = '{}' and recipient = '{}') or (person = '{}' and recipient = '{}')) and ((skin = '{}' and trade_skin = '{}') or (skin='{}' and trade_skin='{}'))".format(person1, person2, person2, person, skin, trade_skin, trade_skin, skin))
+    check_for_dup = query_manage("select * from ongoing_trades where ((person = '{}' and recipient = '{}') or (person = '{}' and recipient = '{}')) and ((skin = '{}' and trade_skin = '{}') or (skin='{}' and trade_skin='{}'))".format(person1, person2, person2, person1, skin, trade_skin, trade_skin, skin))
     if check_for_dup != 1 and check_for_dup!=[]:
         return 1 # there are dupes     "This trade is already a pending trade."
     return 0 # no dupes
@@ -172,16 +172,19 @@ def accept_trade(ctx, starter, skin, trade_skin):
     if trade_check == 1: # if trade already in ongoing_trades
         #swap items
         # update user_info SET user_inv = array_replace(user_inv, 'SKIN', 'SKIN TO BE ADDED') where user_id = 'USER_ID'
-        result1 = query_manage("update user_info SET user_inv = array_replace(user_inv, '{}', '{}') where user_id = '{}'".format(trade_skin, skin, starter))
-        result2 = query_manage("update user_info SET user_inv = array_replace(user_inv, '{}', '{}') where user_id = '{}'".format(skin, trade_skin, person))
-        print(result1, result2)
-        if result1 != 0 and result2 != 0:
-            #delete from ongoing_trades where person = 'STARTER' and recipient = 'PERSON' and skin='TRADE_SKIN' and trade_skin='SKIN'
-            result3 = query_manage("delete from ongoing_trades where person = '{}' and recipient = '{}' and skin='{}' and trade_skin='{}'".format(starter, person, trade_skin, skin)) # delete from ongoing_trades
-            if result3 != 3:
-                return "Trade with " + starter_name + " was complete."
-            return "Error. Unable to delete from ongoing_trades."
-        return "Error. Unable to add and remove items from inventories."
+        person_inv, starter_inv = read_inv_db(person), read_inv_db(starter)
+        if skin in person_inv and trade_skin in starter_inv:
+            result1 = query_manage("update user_info SET user_inv = array_replace(user_inv, '{}', '{}') where user_id = '{}'".format(trade_skin, skin, starter))
+            result2 = query_manage("update user_info SET user_inv = array_replace(user_inv, '{}', '{}') where user_id = '{}'".format(skin, trade_skin, person))
+            print(result1, result2)
+            if result1 != 0 and result2 != 0:
+                #delete from ongoing_trades where person = 'STARTER' and recipient = 'PERSON' and skin='TRADE_SKIN' and trade_skin='SKIN'
+                result3 = query_manage("delete from ongoing_trades where person = '{}' and recipient = '{}' and skin='{}' and trade_skin='{}'".format(starter, person, trade_skin, skin)) # delete from ongoing_trades
+                if result3 != 3:
+                    return "Trade with " + starter_name + " was complete."
+                return "Error. Unable to delete from ongoing_trades."
+            return "Error. Unable to add and remove items from inventories."
+        return "Skins not in invs anymore."
     return "You can't accept a trade that hasn't been requested."
 
 '''
