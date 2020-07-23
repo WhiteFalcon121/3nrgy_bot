@@ -148,7 +148,7 @@ def ask_for_trade_db(ctx, recipient, skin, trade_skin):
     if skin == "" or trade_skin == "":
         return "You can't trade nothing."
 
-    dup_check = any_dup(person, recipient, recipient, person, skin, trade_skin, trade_skin, skin)
+    dup_check = any_dup(person, recipient, skin, trade_skin)
     if dup_check == 1:
         return "This trade is already a pending trade."
     # if trade already available:
@@ -168,6 +168,7 @@ def accept_trade(ctx, starter, skin, trade_skin):
     person, starter_name, starter = str(ctx.author.id), str(starter), str(starter.id)
     trade_check = already_trade(person, starter, skin, trade_skin)
     print(trade_check)
+    # add check that checks if items are in inv
     if trade_check == 1: # if trade already in ongoing_trades
         #swap items
         # update user_info SET user_inv = array_replace(user_inv, 'SKIN', 'SKIN TO BE ADDED') where user_id = 'USER_ID'
