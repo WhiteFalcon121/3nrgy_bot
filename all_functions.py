@@ -124,26 +124,26 @@ def spin_roulette_db(ctx):
 def ask_for_trade_db(ctx, recipient, skin, trade_skin):
     person, recipient_name, recipient = str(ctx.author.id), str(recipient), str(recipient.id)
     #if person != recipient and inv_check(person)==1 and inv_check(recipient)==1: # (if trade already a thing)if person isn't recipient, if they have invs, then if they have skins
-    # if trade already available:
-    #   return "Trade already pending."
+
     if person == recipient:
         return "You can't trade with yourself. Lol."
-    #elif inv_check(person) != 1 or inv_check(person) != 1:
-        #return "You need to have inventories to trade."
+
+    # if trade already available:
+    #   return "Trade already pending."
+    #                             select * from ongoing_trades where ((person = 'PERSON_ID' and recipient = 'RECIPIENT_ID') or (person = 'RECIPIENT_ID' and recipient = 'PERSON_ID')) and ((skin = 'SKIN' and trade_skin = 'TRADE_SKIN') or (skin='TRADE_SKIN' and trade_skin='SKIN'))
+    check_for_dup = query_manage("select * from ongoing_trades where ((person = '{}' and recipient = '{}') or (person = '{}' and recipient = '{}')) and ((skin = '{}' and trade_skin = '{}') or (skin='{}' and trade_skin='{}'))".format(person, recipient, recipient, person, skin, trade_skin, trade_skin, skin))
+    print('dup_check = ', check_for_dup)
+    if check_for_dup != 1:
+        return "This trade is already a pending trade."
     person_inv, recipient_inv = read_inv_db(person), read_inv_db(recipient)
-    print(person_inv, recipient_inv) # check that skins aren't empty so ""
-    print("Skin is: ", skin, " trade_skin is: ", trade_skin, " .")
-    print(type(skin), type(trade_skin))
-    print(str(skin), str(trade_skin))
-    print("'{}','{}'".format(skin, trade_skin))
     if person_inv == 0 or recipient_inv == 0:
         return "Check if you both have inventories."
     if skin not in person_inv or trade_skin not in recipient_inv: # check this
         return "Check both of you have the skins you want to trade."
     if skin == "" or trade_skin == "":
         return "You can't trade nothing."
-    result = query_manage("insert into ongoing_trades (person, recipient, skin, trade_skin) VALUES ('{}', '{}', '{}', '{}')".format(person, recipient, skin, trade_skin))
-    if result == 1:
+    add_trade_to_db = query_manage("insert into ongoing_trades (person, recipient, skin, trade_skin) VALUES ('{}', '{}', '{}', '{}')".format(person, recipient, skin, trade_skin))
+    if add_trade_to_db == 1:
         return "When " + recipient_name + " accepts the trade, the items will be swapped."
     else:
         return "Error. Trade was valid but trade was not able to be added to database."
