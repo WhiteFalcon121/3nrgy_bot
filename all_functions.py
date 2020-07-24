@@ -268,6 +268,14 @@ def spin_roulette(ctx, player_invs):
     add_specified_to_inv(player_invs, ctx, item)
     return statement, gif
 '''
+
+def my_trades(ctx):
+    user = str(ctx.author.id)
+    result = query_manage("select * from ongoing_trades where person = '{}' or recipient = '{}'".format(user, user))
+    print(result)
+    print(type(result))
+    return result
+
 def check_trades(ctx, player_invs, ongoing_trades):
     user = str(ctx.author.id)
     display_list = []

@@ -189,4 +189,8 @@ async def ask_trade_db(ctx, recipient:discord.Member, skin, trade_skin):
 async def accept_trade_db(ctx, starter:discord.Member, skin, trade_skin):
     await ctx.send(embed=embed_it(ctx, accept_trade(ctx, starter, skin, trade_skin)))
 
+@client.command(description="check which pending trades you're involved in")
+async def any_trades_db(ctx):
+    await ctx.send(embed=embed_it(ctx, my_trades(ctx)))
+
 client.run(token) #run client
