@@ -274,7 +274,9 @@ def my_trades(ctx):
     result = query_manage("select * from ongoing_trades where person = '{}' or recipient = '{}'".format(user, user))
     print(result)
     print(type(result))
-    return result
+    if result == []:
+        return "No trades."
+    return result # make more user-friendly
 
 def check_trades(ctx, player_invs, ongoing_trades):
     user = str(ctx.author.id)
