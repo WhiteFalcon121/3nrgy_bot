@@ -71,7 +71,7 @@ def get_item(list_name):
     return item
 
 def increase_spin_num(person):
-    result = query_manage(("update user_info set num_of_spins = num_of_spins + 1 where user_id = %s",(person)))
+    result = query_manage(("update user_info set num_of_spins = num_of_spins + 1 where user_id = '%s'",(person)))
     if result != 0:
         return 1
     return 0
@@ -127,7 +127,7 @@ def spin_roulette_db(ctx):
     if result == 1 and result2 == 1:
         return statement, gif
     elif result2 == 0:
-        return "Not able to increase the number of roulette spins."
+        return "Not able to increase the number of roulette spins, but item added."
     return "Error, not able to add item."
 
 def any_dup(person1, person2, skin, trade_skin): #person1 = author
