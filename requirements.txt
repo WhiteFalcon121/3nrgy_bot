@@ -9,3 +9,4 @@ python-dotenv
 boto
 asyncpg
 psycopg2
+threading

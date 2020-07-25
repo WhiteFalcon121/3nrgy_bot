@@ -21,6 +21,20 @@ client = commands.Bot(command_prefix = '//') #bot instance created, called clien
 async def on_ready(): #asynchronous function - when bot is ready (first event)
     print("I'm ready, now!")
 
+import threading
+def b():
+    print('a')
+    timer2 = threading.Timer(2.0, a)
+    timer2.start()
+
+def a():
+    print('alarm')
+    b()
+
+
+timer2 = threading.Timer(2.0, a)
+timer2.start()
+
 # trading system command_prefix
 player_invs = {} #move into other file later on
 ongoing_trades = [] # make code to delete same trades
