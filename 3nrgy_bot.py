@@ -17,32 +17,9 @@ import psycopg2
 token = os.environ.get("BOT_TOKEN") # discord bot token goes here#
 client = commands.Bot(command_prefix = '//') #bot instance created, called client
 
-import sched
-import time
-
-scheduler = sched.scheduler(time.time, time.sleep)
-
-def s():
-    event = scheduler.enterabs(time.time()+4, 1, s)
-    print('alarm', time.time())
-
-def hey(a):
-    print('hey', a)
-    #print(time.time())
-    #event = scheduler.enterabs(time.time()+4, 1, hey, 'd')
-    s()
-    #print(time.time(), 'now')
-
-
-
-
 @client.event #function represents event (1st event)
 async def on_ready(): #asynchronous function - when bot is ready (first event)
     print("I'm ready, now!")
-    #await ctx.send("I'm ready!")
-    hey('b')
-    scheduler.run()
-
 
 # trading system command_prefix
 player_invs = {} #move into other file later on
