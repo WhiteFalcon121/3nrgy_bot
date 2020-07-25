@@ -99,6 +99,9 @@ def decrease_spin_num(person):
 def spin_roulette_db(ctx):
     person = str(ctx.author.id)
     check_spins = get_num_of_spins(person)
+    print(check_spins)
+    check_spins = int(check_spins)
+    print(check_spins)
     if check_spins <= 0:
         return "You don't have enough spins."
     randnum = random.randint(0, 100)
