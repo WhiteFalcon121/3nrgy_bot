@@ -39,15 +39,23 @@ def create_new_inventory(ctx, player_invs):
         return "New inventory initialised. \n You're all set."
     else:
         return "You already have an inventory. If you want to reset, use the reset command."
-'''
 
-def get_user_info(user):
+
+def get_user_info(user, num=0):
     result = query_manage("select * from user_info where user_id = '{}'".format(user))
     print(result)
-    print(result[0][0])
-    print(result[0][1])
-    print(result[0][2])
-
+    id = result[0][0]
+    inv = result[0][1]
+    num_of_spins = result[0][2]
+    if num == 0:
+        return id, inv, num_of_spins
+    elif num == 1:
+        return id
+    elif num == 2:
+        return inv
+    elif num == 3:
+        return num_of_spins
+'''
 
 def create_new_inventory_db(ctx):
     person = str(ctx.author.id)
@@ -65,6 +73,10 @@ def read_inv_db(person): #read inventory of any specified person as an optional 
             return person_inv
         return "" #"You have nothing atm."
     return 0 #"Error - do you have an inventory?"
+
+def get_num_of_spins(person):
+    result = query_manage("select num_of_spins from user_info where user_id ='{}'".format(person))
+    return result
 
 def add_item_to_inv_db(person, item):
     if read_inv_db(person) != 0:
@@ -85,6 +97,10 @@ def decrease_spin_num(person):
     return 0
 
 def spin_roulette_db(ctx):
+    person = str(ctx.author.id)
+    check_spins = get_num_of_spins(person)
+    if check_spins <= 0:
+        return "You don't have enough spins."
     randnum = random.randint(0, 100)
     if randnum > 60:
         uncommon_list = ["aqua", "bark_auto", "blushed_mma", "carbon_mmr", "commo", "digital_auto", "dropper"]
@@ -128,7 +144,6 @@ def spin_roulette_db(ctx):
         item = get_item(unobtainable_list)
         gif = 'unobtainable.gif'
         statement = "Wow. Unobtainable - " + item
-    person = str(ctx.author.id)
     result = add_item_to_inv_db(person, item)
     result2 = decrease_spin_num(person)
     print(result)
