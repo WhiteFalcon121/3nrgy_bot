@@ -28,10 +28,10 @@ def s():
 
 def hey(a):
     print('hey', a)
-    print(time.time())
+    #print(time.time())
     #event = scheduler.enterabs(time.time()+4, 1, hey, 'd')
     s()
-    print(time.time(), 'now')
+    #print(time.time(), 'now')
 
 
 
