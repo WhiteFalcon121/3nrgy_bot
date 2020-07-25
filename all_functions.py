@@ -58,8 +58,7 @@ def read_inv_db(person): #read inventory of any specified person as an optional 
         return "" #"You have nothing atm."
     return 0 #"Error - do you have an inventory?"
 
-def add_item_to_inv_db(ctx, item):
-    person = str(ctx.author.id)
+def add_item_to_inv_db(person, item):
     if read_inv_db(person) != 0:
         result = query_manage("update user_info SET user_inv[CARDINALITY(user_inv)+1] = '{}' where user_id = '{}'".format(item, person))
         if result != 0:
@@ -70,6 +69,12 @@ def add_item_to_inv_db(ctx, item):
 def get_item(list_name):
     item = list_name[random.randint(0, len(list_name)-1)] #-1 because indexing starts with 0
     return item
+
+def increase_spin_num(person):
+    result = query_manage("update user_info set num_of_spins = num_of_spins + 1 where user_id = %s", (person))
+    if result != 0:
+        return 1
+    return 0
 
 def spin_roulette_db(ctx):
     randnum = random.randint(0, 100)
@@ -115,10 +120,14 @@ def spin_roulette_db(ctx):
         item = get_item(unobtainable_list)
         gif = 'unobtainable.gif'
         statement = "Wow. Unobtainable - " + item
-    result = add_item_to_inv_db(ctx, item)
+    person = str(ctx.author.id)
+    result = add_item_to_inv_db(person, item)
+    result2 = increase_spin_num(person)
     print(result)
-    if result == 1:
+    if result == 1 and result2 == 1:
         return statement, gif
+    elif result2 == 0:
+        return "Not able to increase the number of roulette spins."
     return "Error, not able to add item."
 
 def any_dup(person1, person2, skin, trade_skin): #person1 = author

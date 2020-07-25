@@ -22,6 +22,7 @@ async def on_ready(): #asynchronous function - when bot is ready (first event)
     print("I'm ready, now!")
 
 import threading
+'''
 def b():
     print('a')
     timer2 = threading.Timer(2.0, a)
@@ -34,6 +35,7 @@ def a():
 
 timer2 = threading.Timer(2.0, a)
 timer2.start()
+'''
 
 # trading system command_prefix
 player_invs = {} #move into other file later on
@@ -204,5 +206,7 @@ async def accept_trade_db(ctx, starter:discord.Member, skin, trade_skin):
 @client.command(description="check which pending trades you're involved in")
 async def any_trades_db(ctx):
     await ctx.send(embed=embed_it(ctx, my_trades(ctx)))
+
+#    ---- - - -- - --- CHANGE .FORMAT TO %s TO PREVENT SQL INJECTION
 
 client.run(token) #run client
