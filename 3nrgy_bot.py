@@ -37,9 +37,9 @@ def hey(a):
 
 
 @client.event #function represents event (1st event)
-async def on_ready(ctx): #asynchronous function - when bot is ready (first event)
+async def on_ready(): #asynchronous function - when bot is ready (first event)
     print("I'm ready, now!")
-    await ctx.send("I'm ready!")
+    #await ctx.send("I'm ready!")
     hey('b')
     scheduler.run()
 
