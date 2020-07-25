@@ -44,9 +44,9 @@ def create_new_inventory(ctx, player_invs):
 def get_user_info(user):
     result = query_manage("select * from user_info where user_id = '{}'".format(user))
     print(result)
-    print(result[0][0][0])
-    print(result[0][0][1])
-    print(result[0][0][2])
+    print(result[0][0])
+    print(result[0][1])
+    print(result[0][2])
 
 
 def create_new_inventory_db(ctx):
