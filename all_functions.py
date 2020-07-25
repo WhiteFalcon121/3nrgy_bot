@@ -71,7 +71,7 @@ def get_item(list_name):
     return item
 
 def increase_spin_num(person):
-    result = query_manage("update user_info set num_of_spins = num_of_spins + 1 where user_id = %s"%person)
+    result = query_manage("update user_info set num_of_spins = num_of_spins + 1 where user_id = '{}'".format(person))
     if result != 0:
         return 1
     return 0
