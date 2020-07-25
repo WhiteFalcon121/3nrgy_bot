@@ -278,6 +278,23 @@ def my_trades(ctx):
         return "No trades."
     return result # make more user-friendly
 
+
+#refresh - just add 1 whenever roulette used, 3 every hour
+#import pytz
+#import datetime
+#from datetime import timedelta
+#def time():
+    #full_time = ""
+    #tz = pytz.timezone('GB')
+    #fullinfo = datetime.datetime.now(tz)
+#    print(fullinfo)
+    #a = (fullinfo + timedelta(hours=3))
+    #if a != fullinfo:
+    #    print('Ok')
+    #print(a)
+    #print(str(a)[11:16])
+#time()
+
 def check_trades(ctx, player_invs, ongoing_trades):
     user = str(ctx.author.id)
     display_list = []

@@ -193,4 +193,31 @@ async def accept_trade_db(ctx, starter:discord.Member, skin, trade_skin):
 async def any_trades_db(ctx):
     await ctx.send(embed=embed_it(ctx, my_trades(ctx)))
 
+
+
+
+import sched
+import time
+
+scheduler = sched.scheduler(time.time, time.sleep)
+
+def s():
+    event = scheduler.enterabs(time.time()+4, 1, s)
+    print('alarm', time.time())
+
+def hey(a):
+    print('hey', a)
+    print(time.time())
+    #event = scheduler.enterabs(time.time()+4, 1, hey, 'd')
+    s()
+    print(time.time(), 'now')
+
+
+
+#print(time.time())
+#event = scheduler.enterabs(time.time()+3, 1, hey, 'a')
+#event = scheduler.enterabs(time.time()+4, 1, hey, 'b')
+hey('b')
+scheduler.run()
+
 client.run(token) #run client
