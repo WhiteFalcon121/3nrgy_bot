@@ -41,6 +41,14 @@ def create_new_inventory(ctx, player_invs):
         return "You already have an inventory. If you want to reset, use the reset command."
 '''
 
+def get_user_info(user):
+    result = query_manage("select * from user_info where user_id = '{}'".format(user))
+    print(result)
+    print(result[0])
+    print(result[0][0])
+    print(result[0][0][0])
+
+
 def create_new_inventory_db(ctx):
     person = str(ctx.author.id)
     # check if person has inventory
@@ -70,8 +78,8 @@ def get_item(list_name):
     item = list_name[random.randint(0, len(list_name)-1)] #-1 because indexing starts with 0
     return item
 
-def increase_spin_num(person):
-    result = query_manage("update user_info set num_of_spins = num_of_spins + 1 where user_id = '{}'".format(person))
+def decrease_spin_num(person):
+    result = query_manage("update user_info set num_of_spins = num_of_spins - 1 where user_id = '{}'".format(person))
     if result != 0:
         return 1
     return 0
@@ -122,12 +130,12 @@ def spin_roulette_db(ctx):
         statement = "Wow. Unobtainable - " + item
     person = str(ctx.author.id)
     result = add_item_to_inv_db(person, item)
-    result2 = increase_spin_num(person)
+    result2 = decrease_spin_num(person)
     print(result)
     if result == 1 and result2 == 1:
         return statement, gif
     elif result2 == 0:
-        return "Not able to increase the number of roulette spins, but item added."
+        return "Not able to decrease the number of roulette spins, but item added."
     return "Error, not able to add item."
 
 def any_dup(person1, person2, skin, trade_skin): #person1 = author
