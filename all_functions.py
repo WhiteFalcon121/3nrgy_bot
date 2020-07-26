@@ -63,6 +63,7 @@ def create_new_inventory_db(ctx):
     result = query_manage("insert into user_info (user_id, user_inv) VALUES ('{}', '{}')".format(person, {}))
     if result != 0:
         return "New inventory created."
+        # start timer
     return "Error - do you already have an inventory?"
 
 def read_inv_db(person): #read inventory of any specified person as an optional parameter
@@ -96,10 +97,17 @@ def decrease_spin_num(person):
         return 1
     return 0
 
+def give_3_spins(person):
+    result = query_manage("update user_info set num_of_spins = num_of_spins + 3 where user_id = '{}'".format(person))
+    if result == 1:
+        return 1
+    return 0
+
 def spin_roulette_db(ctx):
     person = str(ctx.author.id)
+    if read_inv_db(person) == 0:
+        return "You don't have an inventory, yet. Make one."
     check_spins = get_num_of_spins(person)[0][0]
-    print(check_spins)
     if check_spins <= 0:
         return "You don't have enough spins."
     randnum = random.randint(0, 100)

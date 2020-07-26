@@ -23,18 +23,20 @@ async def on_ready(): #asynchronous function - when bot is ready (first event)
 
 import threading
 '''
-def b():
+import threading
+def b(id):
     print('a')
-    timer2 = threading.Timer(2.0, a)
+    timer2 = threading.Timer(2, a, [id])
     timer2.start()
-
-def a():
+#10800
+def a(c):
     print('alarm')
-    b()
+    print(c)
+    print(type(c))
+    b(c)
 
-
-timer2 = threading.Timer(2.0, a)
-timer2.start()
+b('the_id')
+b('2nd_id')
 '''
 
 # trading system command_prefix
@@ -154,7 +156,7 @@ async def db_send_all(ctx):
     everything = cursor.fetchall()
     con.close()
     await ctx.send(everything)
-
+'''
 @client.command()
 async def db_get_inv(ctx): # test cmd
     con = psycopg2.connect(DATABASE_URL, sslmode = 'require')
@@ -167,7 +169,7 @@ async def db_get_inv(ctx): # test cmd
     print(person_inv)
     con.close()
     await ctx.send(person_inv)
-
+'''
 @client.command()
 async def db_make_inv(ctx):
     await ctx.send(embed=embed_it(ctx, create_new_inventory_db(ctx)))
