@@ -62,8 +62,8 @@ def create_new_inventory_db(ctx):
     # check if person has inventory
     result = query_manage("insert into user_info (user_id, user_inv) VALUES ('{}', '{}')".format(person, {}))
     if result != 0:
+        set_refresh_for(person) # set refresh
         return "New inventory created."
-        # start timer
     return "Error - do you already have an inventory?"
 
 def read_inv_db(person): #read inventory of any specified person as an optional parameter
@@ -102,6 +102,26 @@ def give_3_spins(person):
     if result == 1:
         return 1
     return 0
+# ----    REFRESH TIMER
+import threading
+def timer(id):
+    print('alarm set for ', id)
+    timer2 = threading.Timer(30, handler, [id]) # ----- CHANGE REFRESH TIME AFTER TEST TO 6 HOURS
+    timer2.start()
+#10800
+def handler(c): # handles the alarm
+    print('alarm received for ', c)
+    print(c)
+    #print(type(c))
+    result = give_3_spins(c)
+    if result == 0:
+        print('refresh cancelled - error occured with ', c)
+        return #LEAVE LOOP
+    timer(c)
+
+def set_refresh_for(a):
+    timer(a)
+#set_timer_for('the_id')
 
 def spin_roulette_db(ctx):
     person = str(ctx.author.id)

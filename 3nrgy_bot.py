@@ -32,11 +32,18 @@ def b(id):
 def a(c):
     print('alarm')
     print(c)
-    print(type(c))
+    #print(type(c))
+    #  result = give_3_spins(c)
+    #  if result == 0: return ---- LEAVE LOOP
     b(c)
 
-b('the_id')
-b('2nd_id')
+#b('the_id')
+#b('2nd_id')
+
+def set_timer_for(a):
+    b(a)
+
+set_timer_for('the_id')
 '''
 
 # trading system command_prefix
