@@ -170,7 +170,7 @@ async def db_get_inv(ctx): # test cmd
     cursor = con.cursor() #used to execute commands like a mouse cursor is used to click things
     person = str(ctx.author.id)
     #get_inv_query = "select user_inv from user_info WHERE user_id = '{}'".format(person)
-    get_inv_query = ("select user_inv from user_info WHERE user_id = %(person)s",{'person':person})
+    get_inv_query = ("select user_inv from user_info WHERE user_id = %s",(person))
     print(get_inv_query)
     cursor.execute(get_inv_query)
     person_inv = cursor.fetchall()
