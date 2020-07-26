@@ -117,7 +117,7 @@ def decrease_spin_num(person):
     return 0
 
 def give_3_spins(person):
-    if read_inv_db(person) != 0
+    if read_inv_db(person)!= 0:
         result = query_manage("update user_info set num_of_spins = num_of_spins + 3 where user_id = '{}'".format(person))
         if result == 1:
             return 1
