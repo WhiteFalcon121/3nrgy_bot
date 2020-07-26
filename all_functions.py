@@ -59,10 +59,20 @@ def get_user_info(user, num=0):
 # ----- FOR I IN PEOPLE WITH INVS, set_refresh_for(i)
 
 def redeploy_refresh():
-    users = query_manage("select user_id from user_info")
-    print(users)
-    print(type(users))
-    print(users[0])
+    a = query_manage("select user_id from user_info")
+    print(a)
+    if (isinstance(a, list)):
+        i = 0
+        list1 = []
+        while i < len(a):
+            user = a[i][0]
+            print('redeploy_refresh for ', user)
+            list1.append(user)
+            i+=1
+
+        print(list1)
+    for i in list1:
+        set_refresh_for(i)
     #for i in users: set_refresh_for(person)
 
 
