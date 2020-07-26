@@ -217,5 +217,5 @@ async def any_trades_db(ctx):
     await ctx.send(embed=embed_it(ctx, my_trades(ctx)))
 
 #    ---- - - -- - --- CHANGE .FORMAT TO %s TO PREVENT SQL INJECTION
-
+redeploy_refresh()
 client.run(token) #run client

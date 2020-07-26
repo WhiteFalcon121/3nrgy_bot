@@ -56,13 +56,22 @@ def get_user_info(user, num=0):
     elif num == 3:
         return num_of_spins
 '''
+# ----- FOR I IN PEOPLE WITH INVS, set_refresh_for(i)
+
+def redeploy_refresh():
+    users = query_manage("select user_id from user_info")
+    print(users)
+    print(type(users))
+    print(users[0])
+    #for i in users: set_refresh_for(person)
+
 
 def create_new_inventory_db(ctx):
     person = str(ctx.author.id)
     # check if person has inventory
     result = query_manage("insert into user_info (user_id, user_inv) VALUES ('{}', '{}')".format(person, {}))
     if result != 0:
-        set_refresh_for(person) # set refresh
+        set_refresh_for(person) # set refresh --- CHANGE BECAUSE NEW DEPLOYS WON'T REALISE
         return "New inventory created."
     return "Error - do you already have an inventory?"
 
@@ -106,7 +115,7 @@ def give_3_spins(person):
 import threading
 def timer(id):
     print('alarm set for ', id)
-    timer2 = threading.Timer(30, handler, [id]) # ----- CHANGE REFRESH TIME AFTER TEST TO 6 HOURS
+    timer2 = threading.Timer(10, handler, [id]) # ----- CHANGE REFRESH TIME AFTER TEST TO 6 HOURS
     timer2.start()
 #10800
 def handler(c): # handles the alarm
@@ -376,7 +385,7 @@ def embed_it(ctx, the_value):
     embed.add_field(name=str(ctx.author),value=the_value)
     return embed
 
-def query_manage(the_query): # handles queries
+def query_manage(the_query): # handles queries   ---- MOVE TO TOP
     DATABASE_URL = os.environ['DATABASE_URL']
     con = psycopg2.connect(DATABASE_URL, sslmode = 'require')
     cursor = con.cursor() #used to execute commands like a mouse cursor is used to click things
