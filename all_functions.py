@@ -127,7 +127,7 @@ def give_3_spins(person):
 import threading
 def timer(id):
     print('alarm set for ', id)
-    timer2 = threading.Timer(10, handler, [id]) # ----- CHANGE REFRESH TIME AFTER TEST TO 6 HOURS
+    timer2 = threading.Timer(21600, handler, [id])
     timer2.start()
 #10800
 def handler(c): # handles the alarm
