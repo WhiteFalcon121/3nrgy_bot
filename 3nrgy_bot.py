@@ -163,20 +163,21 @@ async def db_send_all(ctx):
     everything = cursor.fetchall()
     con.close()
     await ctx.send(everything)
-'''
+
 @client.command()
 async def db_get_inv(ctx): # test cmd
     con = psycopg2.connect(DATABASE_URL, sslmode = 'require')
     cursor = con.cursor() #used to execute commands like a mouse cursor is used to click things
-    person = 'test1'
-    get_inv_query = "select user_inv from user_info WHERE user_id = '{}'".format(person)
+    person = str(ctx.author.id)
+    #get_inv_query = "select user_inv from user_info WHERE user_id = '{}'".format(person)
+    get_inv_query = ("select user_inv from user_info WHERE user_id = %(person)s",{'person':person})
     print(get_inv_query)
     cursor.execute(get_inv_query)
     person_inv = cursor.fetchall()
     print(person_inv)
     con.close()
     await ctx.send(person_inv)
-'''
+
 @client.command()
 async def db_make_inv(ctx):
     await ctx.send(embed=embed_it(ctx, create_new_inventory_db(ctx)))
