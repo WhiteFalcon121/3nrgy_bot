@@ -79,14 +79,17 @@ def redeploy_refresh():
 def create_new_inventory_db(ctx):
     person = str(ctx.author.id)
     # check if person has inventory
-    result = query_manage("insert into user_info (user_id, user_inv) VALUES ('{}', '{}')".format(person, {}))
+    #"select user_inv from user_info WHERE user_id = %s", (person,)
+    #result = query_manage("insert into user_info (user_id, user_inv) VALUES ('{}', '{}')".format(person, {}))
+    result = query_manage("insert into user_info (user_id, user_inv) VALUES (%s, '{}')", (person,))
     if result != 0:
         set_refresh_for(person) # set refresh --- CHANGE BECAUSE NEW DEPLOYS WON'T REALISE
         return "New inventory created."
     return "Error - do you already have an inventory?"
 
 def read_inv_db(person): #read inventory of any specified person as an optional parameter
-    result = query_manage("select user_inv from user_info WHERE user_id = '{}'".format(person))
+    #result = query_manage("select user_inv from user_info WHERE user_id = '{}'".format(person))
+    result = query_manage("select user_inv from user_info WHERE user_id = %s", (person,))
     if result != 0 and result != []: # result is [] when the table is empty
         person_inv = ', '.join(result[0][0])
         if len(person_inv) > 0:
@@ -95,12 +98,14 @@ def read_inv_db(person): #read inventory of any specified person as an optional 
     return 0 #"Error - do you have an inventory?"
 
 def get_num_of_spins(person):
-    result = query_manage("select num_of_spins from user_info where user_id ='{}'".format(person))
+    #result = query_manage("select num_of_spins from user_info where user_id ='{}'".format(person))
+    result = query_manage("select num_of_spins from user_info where user_id = %s", (person,))
     return result
 
 def add_item_to_inv_db(person, item):
     if read_inv_db(person) != 0:
-        result = query_manage("update user_info SET user_inv[CARDINALITY(user_inv)+1] = '{}' where user_id = '{}'".format(item, person))
+        #result = query_manage("update user_info SET user_inv[CARDINALITY(user_inv)+1] = '{}' where user_id = '{}'".format(item, person))
+        result = query_manage("update user_info SET user_inv[CARDINALITY(user_inv)+1] = %s where user_id = %s", (item, person))
         if result != 0:
             return 1
         return 0
@@ -111,18 +116,21 @@ def get_item(list_name):
     return item
 
 def decrease_spin_num(person):
-    result = query_manage("update user_info set num_of_spins = num_of_spins - 1 where user_id = '{}'".format(person))
+    #result = query_manage("update user_info set num_of_spins = num_of_spins - 1 where user_id = '{}'".format(person))
+    result = query_manage("update user_info set num_of_spins = num_of_spins - 1 where user_id = %s", (person,))
     if result != 0:
         return 1
     return 0
 
 def give_3_spins(person):
     if read_inv_db(person)!= 0:
-        result = query_manage("update user_info set num_of_spins = num_of_spins + 3 where user_id = '{}'".format(person))
+        #result = query_manage("update user_info set num_of_spins = num_of_spins + 3 where user_id = '{}'".format(person))
+        result = query_manage("update user_info set num_of_spins = num_of_spins + 3 where user_id = %s", (person,))
         if result == 1:
             return 1
         return 0
     return 0
+
 # ----    REFRESH TIMER
 import threading
 def timer(id):
@@ -142,7 +150,7 @@ def handler(c): # handles the alarm
 
 def set_refresh_for(a):
     timer(a)
-#set_timer_for('the_id')
+# -----
 
 def spin_roulette_db(ctx):
     person = str(ctx.author.id)
@@ -204,13 +212,15 @@ def spin_roulette_db(ctx):
     return "Error, not able to add item."
 
 def any_dup(person1, person2, skin, trade_skin): #person1 = author
-    check_for_dup = query_manage("select * from ongoing_trades where ((person = '{}' and recipient = '{}') or (person = '{}' and recipient = '{}')) and ((skin = '{}' and trade_skin = '{}') or (skin='{}' and trade_skin='{}'))".format(person1, person2, person2, person1, skin, trade_skin, trade_skin, skin))
+    #check_for_dup = query_manage("select * from ongoing_trades where ((person = '{}' and recipient = '{}') or (person = '{}' and recipient = '{}')) and ((skin = '{}' and trade_skin = '{}') or (skin='{}' and trade_skin='{}'))".format(person1, person2, person2, person1, skin, trade_skin, trade_skin, skin))
+    check_for_dup = query_manage("select * from ongoing_trades where ((person = %s and recipient = %s) or (person = %s and recipient = %s)) and ((skin = %s and trade_skin = %s) or (skin=%s and trade_skin=%s))",(person1, person2, person2, person1, skin, trade_skin, trade_skin, skin))
     if check_for_dup != 1 and check_for_dup!=[]:
         return 1 # there are dupes     "This trade is already a pending trade."
     return 0 # no dupes
 
 def already_trade(person, starter, skin, trade_skin):
-    result = query_manage("select * from ongoing_trades where person = '{}' and recipient = '{}' and skin='{}' and trade_skin='{}' ".format(starter, person, trade_skin, skin))
+    #result = query_manage("select * from ongoing_trades where person = '{}' and recipient = '{}' and skin='{}' and trade_skin='{}' ".format(starter, person, trade_skin, skin))
+    result = query_manage("select * from ongoing_trades where person = %s and recipient = %s and skin=%s and trade_skin=%s ",(starter, person, trade_skin, skin))
     if result != 1 and result != []:
         return 1
     return 0
@@ -240,7 +250,8 @@ def ask_for_trade_db(ctx, recipient, skin, trade_skin):
     #if check_for_dup != 1 and check_for_dup!=[]:
         #return "This trade is already a pending trade."
 
-    add_trade_to_db = query_manage("insert into ongoing_trades (person, recipient, skin, trade_skin) VALUES ('{}', '{}', '{}', '{}')".format(person, recipient, skin, trade_skin))
+    #add_trade_to_db = query_manage("insert into ongoing_trades (person, recipient, skin, trade_skin) VALUES ('{}', '{}', '{}', '{}')".format(person, recipient, skin, trade_skin))
+    add_trade_to_db = query_manage("insert into ongoing_trades (person, recipient, skin, trade_skin) VALUES (%s, %s, %s, %s)",(person, recipient, skin, trade_skin))
     if add_trade_to_db == 1:
         return "When " + recipient_name + " accepts the trade, the items will be swapped."
     else:
@@ -256,12 +267,15 @@ def accept_trade(ctx, starter, skin, trade_skin):
         # update user_info SET user_inv = array_replace(user_inv, 'SKIN', 'SKIN TO BE ADDED') where user_id = 'USER_ID'
         person_inv, starter_inv = read_inv_db(person), read_inv_db(starter)
         if skin in person_inv and trade_skin in starter_inv:
-            result1 = query_manage("update user_info SET user_inv = array_replace(user_inv, '{}', '{}') where user_id = '{}'".format(trade_skin, skin, starter))
-            result2 = query_manage("update user_info SET user_inv = array_replace(user_inv, '{}', '{}') where user_id = '{}'".format(skin, trade_skin, person))
+            #result1 = query_manage("update user_info SET user_inv = array_replace(user_inv, '{}', '{}') where user_id = '{}'".format(trade_skin, skin, starter))
+            result1 = query_manage("update user_info SET user_inv = array_replace(user_inv, %s, %s) where user_id = %s",(trade_skin, skin, starter))
+            #result2 = query_manage("update user_info SET user_inv = array_replace(user_inv, '{}', '{}') where user_id = '{}'".format(skin, trade_skin, person))
+            result2 = query_manage("update user_info SET user_inv = array_replace(user_inv, %s, %s) where user_id = %s",(skin, trade_skin, person))
             print(result1, result2)
             if result1 != 0 and result2 != 0:
                 #delete from ongoing_trades where person = 'STARTER' and recipient = 'PERSON' and skin='TRADE_SKIN' and trade_skin='SKIN'
-                result3 = query_manage("delete from ongoing_trades where person = '{}' and recipient = '{}' and skin='{}' and trade_skin='{}'".format(starter, person, trade_skin, skin)) # delete from ongoing_trades
+                #result3 = query_manage("delete from ongoing_trades where person = '{}' and recipient = '{}' and skin='{}' and trade_skin='{}'".format(starter, person, trade_skin, skin)) # delete from ongoing_trades
+                result3 = query_manage("delete from ongoing_trades where person = %s and recipient = %s and skin=%s and trade_skin=%s",(starter, person, trade_skin, skin)) # delete from ongoing_trades
                 if result3 != 3:
                     return "Trade with " + starter_name + " was complete."
                 return "Error. Unable to delete from ongoing_trades."
@@ -282,7 +296,7 @@ def ask_user_for_trade(player_invs, ctx, ongoing_trades, recipient, skin, trade_
         return "When " + recipient_name + " accepts the trade, the items will swap."
     else:
         return "That is an invalid trade."
-'''
+
 def execute_trade(ctx, player_invs, ongoing_trades, starter, trade_skin, skin):
     person = str(ctx.author.id)
     starter = str(starter.id)
@@ -302,7 +316,7 @@ def execute_trade(ctx, player_invs, ongoing_trades, starter, trade_skin, skin):
         return "Trade complete."
     else:
         return "This trade hasn't been requested so you can't accept it? Lol. \n Request it if you want it."
-'''
+
 def spin_roulette(ctx, player_invs):
     randnum = random.randint(0, 100)
     if randnum > 60:
@@ -353,7 +367,8 @@ def spin_roulette(ctx, player_invs):
 
 def my_trades(ctx):
     user = str(ctx.author.id)
-    result = query_manage("select * from ongoing_trades where person = '{}' or recipient = '{}'".format(user, user))
+    #result = query_manage("select * from ongoing_trades where person = '{}' or recipient = '{}'".format(user, user))
+    result = query_manage("select * from ongoing_trades where person = %s or recipient = %s",(user, user))
     print(result)
     print(type(result))
     if result == []:
@@ -376,7 +391,7 @@ def my_trades(ctx):
     #print(a)
     #print(str(a)[11:16])
 #time()
-
+'''
 def check_trades(ctx, player_invs, ongoing_trades):
     user = str(ctx.author.id)
     display_list = []
@@ -391,7 +406,7 @@ def check_trades(ctx, player_invs, ongoing_trades):
             return "No ongoing trades involving you."
     else:
         return "No inventory."
-
+'''
 def embed_it(ctx, the_value):
     embed = discord.Embed(color = 0x61cc33)
     embed.add_field(name=str(ctx.author),value=the_value)
