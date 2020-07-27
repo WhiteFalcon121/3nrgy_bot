@@ -176,7 +176,7 @@ async def db_get_inv(ctx): # test cmd
     #cursor.execute(get_inv_query)
     #-----THIS ONE cursor.execute("select user_inv from user_info WHERE user_id = %s", (person,))
     #person_inv = cursor.fetchall()
-    person_inv = query_manage("select user_inv from user_info WHERE user_id = %s", (person,))
+    person_inv = query_manage(("select user_inv from user_info WHERE user_id = %s", (person,)))
     print(person_inv)
     con.close()
     await ctx.send(person_inv)
