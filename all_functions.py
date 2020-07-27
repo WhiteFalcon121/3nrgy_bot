@@ -71,8 +71,8 @@ def redeploy_refresh():
             i+=1
 
         print(list1)
-    for i in list1:
-        set_refresh_for(i)
+        for i in list1:  ## fix this
+            set_refresh_for(i)
     #for i in users: set_refresh_for(person)
 
 
