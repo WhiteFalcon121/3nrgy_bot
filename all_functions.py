@@ -397,12 +397,15 @@ def embed_it(ctx, the_value):
     embed.add_field(name=str(ctx.author),value=the_value)
     return embed
 
-def query_manage(the_query): # handles queries   ---- MOVE TO TOP
+def query_manage(the_query, data=None): # handles queries   ---- MOVE TO TOP
     DATABASE_URL = os.environ['DATABASE_URL']
     con = psycopg2.connect(DATABASE_URL, sslmode = 'require')
     cursor = con.cursor() #used to execute commands like a mouse cursor is used to click things
     try:
-        cursor.execute(the_query)
+        if data==None:
+            cursor.execute(the_query)
+        else:
+            cursor.execute(the_query, data)
         try:
             result = cursor.fetchall()
             return result
