@@ -9,6 +9,7 @@ from discord.ext import commands #discord extension
 from all_functions import *
 import asyncpg
 import psycopg2
+import threading
 #------MOVE ALL IMPORTS + VARS INTO ALL_FUNCTIONS
 
 #load_dotenv() # make .env file accessible
@@ -17,34 +18,11 @@ import psycopg2
 token = os.environ.get("BOT_TOKEN") # discord bot token goes here#
 client = commands.Bot(command_prefix = '//') #bot instance created, called client
 
+DATABASE_URL = os.environ['DATABASE_URL']
+
 @client.event #function represents event (1st event)
 async def on_ready(): #asynchronous function - when bot is ready (first event)
     print("I'm ready, now!")
-
-import threading
-'''
-import threading
-def b(id):
-    print('a')
-    timer2 = threading.Timer(2, a, [id])
-    timer2.start()
-#10800
-def a(c):
-    print('alarm')
-    print(c)
-    #print(type(c))
-    #  result = give_3_spins(c)
-    #  if result == 0: return ---- LEAVE LOOP
-    b(c)
-
-#b('the_id')
-#b('2nd_id')
-
-def set_timer_for(a):
-    b(a)
-
-set_timer_for('the_id')
-'''
 
 # trading system command_prefix
 player_invs = {} #move into other file later on
@@ -88,7 +66,7 @@ async def roulette(ctx):
 async def any_trades(ctx):
     global player_invs, ongoing_trades
     await ctx.send(embed=embed_it(ctx, check_trades(ctx, player_invs, ongoing_trades)))
-# see trade requests involving user cmd
+
 #reset inv command
 #make check_trades return statement more userfriendly
 #add avatar to embeds
@@ -147,11 +125,6 @@ async def time(ctx):
     time = str(fullinfo)[11:16]
     await ctx.send(embed=embed_it(ctx, "It's " + time))
 
-#async def create_db_pool():
-   #client.db_con = await asyncpg.create_pool(database = os.environ.get("DATABASE_URL"))
-
-#client.loop.run_until_complete(create_db_pool())
-DATABASE_URL = os.environ['DATABASE_URL']
 
 #read everything:
 @client.command()   # test cmd + ADD DESCRIPTIONS TO ALL DB CMDS
@@ -169,13 +142,6 @@ async def db_get_inv(ctx): # test cmd
     con = psycopg2.connect(DATABASE_URL, sslmode = 'require')
     cursor = con.cursor() #used to execute commands like a mouse cursor is used to click things
     person = str(ctx.author.id)
-    #get_inv_query = "select user_inv from user_info WHERE user_id = '{}'".format(person)
-    #get_inv_query = "select user_inv from user_info WHERE user_id = %s", (person)
-    #get_inv_query = ("select user_inv from user_info WHERE user_id = %(person)s",{'person':person})
-    #print(get_inv_query)
-    #cursor.execute(get_inv_query)
-    #-----THIS ONE cursor.execute("select user_inv from user_info WHERE user_id = %s", (person,))
-    #person_inv = cursor.fetchall()
     person_inv = query_manage("select user_inv from user_info WHERE user_id = %s", (person,))
     print(person_inv)
     con.close()
