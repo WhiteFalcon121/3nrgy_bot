@@ -89,7 +89,7 @@ async def make_inv(ctx):
 @client.command()
 async def see_inv(ctx, person:discord.Member=None):
     #await ctx.send(embed=embed_it(ctx, read_inv_db(ctx)))
-    if person != none:
+    if person != None:
         person = str(person.id)
     else:
         person = str(ctx.author.id)
