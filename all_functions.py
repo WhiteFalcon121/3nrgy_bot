@@ -81,8 +81,8 @@ def give_3_spins(person):
 
 def get_datetime():
     tz = pytz.timezone('GB')
-    datetime = datetime.datetime.now(tz)
-    return datetime
+    return_ = datetime.datetime.now(tz)
+    return return_
 
 def refresh_time_left(person):
     result = query_manage("select refresh_time from user_info where user_id = %s" (person,))
