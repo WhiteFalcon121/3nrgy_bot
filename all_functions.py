@@ -85,7 +85,7 @@ def get_datetime():
     return return_
 
 def refresh_time_left(person):
-    result = query_manage("select refresh_time from user_info where user_id = %s" (person,))
+    result = query_manage("select refresh_time from user_info where user_id = %s", (person,))
     start_time = result
     time = get_datetime()
     print(time, start_time, start_time[0])
