@@ -215,7 +215,34 @@ def my_trades(ctx):
     print(type(result))
     if result == []:
         return "No trades."
-    return result # make more user-friendly
+
+    a = result
+    for i in a:
+        index = a.index(i)
+        i = list(i)
+        print(i)
+        a[index]= i
+
+    i = 0
+    for i in range(0, len(a)):
+        b = int((a[i][0]))
+        user = client.get_user(b)
+        print(user)
+        a[i][0] = user
+        i +=1
+        
+    i = 0
+    for i in range(0, len(a)):
+        b = int((a[i][1]))
+        user = client.get_user(b)
+        print(user)
+        a[i][1] = user
+        i+=1
+
+    print(a)
+    print(a[0])
+    return a
+    #return result
 
 def embed_it(ctx, the_value):
     embed = discord.Embed(color = 0x61cc33)

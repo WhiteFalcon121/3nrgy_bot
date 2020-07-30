@@ -103,7 +103,7 @@ async def see_inv(ctx, person:discord.Member=None):
     await ctx.send(embed=embed_it(ctx, statement))
 
 @client.command(description="use a spin on the roulette")
-async def roulette(ctx):
+async def roulette(ctx): #Uncommon = 40% Rare = 30% Epic = 15% Legendary = 8% Relic = 4% C = 2% U = 1%**
     result = spin_roulette_db(ctx)
     if len(result) == 2:
         await ctx.send(embed=embed_it(ctx, result[0]))
@@ -124,6 +124,5 @@ async def yes_trade(ctx, starter:discord.Member, skin, trade_skin):
 async def any_trades(ctx):
     await ctx.send(embed=embed_it(ctx, my_trades(ctx)))
 
-#    ---- - - -- - --- CHANGE .FORMAT TO %s TO PREVENT SQL INJECTION
 redeploy_refresh()
 client.run(token) #run client
