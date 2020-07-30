@@ -126,11 +126,11 @@ async def any_trades(ctx):
 
 @client.command(description="see the number of spins you have for your roulette")
 async def check_spins(ctx):
-    result = check_spins(str(ctx.author.id))[0][0]
+    result = get_num_of_spins(str(ctx.author.id))[0][0]
     if result > 0:
         result = "You have %s spins." %result
     else:
-        result = "You have 0 spins. Wait for the fresh."
+        result = "You have 0 spins. Wait for the refresh."
     await ctx.send(embed=embed_it(ctx, result))
 
 redeploy_refresh()
