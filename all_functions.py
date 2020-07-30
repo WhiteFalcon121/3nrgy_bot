@@ -90,7 +90,6 @@ def refresh_time_left(person):
     time = get_datetime()
     print(time, start_time, start_time[0])
 
-
 # ----    REFRESH TIMER
 import threading
 def timer(id):
