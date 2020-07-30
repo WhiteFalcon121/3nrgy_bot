@@ -208,7 +208,7 @@ def accept_trade(ctx, starter, skin, trade_skin):
         return "Skins not in invs anymore."
     return "You can't accept a trade that hasn't been requested."
 
-def my_trades(ctx):
+def my_trades(ctx, client):
     user = str(ctx.author.id)
     result = query_manage("select * from ongoing_trades where person = %s or recipient = %s",(user, user))
     print(result)
@@ -230,7 +230,7 @@ def my_trades(ctx):
         print(user)
         a[i][0] = user
         i +=1
-        
+
     i = 0
     for i in range(0, len(a)):
         b = int((a[i][1]))

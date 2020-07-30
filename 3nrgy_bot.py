@@ -122,7 +122,7 @@ async def yes_trade(ctx, starter:discord.Member, skin, trade_skin):
 
 @client.command(description="check which pending trades you're involved in")
 async def any_trades(ctx):
-    await ctx.send(embed=embed_it(ctx, my_trades(ctx)))
+    await ctx.send(embed=embed_it(ctx, my_trades(ctx, client)))
 
 redeploy_refresh()
 client.run(token) #run client
