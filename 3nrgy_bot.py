@@ -124,5 +124,14 @@ async def yes_trade(ctx, starter:discord.Member, skin, trade_skin):
 async def any_trades(ctx):
     await ctx.send(embed=embed_it(ctx, my_trades(ctx, client)))
 
+@client.command(description="see the number of spins you have for your roulette")
+async def check_spins(ctx):
+    result = check_spins(str(ctx.author.id))[0][0]
+    if result > 0:
+        result = "You have %s spins." %result
+    else:
+        result = "You have 0 spins. Wait for the fresh."
+    await ctx.send(embed=embed_it(ctx, result))
+
 redeploy_refresh()
 client.run(token) #run client
