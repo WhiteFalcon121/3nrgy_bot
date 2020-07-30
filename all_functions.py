@@ -79,12 +79,26 @@ def give_3_spins(person):
         return 0
     return 0
 
+def get_datetime():
+    tz = pytz.timezone('GB')
+    datetime = datetime.datetime.now(tz)
+    return datetime
+
+def refresh_time_left(person):
+    result = query_manage("select refresh_time from user_info where user_id = %s" (person,))
+    start_time = result
+    time = get_datetime()
+    print(time, start_time, start_time[0])
+
+
 # ----    REFRESH TIMER
 import threading
 def timer(id):
     print('alarm set for ', id)
     timer2 = threading.Timer(21600, handler, [id])
     timer2.start()
+    time = get_datetime()
+    result = query_manage("update user_info set refresh_time = %s", (time,))
 #10800
 def handler(c): # handles the alarm
     print('alarm received for ', c)
