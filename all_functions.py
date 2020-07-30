@@ -226,7 +226,6 @@ def my_trades(ctx, client):
     i = 0
     for i in range(0, len(a)):
         b = int((a[i][0]))
-        user = client.get_user(b)
         print(user)
         a[i][0] = user
         i +=1
@@ -234,7 +233,7 @@ def my_trades(ctx, client):
     i = 0
     for i in range(0, len(a)):
         b = int((a[i][1]))
-        user = client.get_user(b)
+        user =str(client.get_user(b))
         print(user)
         a[i][1] = user
         i+=1
