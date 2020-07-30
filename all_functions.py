@@ -226,7 +226,7 @@ def my_trades(ctx, client):
     i = 0
     for i in range(0, len(a)):
         b = int((a[i][0]))
-        print(user)
+        user = str(client.get_user(b))
         a[i][0] = user
         i +=1
 
@@ -238,9 +238,22 @@ def my_trades(ctx, client):
         a[i][1] = user
         i+=1
 
-    print(a)
-    print(a[0])
-    return a
+    b = a
+
+    return_ = ''
+    a = -1
+    print("\n")
+    for i in b:
+        a +=1
+        for i in b[a]:
+            return_ = return_ + i + " "
+            a += 1
+        return_ = return_ + "\n"
+        a = 0
+
+    print(return_)
+
+    return return_
     #return result
 
 def embed_it(ctx, the_value):
