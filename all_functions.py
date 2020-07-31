@@ -89,7 +89,6 @@ def refresh_time_left(person):
     start_time = datetime.datetime.strptime(result[0][0], '%Y-%m-%d %H:%M:%S.%f')
     time = get_datetime()
     time_elapsed = time - start_time
-    time_elapsed = datetime.datetime.strptime(time_elapsed, '%H:%M:%S')
     date = datetime.date(1, 1, 1)
     refresh_total = datetime.time(6, 00, 00, 00)
     refresh_total = datetime.datetime.combine(date, refresh_total)
