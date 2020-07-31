@@ -131,8 +131,7 @@ async def check_spins(ctx):
     if result > 0:
         result = "You have %s spins." %result
     else:
-        result = "You have 0 spins. Wait for the refresh."
-        refresh_time_left(person)
+        result = "You have 0 spins. Come back in " + refresh_time_left(person)
     await ctx.send(embed=embed_it(ctx, result))
 
 redeploy_refresh()
