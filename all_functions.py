@@ -92,7 +92,7 @@ def refresh_time_left(person):
     end_time = start_time + datetime.timedelta(hours=6)
     time = get_datetime()
     return_ = str(end_time - time)
-    return_ = return_[:4]
+    return_ = return_[:7]
     return return_
 
 # ----    REFRESH TIMER
