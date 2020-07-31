@@ -88,7 +88,14 @@ def refresh_time_left(person):
     result = query_manage("select refresh_time from user_info where user_id = %s", (person,))
     start_time = datetime.datetime.strptime(result[0][0], '%Y-%m-%d %H:%M:%S.%f')
     time = get_datetime()
-    print(time - start_time)
+    time_elapsed = time - start_time
+    time_elapsed = datetime.datetime.strptime(time_elapsed, '%H:%M:%S')
+    date = datetime.date(1, 1, 1)
+    refresh_total = datetime.time(6, 00, 00, 00)
+    refresh_total = datetime.datetime.combine(date, refresh_total)
+    time_elapsed = datetime.datetime.combine(date, time_elapsed)
+    time_left = (refresh_total - time_elapsed)
+    print(time_left)
     #print(start_time - )
     ## convert to datetime and subtract
 
