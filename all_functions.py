@@ -80,15 +80,17 @@ def give_3_spins(person):
     return 0
 
 def get_datetime():
-    tz = pytz.timezone('GB')
-    return_ = datetime.datetime.now(tz)
+    #No timezone
+    return_ = datetime.datetime.now()
     return return_
 
 def refresh_time_left(person):
     result = query_manage("select refresh_time from user_info where user_id = %s", (person,))
-    start_time = result
+    start_time = datetime.datetime.strptime(result[0][0], '%Y-%m-%d %H:%M:%S.%f')
     time = get_datetime()
-    print(time, start_time, start_time[0])
+    print(start_time - time)
+    #print(start_time - )
+    ## convert to datetime and subtract
 
 # ----    REFRESH TIMER
 import threading
