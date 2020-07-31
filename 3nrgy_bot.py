@@ -132,7 +132,9 @@ async def check_spins(ctx):
         result = "You have %s spins." %result
     else:
         result = "You have 0 spins. Come back in " + refresh_time_left(person)
-    await ctx.send(embed=embed_it(ctx, result))
+    msg = await ctx.send(embed=embed_it(ctx, result))
+    while 1:
+        msg.edit(content = "You have 0 spins. Come back in " + refresh_time_left(person))
 
 redeploy_refresh()
 client.run(token) #run client
