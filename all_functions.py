@@ -121,7 +121,7 @@ def set_refresh_for(a):
 def spin_roulette_db(ctx):
     person = str(ctx.author.id)
     if read_inv_db(person) == 0:
-        return "You don't have an inventory, yet. Make one."
+        return "You don't have an inventory, yet. Make one. (//help if you're unsure of what to do)"
     check_spins = get_num_of_spins(person)[0][0]
     if check_spins <= 0:
         return "You don't have enough spins."
