@@ -129,44 +129,53 @@ def spin_roulette_db(ctx):
     if randnum > 60:
         uncommon_list = ["aqua", "bark_auto", "blushed_mma", "carbon_mmr", "commo", "digital_auto", "dropper"]
         item = get_item(uncommon_list)
-        gif = 'uncommon.gif'
-        statement = "You got " + item
+        #gif = 'uncommon.gif'
+        rarity = 'uncommon'
+        #statement = "You got " + item
     elif 30 < randnum <= 60:
         rare_list = ["artic_auto", "auto_machinist", "autumn_auto", "bloodripper", "flecken_auto", "hazard_auto", "jade", "kodac_auto"]
         item = get_item(rare_list)
-        gif = 'rare.gif'
-        statement = "You got " + item
+        #gif = 'rare.gif'
+        rarity = 'rare'
+        #statement = "You got " + item
     elif 15 < randnum <= 30:
         epic_list = ["black_ice", "barbed_auto", "blaze_auto", "m14_chartreuse", "mma_cygento", "mma_octo"]
         item = get_item(epic_list)
-        gif = 'epic.gif'
-        statement = "You span " + item
+        #gif = 'epic.gif'
+        rarity = 'epic'
+        #statement = "You span " + item
     elif 7 < randnum <= 15:
         legendary_list = ["magnis", "shot_element", "acid_breath", "101_skullbreaker", "haste", "lava_bolt"]
         item = get_item(legendary_list)
-        gif = 'legendary.gif'
-        statement = "Legendary " + item + "!"
+        #gif = 'legendary.gif'
+        rarity = 'legendary'
+        #statement = "Legendary " + item + "!"
     elif 3 < randnum <= 7:
         relic_list = ["mma_plasma", "neuromance", "awp_pacemaker", "awp_stream", "neon_reaver", "razor"]
         item = get_item(relic_list)
-        gif = 'relic.gif'
-        statement = "Nice, you got relic - " + item
+        #gif = 'relic.gif'
+        rarity = 'relic'
+        #statement = "Nice, you got relic - " + item
     elif 1 < randnum <= 3:
         contraband_list = ["raynb0w", "1ad-da0", "xon-vox", "exos", "futuristic", "izula", "hackusate", "pellucid"]
         item = get_item(contraband_list)
-        gif = 'contraband.gif'
-        statement = "You got " + item
+        #gif = 'contraband.gif'
+        rarity = 'contraband'
+        #statement = "You got " + item
     else:
         unobtainable_list = ["disintegrator", "anti-matter", "wutdatime_exclusive"]
         item = get_item(unobtainable_list)
-        gif = 'unobtainable.gif'
-        statement = "Wow. Unobtainable - " + item
+        #gif = 'unobtainable.gif'
+        rarity = 'unobtainable'
+        #statement = "Wow. Unobtainable - " + item
     result = add_item_to_inv_db(person, item)
     result2 = decrease_spin_num(person)
     print(result)
     if result == 1 and result2 == 1:
         skin_image = '%s.png'%item
-        return statement, gif, skin_image
+        #return statement, gif, skin_image
+        skin_embed = embed_roulette(item, skin_image, rarity)
+        return skin_embed
     elif result2 == 0:
         return "Not able to decrease the number of roulette spins, but item added."
     return "Error, not able to add item."
@@ -278,6 +287,12 @@ def my_trades(ctx, client):
 def embed_it(ctx, the_value):
     embed = discord.Embed(color = 0x61cc33)
     embed.add_field(name=str(ctx.author),value=the_value)
+    return embed
+
+def embed_roulette(skin_name, skin_image, rarity):
+    embed = discord.Embed(color = 0x61cc33, title = skin_name) # change color depending on rarity
+    embed.set_image(url='attachment://%s'%skin_image)
+    embed.add_field(name='Rarity:', value=rarity)
     return embed
 
 def query_manage(the_query, data=None): # handles queries   ---- MOVE TO TOP

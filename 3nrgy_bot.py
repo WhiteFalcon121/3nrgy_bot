@@ -103,6 +103,7 @@ async def see_inv(ctx, person:discord.Member=None):
 
 @client.command(description="use a spin on the roulette")
 async def roulette(ctx): #Uncommon = 40% Rare = 30% Epic = 15% Legendary = 8% Relic = 4% C = 2% U = 1%**
+'''
     result = spin_roulette_db(ctx)
     print(result)
     print(type(result))
@@ -113,6 +114,7 @@ async def roulette(ctx): #Uncommon = 40% Rare = 30% Epic = 15% Legendary = 8% Re
     print(result[0])
     print(result[0][0])
     print(result[0][0][0])
+
     if len(result) == 3:
         await ctx.send(embed=embed_it(ctx, result[0]))
         await ctx.send(file=discord.File(result[1]))
@@ -122,6 +124,8 @@ async def roulette(ctx): #Uncommon = 40% Rare = 30% Epic = 15% Legendary = 8% Re
             await ctx.send(file=discord.File("question_mark.png"))
     else:
         await ctx.send(embed=embed_it(ctx, result))
+        '''
+    await ctx.send(embed=spin_roulette_db(ctx))
 
 @client.command(description="ask someone for a trade (trade structure is: the_recipient/other_person, your_skin, their_skin - even when you accept).")
 async def ask_trade(ctx, recipient:discord.Member, skin, trade_skin):
