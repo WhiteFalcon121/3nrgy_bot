@@ -129,6 +129,7 @@ async def check_spins(ctx):
     result = get_num_of_spins(person)[0][0]
     if result > 0:
         result = "You have %s spins." %result
+        await ctx.send(embed=embed_it(ctx, result))
     else:
         result = "You have 0 spins. Come back in " + refresh_time_left(person)
         msg = await ctx.send(embed=embed_it(ctx, result))
