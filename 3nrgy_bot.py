@@ -126,7 +126,10 @@ async def roulette(ctx): #Uncommon = 40% Rare = 30% Epic = 15% Legendary = 8% Re
         await ctx.send(embed=embed_it(ctx, result))
     '''
     result = spin_roulette_db(ctx)
-    await ctx.send(file = result[1], embed=result[0])
+    if len(result) == 2:
+        await ctx.send(file = result[1], embed=result[0])
+    else:
+        await ctx.send(result)
 
 @client.command(description="ask someone for a trade (trade structure is: the_recipient/other_person, your_skin, their_skin - even when you accept).")
 async def ask_trade(ctx, recipient:discord.Member, skin, trade_skin):
