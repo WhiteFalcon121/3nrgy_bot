@@ -165,7 +165,8 @@ def spin_roulette_db(ctx):
     result2 = decrease_spin_num(person)
     print(result)
     if result == 1 and result2 == 1:
-        return statement, gif
+        skin_image = '%s.png'%item
+        return statement, gif, skin_image
     elif result2 == 0:
         return "Not able to decrease the number of roulette spins, but item added."
     return "Error, not able to add item."

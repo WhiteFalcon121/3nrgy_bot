@@ -107,6 +107,10 @@ async def roulette(ctx): #Uncommon = 40% Rare = 30% Epic = 15% Legendary = 8% Re
     if len(result) == 2:
         await ctx.send(embed=embed_it(ctx, result[0]))
         await ctx.send(file=discord.File(result[1]))
+        try:
+            await ctx.send(file=discord.File(result[2]))
+        except:
+            await ctx.send(file=discord.File("question_mark.png"))
     else:
         await ctx.send(embed=embed_it(ctx, result))
 
