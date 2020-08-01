@@ -290,7 +290,20 @@ def embed_it(ctx, the_value):
     return embed
 
 def embed_roulette(skin_name, skin_image, rarity):
-    embed = discord.Embed(color = 0x61cc33, title = skin_name) # change color depending on rarity
+    if rarity == 'uncommon':
+        color = 0x61cc33
+    elif rarity == 'rare':
+        color = 0x3386FF
+    elif rarity == 'epic':
+        color = 0xF933FF
+    elif rarity == 'legendary':
+        color = 0xFDFA13
+    elif rarity = 'relic':
+        color = 0xFD2C13
+    else:
+        color = 0xD3D3D3
+
+    embed = discord.Embed(color = color, title = skin_name) # change color depending on rarity
     file = discord.File(skin_image)
     embed.set_image(url='attachment://%s'%skin_image)
     embed.add_field(name='Rarity:', value=rarity)
