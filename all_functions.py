@@ -298,7 +298,7 @@ def embed_roulette(skin_name, skin_image, rarity):
         color = 0xF933FF
     elif rarity == 'legendary':
         color = 0xFDFA13
-    elif rarity = 'relic':
+    elif rarity == 'relic':
         color = 0xFD2C13
     else:
         color = 0xD3D3D3
