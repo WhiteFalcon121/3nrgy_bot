@@ -291,9 +291,10 @@ def embed_it(ctx, the_value):
 
 def embed_roulette(skin_name, skin_image, rarity):
     embed = discord.Embed(color = 0x61cc33, title = skin_name) # change color depending on rarity
+    file = discord.File(skin_image)
     embed.set_image(url='attachment://%s'%skin_image)
     embed.add_field(name='Rarity:', value=rarity)
-    return embed
+    return embed, file
 
 def query_manage(the_query, data=None): # handles queries   ---- MOVE TO TOP
     DATABASE_URL = os.environ['DATABASE_URL']
