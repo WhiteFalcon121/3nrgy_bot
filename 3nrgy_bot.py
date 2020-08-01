@@ -28,7 +28,6 @@ async def on_ready(): #asynchronous function - when bot is ready (first event)
 #make check_trades return statement more userfriendly
 #add avatar to embeds
 #tier list
-#make a check validity cmd
 
 @client.command(description = "tells you the bot's ping")
 async def ping(ctx):
@@ -83,7 +82,7 @@ async def time(ctx):
 
 # ------ trading system cmds
 @client.command()
-async def make_inv(ctx):
+async def new_inv(ctx): ### ADD DESCRIPTIONS
     await ctx.send(embed=embed_it(ctx, create_new_inventory_db(ctx)))
 
 @client.command()
@@ -132,9 +131,9 @@ async def check_spins(ctx):
         result = "You have %s spins." %result
     else:
         result = "You have 0 spins. Come back in " + refresh_time_left(person)
-    msg = await ctx.send(embed=embed_it(ctx, result))
-    while 1:
-        await msg.edit(embed=embed_it(ctx, "You have 0 spins. Come back in " + refresh_time_left(person)))
+        msg = await ctx.send(embed=embed_it(ctx, result))
+        while 1:
+            await msg.edit(embed=embed_it(ctx, "You have 0 spins. Come back in " + refresh_time_left(person)))
 
 redeploy_refresh()
 client.run(token) #run client
