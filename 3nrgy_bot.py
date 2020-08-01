@@ -104,11 +104,20 @@ async def see_inv(ctx, person:discord.Member=None):
 @client.command(description="use a spin on the roulette")
 async def roulette(ctx): #Uncommon = 40% Rare = 30% Epic = 15% Legendary = 8% Relic = 4% C = 2% U = 1%**
     result = spin_roulette_db(ctx)
+    print(result)
+    print(type(result))
+    try:
+        print(len(result))
+    except:
+        print('length not found')
+    print(result[0])
+    print(result[0][0])
+    print(result[0][0][0])
     if len(result) == 2:
-        await ctx.send(embed=embed_it(ctx, result[0][0]))
-        await ctx.send(file=discord.File(result[0][1]))
+        await ctx.send(embed=embed_it(ctx, result[0]))
+        await ctx.send(file=discord.File(result[1]))
         try:
-            await ctx.send(file=discord.File(result[0][2]))
+            await ctx.send(file=discord.File(result[2]))
         except:
             await ctx.send(file=discord.File("question_mark.png"))
     else:
