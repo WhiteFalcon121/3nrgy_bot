@@ -10,6 +10,7 @@ from all_functions import *
 import asyncpg
 import psycopg2
 import threading
+import asyncio
 #------MOVE ALL IMPORTS + VARS INTO ALL_FUNCTIONS
 
 #load_dotenv() # make .env file accessible
@@ -131,7 +132,7 @@ async def guess_skin(ctx):
         def check_reaction(reaction, user, person):
             return str(user.id) == person and str(reaction.emoji) == answer
         try:
-            reaction, user = await client.wait_for('reaction_add', timeout = 10.0, check=check_reaction(person))
+            reaction, user = await client.wait_for('reaction_add', timeout = 10.0, check=check_reaction)
             print(reaction, user)
         except asyncio.TimeoutError:
             await ctx.send("Time's up!")

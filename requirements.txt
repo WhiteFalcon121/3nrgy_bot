@@ -10,3 +10,4 @@ boto
 asyncpg
 psycopg2
 threaded
+asyncio
