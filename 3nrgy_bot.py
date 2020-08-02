@@ -128,26 +128,23 @@ async def guess_skin(ctx):
         else:
             answer = emoji3
         print(answer)
-        '''
-        def if_answer_picked(reaction, user):
-            return str(user.id) == person and str(reaction.emoji) == answer # change this
+
+        #def if_answer_picked(reaction, user):
+        def user_is_person(reaction, user):
+            #return str(user.id) == person and str(reaction.emoji) == answer # change this
+            return str(user.id) == person
         try:
-            reaction, user = await client.wait_for('reaction_add', timeout = 10.0, check=if_answer_picked)
+            reaction, user = await client.wait_for('reaction_add', timeout = 10.0, check=user_is_person)
             print(reaction, user)
+            if reaction == answer:
+                await ctx.send("Correct")
+            else:
+                await ctx.send("Incorrect")
         except asyncio.TimeoutError:
             await ctx.send("Time's up!")
-        else: # if no exceptions are raised
-            await ctx.send("Correct!")
-            '''
-        try:
-            reaction, user = await client.wait_for('reaction_add', timeout=10.0)
-            print(reaction, user)
-            if reaction == answer and str(user.id) == person:
-                await ctx.send('Correct')
-            elif str(user.id) == person:
-                await ctx.send('Incorrect')
-        except asyncio.TimeoutError:
-            await ctx.send("Time's up.")
+        #else: # if no exceptions are raised
+            #await ctx.send("Correct!")
+
 
         #####Set up checks to see if any other answer was picked or if any other player has picked
         #await ctx.send("It seems not just %s is playing..."%str(client.get_user(person))) # change this
