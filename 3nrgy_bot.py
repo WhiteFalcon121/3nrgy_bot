@@ -23,6 +23,7 @@ DATABASE_URL = os.environ['DATABASE_URL']
 @client.event #function represents event (1st event)
 async def on_ready(): #asynchronous function - when bot is ready (first event)
     print("I'm ready, now!")
+    await client.change_presence(activity=discord.Game(name='Life Simulator'))
 
 #reset inv command
 #make check_trades return statement more userfriendly
