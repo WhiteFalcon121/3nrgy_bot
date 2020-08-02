@@ -140,11 +140,11 @@ async def guess_skin(ctx):
             if reaction == answer:
                 await ctx.send("Correct")
                 if read_inv_db(person) != 0:
-                    result = query_manage("update user_info set num_of_spins = num_of_spins + 3 where user_id = %s", (person,))
+                    result = query_manage("update user_info set num_of_spins = num_of_spins + 1 where user_id = %s", (person,))
                     if result == 1:
-                        await ctx.send("Spins added. Use them in roulettes.")
+                        await ctx.send("1 spin added. Use them in roulettes.")
                     else:
-                        await ctx.send("Spins could not be added.")
+                        await ctx.send("Spin could not be added.")
                 else:
                     await ctx.send("You don't have an inventory, so I can't add your well-earned spins.")
             else:
