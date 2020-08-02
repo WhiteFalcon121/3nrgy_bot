@@ -28,6 +28,7 @@ def redeploy_refresh():
 
         print(list1)
         for i in list1:
+            give_3_spins(i)
             set_refresh_for(i)
     #for i in users: set_refresh_for(person)
 
