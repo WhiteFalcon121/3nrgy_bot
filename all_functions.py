@@ -373,9 +373,9 @@ def embed_guessing_game(actual_skin, skin_image, skin_1, skin_2):
         skin_c = skin_1
 
         real_skin = 2
-    embed.add_field(name='A', value=skin_a)
-    embed.add_field(name='B', value=skin_b)
-    embed.add_field(name='C', value=skin_c)
+    embed.add_field(name='1', value=skin_a)
+    embed.add_field(name='2', value=skin_b)
+    embed.add_field(name='3', value=skin_c)
     return embed, file, real_skin
 
 def query_manage(the_query, data=None): # handles queries   ---- MOVE TO TOP
