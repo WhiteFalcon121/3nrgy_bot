@@ -350,18 +350,7 @@ def embed_roulette(skin_name, skin_image, rarity):
     return embed, file
 
 def embed_guessing_game(actual_skin, skin_image, skin_1, skin_2):
-    if rarity == 'uncommon':
-        color = 0x61cc33
-    elif rarity == 'rare':
-        color = 0x3386FF
-    elif rarity == 'epic':
-        color = 0xF933FF
-    elif rarity == 'legendary':
-        color = 0xFDFA13
-    elif rarity == 'relic':
-        color = 0xFD2C13
-    else:
-        color = 0xD3D3D3
+    color = 0x61cc33
     embed = discord.Embed(color = color, title = 'Guess the skin')
     file = discord.File(skin_image)
     embed.set_image(url='attachment://%s'%skin_image)
