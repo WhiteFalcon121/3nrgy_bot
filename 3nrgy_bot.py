@@ -137,13 +137,13 @@ async def guess_skin(ctx):
             reaction, user = await client.wait_for('reaction_add', timeout = 10.0, check=user_is_person)
             print(reaction, user)
             print(type(answer), type(reaction))
+            reaction = str(reaction)
+            print(type(answer), type(reaction))
+            print(reaction, answer)
             if reaction == answer:
                 await ctx.send("Correct")
-            elif reaction != answer:
-                await ctx.send("Incorrect")
             else:
-                print(reaction, user)
-                print('^^^')
+                await ctx.send("Incorrect")
         except asyncio.TimeoutError:
             await ctx.send("Time's up!")
         #else: # if no exceptions are raised
