@@ -128,31 +128,29 @@ async def guess_skin(ctx):
         else:
             answer = emoji3
         print(answer)
-
+        ######MOVE TO OTHER SCRIPT LATER & DISLAY TIMER
         #def if_answer_picked(reaction, user):
         def user_is_person(reaction, user):
             #return str(user.id) == person and str(reaction.emoji) == answer # change this
             return str(user.id) == person
         try:
-            reaction, user = await client.wait_for('reaction_add', timeout = 10.0, check=user_is_person)
+            reaction, user = await client.wait_for('reaction_add', timeout =6.0, check=user_is_person)
             print(reaction, user)
-            print(type(answer), type(reaction))
             reaction = str(reaction)
-            print(type(answer), type(reaction))
-            print(reaction, answer)
             if reaction == answer:
                 await ctx.send("Correct")
+                if read_inv_db(person) != 0:
+                    result = query_manage("update user_info set num_of_spins = num_of_spins + 3 where user_id = %s", (person,))
+                    if result == 1:
+                        await ctx.send("Spins added. Use them in roulettes.")
+                    else:
+                        await ctx.send("Spins could not be added.")
+                else:
+                    await ctx.send("You don't have an inventory, so I can't add your well-earned spins.")
             else:
                 await ctx.send("Incorrect")
         except asyncio.TimeoutError:
             await ctx.send("Time's up!")
-        #else: # if no exceptions are raised
-            #await ctx.send("Correct!")
-
-
-        #####Set up checks to see if any other answer was picked or if any other player has picked
-        #await ctx.send("It seems not just %s is playing..."%str(client.get_user(person))) # change this
-
 
 @client.command(description="ask someone for a trade (trade structure is: the_recipient/other_person, your_skin, their_skin - even when you accept).")
 async def ask_trade(ctx, recipient:discord.Member, skin, trade_skin):
