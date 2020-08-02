@@ -120,7 +120,7 @@ def set_refresh_for(a):
 # -----
 
 def pick_random_skin():
-    randnum = randint(0, 7)
+    randnum = random.randint(0, 7)
     if randnum == 1:
         list_name = ["aqua", "bark_auto", "blushed_mma", "carbon_mmr", "commo", "digital_auto", "dropper"]
     elif randnum == 2:
@@ -365,7 +365,7 @@ def embed_guessing_game(actual_skin, skin_image, skin_1, skin_2):
     embed = discord.Embed(color = color, title = 'Guess the skin')
     file = discord.File(skin_image)
     embed.set_image(url='attachment://%s'%skin_image)
-    randnum = randint(0, 3)
+    randnum = random.randint(0, 3)
     if randnum == 1:
         skin_a = actual_skin
         skin_b = skin_1
