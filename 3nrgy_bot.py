@@ -144,7 +144,7 @@ async def guess_skin(ctx):
                 else:
                     await ctx.send("Incorrect.")
             else:
-                await ctx.send("It seems not just %s is playing..."%str(client.get_user(person))
+                await ctx.send("It seems not just %s is playing..."%str(client.get_user(person)))
 
 
 @client.command(description="ask someone for a trade (trade structure is: the_recipient/other_person, your_skin, their_skin - even when you accept).")
