@@ -122,6 +122,22 @@ async def guess_skin(ctx):
         emoji3 = '3️⃣'
         await msg.add_reaction(emoji3)
         answer = result[2]
+        if answer == 1:
+            answer = emoji1
+        elif answer == 2:
+            answer = emoji2
+        else:
+            answer = emoji3
+        def check_reaction(reaction, user, person):
+            return str(user.id) == person and str(reaction.emoji) == answer
+        try:
+            reaction, user = await client.wait_for('reaction_add', timeout = 10.0, check=check_reaction)
+            print(reaction, user)
+        except asyncio.TimeoutError:
+            await ctx.send("Time's up!")
+        else: # if no exceptions are raised
+            await ctx.send("Correct")
+
 
 @client.command(description="ask someone for a trade (trade structure is: the_recipient/other_person, your_skin, their_skin - even when you accept).")
 async def ask_trade(ctx, recipient:discord.Member, skin, trade_skin):
