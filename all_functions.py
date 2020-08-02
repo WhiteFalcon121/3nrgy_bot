@@ -133,7 +133,7 @@ def spin_roulette_db(ctx):
         rarity = 'uncommon'
         #statement = "You got " + item
     elif 30 < randnum <= 60:
-        rare_list = ["artic_auto", "auto_machinist", "autumn_auto", "bloodripper", "flecken_auto", "hazard_auto", "jade", "kodac_auto"]
+        rare_list = ["arctic_auto", "auto_machinist", "autumn_auto", "bloodripper", "flecken_auto", "hazard_auto", "jade", "kodac_auto"]
         item = get_item(rare_list)
         #gif = 'rare.gif'
         rarity = 'rare'

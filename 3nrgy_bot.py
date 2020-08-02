@@ -81,13 +81,12 @@ async def time(ctx):
     await ctx.send(embed=embed_it(ctx, "It's " + time))
 
 # ------ trading system cmds
-@client.command()
+@client.command(description = "make an inventory")
 async def new_inv(ctx): ### ADD DESCRIPTIONS
     await ctx.send(embed=embed_it(ctx, create_new_inventory_db(ctx)))
 
-@client.command()
+@client.command(description = "view your whole inventory")
 async def see_inv(ctx, person:discord.Member=None):
-    #await ctx.send(embed=embed_it(ctx, read_inv_db(ctx)))
     if person != None:
         person = str(person.id)
     else:
@@ -103,28 +102,6 @@ async def see_inv(ctx, person:discord.Member=None):
 
 @client.command(description="use a spin on the roulette")
 async def roulette(ctx): #Uncommon = 40% Rare = 30% Epic = 15% Legendary = 8% Relic = 4% C = 2% U = 1%**
-    '''
-    result = spin_roulette_db(ctx)
-    print(result)
-    print(type(result))
-    try:
-        print(len(result))
-    except:
-        print('length not found')
-    print(result[0])
-    print(result[0][0])
-    print(result[0][0][0])
-
-    if len(result) == 3:
-        await ctx.send(embed=embed_it(ctx, result[0]))
-        await ctx.send(file=discord.File(result[1]))
-        try:
-            await ctx.send(file=discord.File(result[2]))
-        except:
-            await ctx.send(file=discord.File("question_mark.png"))
-    else:
-        await ctx.send(embed=embed_it(ctx, result))
-    '''
     result = spin_roulette_db(ctx)
     if len(result) == 2:
         await ctx.send(file = result[1], embed=result[0])
@@ -134,7 +111,6 @@ async def roulette(ctx): #Uncommon = 40% Rare = 30% Epic = 15% Legendary = 8% Re
 @client.command(description="ask someone for a trade (trade structure is: the_recipient/other_person, your_skin, their_skin - even when you accept).")
 async def ask_trade(ctx, recipient:discord.Member, skin, trade_skin):
     await ctx.send(embed=embed_it(ctx, ask_for_trade_db(ctx, recipient, skin, trade_skin)))
-#insert into ongoing_trades (person, recipient, skin, trade_skin) VALUES ('test2', 'recipient_id2', 'aqua_ski2n', 'commo_trade_ski2n')  -- trades
 
 @client.command(description="accept a trade (trade structure is: starter of trade/the other person, your_skin, their_skin).")
 async def yes_trade(ctx, starter:discord.Member, skin, trade_skin):
