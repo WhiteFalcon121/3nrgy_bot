@@ -27,8 +27,6 @@ async def on_ready(): #asynchronous function - when bot is ready (first event)
     await client.change_presence(activity=discord.Game(name='Life Simulator'))
 
 #reset inv command
-#make check_trades return statement more userfriendly
-#add avatar to embeds
 #tier list
 
 @client.command(description = "tells you the bot's ping")
@@ -131,9 +129,10 @@ async def guess_skin(ctx):
             answer = emoji3
         print(answer)
         def get_reaction_info(reaction, user):
-            return str(user.id) == person and str(reaction.emoji) == answer
+            return str(user.id) == person and str(reaction.emoji) == answer # change this
         try:
             reaction, user = await client.wait_for('reaction_add', timeout = 10.0, check=get_reaction_info)
+            user = str(user.id)
             print(reaction, user)
         except asyncio.TimeoutError:
             await ctx.send("Time's up!")
@@ -144,7 +143,7 @@ async def guess_skin(ctx):
                 else:
                     await ctx.send("Incorrect.")
             else:
-                await ctx.send("It seems not just %s is playing..."%str(client.get_user(person)))
+                await ctx.send("It seems not just %s is playing..."%str(client.get_user(person))) # change this
 
 
 @client.command(description="ask someone for a trade (trade structure is: the_recipient/other_person, your_skin, their_skin - even when you accept).")
