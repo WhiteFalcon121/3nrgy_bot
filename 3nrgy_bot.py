@@ -129,7 +129,7 @@ async def guess_skin(ctx):
             answer = emoji2
         else:
             answer = emoji3
-        def check_reaction(reaction, user, person):
+        def check_reaction(reaction, user):
             return str(user.id) == person and str(reaction.emoji) == answer
         try:
             reaction, user = await client.wait_for('reaction_add', timeout = 10.0, check=check_reaction)
