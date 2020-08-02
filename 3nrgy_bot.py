@@ -116,11 +116,11 @@ async def guess_skin(ctx):
     if len(result) == 3:
         msg = await ctx.send(file=result[1], embed=result[0])
         emoji1 = '\u0031'
-        msg.add_reaction(emoji1)
+        await msg.add_reaction(emoji1)
         emoji2 = '\u0032'
-        msg.add_reaction(emoji2)
+        await msg.add_reaction(emoji2)
         emoji3 = '\u0033'
-        msg.add_reaction(emoji3)
+        await msg.add_reaction(emoji3)
         answer = result[2]
 
 @client.command(description="ask someone for a trade (trade structure is: the_recipient/other_person, your_skin, their_skin - even when you accept).")
