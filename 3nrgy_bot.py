@@ -108,7 +108,7 @@ async def roulette(ctx): #Uncommon = 40% Rare = 30% Epic = 15% Legendary = 8% Re
     else:
         await ctx.send(embed=embed_it(ctx,result))
 
-@client.command(description="guessing game")
+@client.command(description="guess the skin to earn a spin")
 async def guess_skin(ctx):
     person = str(ctx.author.id)
     result = guess_skin_game()
