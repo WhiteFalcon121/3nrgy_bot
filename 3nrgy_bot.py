@@ -177,5 +177,10 @@ async def check_spins(ctx):
         while 1:
             await msg.edit(embed=embed_it(ctx, "You have 0 spins. Come back in " + refresh_time_left(person)))
 
+@client.command(description="info about me")
+async def about_me(ctx):
+    person = str(ctx.author)
+    statement = "Hey there, %s! I'm 3nrgy and I have a lot of features. If you need help, use the '//help' command to see all my features and '//help *COMMAND_NAME_HERE* to get more info. \n Please bare in mind this bot will be updated regularly, so please report any bugs or ask any questions to WhiteFalcon121#9402 (Discord)\n github profile = https://github.com/WhiteFalcon121'"%person
+
 redeploy_refresh()
 client.run(token) #run client
