@@ -115,11 +115,11 @@ async def guess_skin(ctx):
     result = guess_skin_game()
     if len(result) == 3:
         msg = await ctx.send(file=result[1], embed=result[0])
-        emoji1 = '\U0000031'
+        emoji1 = '\u0031'
         msg.add_reaction(emoji1)
-        emoji2 = '\U0000032'
+        emoji2 = '\u0032'
         msg.add_reaction(emoji2)
-        emoji3 = '\U0000033'
+        emoji3 = '\u0033'
         msg.add_reaction(emoji3)
         answer = result[2]
 
