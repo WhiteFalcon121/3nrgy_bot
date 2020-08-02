@@ -129,15 +129,22 @@ async def guess_skin(ctx):
             answer = emoji2
         else:
             answer = emoji3
-        def check_reaction(reaction, user):
+        print(answer)
+        def get_reaction_info(reaction, user):
             return str(user.id) == person and str(reaction.emoji) == answer
         try:
-            reaction, user = await client.wait_for('reaction_add', timeout = 10.0, check=check_reaction)
+            reaction, user = await client.wait_for('reaction_add', timeout = 10.0, check=get_reaction_info)
             print(reaction, user)
         except asyncio.TimeoutError:
             await ctx.send("Time's up!")
         else: # if no exceptions are raised
-            await ctx.send("Correct")
+            if user == person:
+                if reaction == answer:
+                    await ctx.send("Correct!")
+                else:
+                    await ctx.send("Incorrect.")
+            else:
+                await ctx.send("It seems not just %s is playing..."%str(client.get_user(person))
 
 
 @client.command(description="ask someone for a trade (trade structure is: the_recipient/other_person, your_skin, their_skin - even when you accept).")
