@@ -109,6 +109,20 @@ async def roulette(ctx): #Uncommon = 40% Rare = 30% Epic = 15% Legendary = 8% Re
     else:
         await ctx.send(embed=embed_it(ctx,result))
 
+@client.command(description="guessing game")
+async def guess_skin(ctx):
+    person = str(ctx.author.id)
+    result = guess_skin_game()
+    if len(result) == 3:
+        msg = await ctx.send(file=result[1], embed=result[0])
+        emoji1 = '\U0000031'
+        msg.add_reaction(emoji1)
+        emoji2 = '\U0000032'
+        msg.add_reaction(emoji2)
+        emoji3 = '\U0000033'
+        msg.add_reaction(emoji3)
+        answer = result[2]
+
 @client.command(description="ask someone for a trade (trade structure is: the_recipient/other_person, your_skin, their_skin - even when you accept).")
 async def ask_trade(ctx, recipient:discord.Member, skin, trade_skin):
     await ctx.send(embed=embed_it(ctx, ask_for_trade_db(ctx, recipient, skin, trade_skin)))

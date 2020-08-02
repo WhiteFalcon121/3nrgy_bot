@@ -119,6 +119,42 @@ def set_refresh_for(a):
     timer(a)
 # -----
 
+def pick_random_skin():
+    randnum = randint(0, 7)
+    if randnum == 1:
+        list_name = ["aqua", "bark_auto", "blushed_mma", "carbon_mmr", "commo", "digital_auto", "dropper"]
+    elif randnum == 2:
+        list_name = ["arctic_auto", "auto_machinist", "autumn_auto", "bloodripper", "flecken_auto", "hazard_auto", "jade", "kodac_auto"]
+    elif randnum == 3:
+        list_name = ["black_ice", "barbed_auto", "blaze_auto", "m14_chartreuse", "mma_cygento", "mma_octo"]
+    elif randnum == 4:
+        list_name = ["magnis", "shot_element", "acid_breath", "101_skullbreaker", "haste", "lava_bolt"]
+    elif randnum == 5:
+        list_name = ["mma_plasma", "neuromance", "awp_pacemaker", "awp_stream", "neon_reaver", "razor"]
+    elif randnum == 6:
+        list_name = ["raynb0w", "1ad-da0", "xon-vox", "exos", "futuristic", "izula", "hackusate", "pellucid"]
+    else:
+        list_name = ["disintegrator", "anti-matter", "wutdatime_exclusive"]
+    item = get_item(list_name)
+    return item
+
+def guess_skin_game():
+    while 1:
+        try:
+            file = discord.File(skin_image)
+            break
+        except:
+            item = pick_random_skin()
+            skin_image = '%s.png'%item
+    print(item, skin_image)
+    skin1 = pick_random_skin()
+    print(skin1)
+    skin2 = pick_random_skin()
+    print(skin2)
+    #return item, skin_image, skin1, skin2
+    guess_embed = embed_guessing_game(item, skin_image, skin1, skin2)
+    return guess_embed
+
 def spin_roulette_db(ctx):
     person = str(ctx.author.id)
     if read_inv_db(person) == 0:
@@ -174,7 +210,6 @@ def spin_roulette_db(ctx):
     print(result)
     if result == 1 and result2 == 1:
         skin_image = '%s.png'%item
-        #return statement, gif, skin_image
         skin_embed = embed_roulette(item, skin_image, rarity)
         return skin_embed
     elif result2 == 0:
@@ -305,10 +340,54 @@ def embed_roulette(skin_name, skin_image, rarity):
         color = 0xD3D3D3
 
     embed = discord.Embed(color = color, title = skin_name) # change color depending on rarity
-    file = discord.File(skin_image)
+    try:
+        file = discord.File(skin_image)
+    except:
+        file = discord.File('question_mark.png')
+        skin_image = 'question_mark.png'
     embed.set_image(url='attachment://%s'%skin_image)
     embed.add_field(name='Rarity:', value=rarity)
     return embed, file
+
+def embed_guessing_game(actual_skin, skin_image, skin_1, skin_2):
+    if rarity == 'uncommon':
+        color = 0x61cc33
+    elif rarity == 'rare':
+        color = 0x3386FF
+    elif rarity == 'epic':
+        color = 0xF933FF
+    elif rarity == 'legendary':
+        color = 0xFDFA13
+    elif rarity == 'relic':
+        color = 0xFD2C13
+    else:
+        color = 0xD3D3D3
+    embed = discord.Embed(color = color, title = 'Guess the skin')
+    file = discord.File(skin_image)
+    embed.set_image(url='attachment://%s'%skin_image)
+    randnum = randint(0, 3)
+    if randnum == 1:
+        skin_a = actual_skin
+        skin_b = skin_1
+        skin_c = skin_2
+
+        real_skin = 1
+    elif randnum == 2:
+        skin_a = skin_1
+        skin_b = skin_2
+        skin_c = actual_skin
+
+        real_skin = 3
+    else:
+        skin_a = skin_2
+        skin_b = actual_skin
+        skin_c = skin_1
+
+        real_skin = 2
+    embed.add_field(name='A', value=skin_a)
+    embed.add_field(name='B', value=skin_b)
+    embed.add_field(name='C', value=skin_c)
+    return embed, file, real_skin
 
 def query_manage(the_query, data=None): # handles queries   ---- MOVE TO TOP
     DATABASE_URL = os.environ['DATABASE_URL']
