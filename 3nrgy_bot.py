@@ -136,6 +136,7 @@ async def guess_skin(ctx):
         try:
             reaction, user = await client.wait_for('reaction_add', timeout = 10.0, check=user_is_person)
             print(reaction, user)
+            print(type(answer), type(reaction))
             if reaction == answer:
                 await ctx.send("Correct")
             elif reaction != answer:
