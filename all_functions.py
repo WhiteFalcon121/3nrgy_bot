@@ -151,7 +151,9 @@ def guess_skin_game():
     print(skin1)
     skin2 = pick_random_skin()
     print(skin2)
-    #return item, skin_image, skin1, skin2
+    while item == skin1 or item == skin2 or skin1 == skin2:
+        skin1 = pick_random_skin()
+        skin2 = pick_random_skin()
     guess_embed = embed_guessing_game(item, skin_image, skin1, skin2)
     return guess_embed
 
