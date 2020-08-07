@@ -47,6 +47,7 @@ def inv_count(person, person_name):
         return 0
     if result == "":
         return ""
+    person_inv = result
     u_count = 0
     ra_count = 0
     e_count = 0
