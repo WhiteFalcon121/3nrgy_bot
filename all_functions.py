@@ -198,7 +198,8 @@ def guess_skin_game():
 
 def spin_roulette_db(ctx):
     person = str(ctx.author.id)
-    if read_inv_db(person) == 0:
+    person_inv = read_inv_db(person)
+    if person_inv == 0:
         return "You don't have an inventory, yet. Make one. (//help if you're unsure of what to do)"
     check_spins = get_num_of_spins(person)[0][0]
     if check_spins <= 0:
@@ -250,8 +251,12 @@ def spin_roulette_db(ctx):
     result2 = decrease_spin_num(person)
     print(result)
     if result == 1 and result2 == 1:
+        if item in person_inv:
+            dup = True
+        else:
+            dup = False
         skin_image = '%s.png'%item
-        skin_embed = embed_roulette(item, skin_image, rarity)
+        skin_embed = embed_roulette(item, skin_image, rarity, dup)
         return skin_embed
     elif result2 == 0:
         return "Not able to decrease the number of roulette spins, but item added."
@@ -366,7 +371,7 @@ def embed_it(ctx, the_value):
     embed.add_field(name=str(ctx.author),value=the_value)
     return embed
 
-def embed_roulette(skin_name, skin_image, rarity):
+def embed_roulette(skin_name, skin_image, rarity, dup):
     if rarity == 'uncommon':
         color = 0x61cc33
     elif rarity == 'rare':
@@ -388,6 +393,7 @@ def embed_roulette(skin_name, skin_image, rarity):
         skin_image = 'question_mark.png'
     embed.set_image(url='attachment://%s'%skin_image)
     embed.add_field(name='Rarity:', value=rarity)
+    embed.add_field(name='Duplicate:', value=dup)
     return embed, file
 
 def embed_inv(person_name, u_count, ra_count, e_count, l_count, rel_count, c_count, unob_count):

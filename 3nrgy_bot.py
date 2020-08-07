@@ -104,6 +104,37 @@ async def see_inv(ctx, person:discord.Member=None):
     else:
         await ctx.send(embed=result)
 
+@client.command(description='get info about a skin')
+async def info(ctx, skin):
+    person = str(ctx.author.id)
+    if skin in ["aqua", "bark_auto", "blushed_mma", "carbon_mmr", "commo", "digital_auto", "dropper"]:
+        rarity = 'uncommon'
+    elif skin in ["arctic_auto", "auto_machinist", "autumn_auto", "bloodripper", "flecken_auto", "hazard_auto", "jade", "kodac_auto"]:
+        rarity ='rare'
+    elif skin in ["black_ice", "barbed_auto", "blaze_auto", "m14_chartreuse", "mma_cygento", "mma_octo"]:
+        rarity = 'epic'
+    elif skin in ["magnis", "shot_element", "acid_breath", "101_skullbreaker", "haste", "lava_bolt"]:
+        rarity = 'legendary'
+    elif skin in ["mma_plasma", "neuromance", "awp_pacemaker", "awp_stream", "neon_reaver", "razor"]:
+        rarity ='relic'
+    elif skin in ["raynb0w", "1ad-da0", "xon-vox", "exos", "futuristic", "izula", "hackusate", "pellucid"]:
+        rarity = 'contraband'
+    elif skin in ["disintegrator", "anti-matter", "wutdatime_exclusive"]:
+        rarity = 'unobtainable'
+    else:
+        await ctx.send('Skin not found - check capitals.')
+        return 0
+    skin_image = '%s.png'%skin
+    person_inv = read_inv_db(person)
+    if skin in person_inv:
+        dup = True
+    else:
+        dup = False
+    result = embed_roulette(skin_name, skin_image, rarity, dup):
+    await ctx.send(file = result[1], embed=result[0])
+
+
+
 @client.command(description="use a spin on the roulette")
 async def roulette(ctx): #Uncommon = 40% Rare = 30% Epic = 15% Legendary = 8% Relic = 4% C = 2% U = 1%**
     result = spin_roulette_db(ctx)
