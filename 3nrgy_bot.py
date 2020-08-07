@@ -93,6 +93,7 @@ async def see_inv(ctx, person:discord.Member=None):
         person = str(ctx.author.id)
     person_name = str(ctx.author)
     result = inv_count(person, person_name)
+    print(result)
     if result == 0:
         statement = "Error - do you have an inventory?"
         await ctx.send(embed=embed_it(ctx, statement))
