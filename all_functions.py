@@ -393,7 +393,7 @@ def embed_roulette(skin_name, skin_image, rarity):
 def embed_inv(person_name, u_count, ra_count, e_count, l_count, rel_count, c_count, unob_count):
     total_count = u_count + ra_count + e_count + l_count + rel_count + c_count + unob_count
     embed = discord.Embed(color = 0x61cc33)
-    embed.add_field(name=person_name,value=f'{total_count} items in total', inline=True)
+    embed.add_field(name=person_name,value=f'{total_count} items in total', inline=False)
     embed.add_field(name='Uncommon', value=f'{u_count} skins', inline=True)
     embed.add_field(name='Rare', value=f'{ra_count} skins', inline=True)
     embed.add_field(name='Epic', value=f'{e_count} skins', inline=True)
