@@ -44,8 +44,10 @@ def create_new_inventory_db(ctx):
 def inv_count(person, person_name):
     result = read_inv_db(person, True)
     if result == 0:
+        print('unable to get inv')
         return 0
     if result == "":
+        print('nothing in inv')
         return ""
     person_inv = result
     u_count = 0
@@ -399,7 +401,7 @@ def embed_inv(person_name, u_count, ra_count, e_count, l_count, rel_count, c_cou
     embed.add_field(name='Relic', value=f'{rel_count} skins')
     embed.add_field(name='Contraband', value=f'{c_count} skins')
     embed.add_field(name='Unobtainable', value=f'{unob_count} skins')
-
+    return embed
 
 def embed_guessing_game(actual_skin, skin_image, skin_1, skin_2):
     color = 0x61cc33
