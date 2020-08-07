@@ -130,7 +130,7 @@ async def info(ctx, skin):
         dup = True
     else:
         dup = False
-    result = embed_roulette(skin_name, skin_image, rarity, dup):
+    result = embed_roulette(skin, skin_image, rarity, dup):
     await ctx.send(file = result[1], embed=result[0])
 
 
