@@ -41,10 +41,46 @@ def create_new_inventory_db(ctx):
         return "New inventory created."
     return "Error - do you already have an inventory?"
 
-def read_inv_db(person): #read inventory of any specified person as an optional parameter
+def inv_count(person, person_name):
+    result = read_inv_db(person, True)
+    if result == 0:
+        return 0
+    if result == "":
+        return ""
+    u_count = 0
+    ra_count = 0
+    e_count = 0
+    l_count = 0
+    rel_count = 0
+    c_count = 0
+    unob_count = 0
+    for i in person_inv:
+        if i in ["aqua", "bark_auto", "blushed_mma", "carbon_mmr", "commo", "digital_auto", "dropper"]:
+            u_count += 1
+        elif i in ["arctic_auto", "auto_machinist", "autumn_auto", "bloodripper", "flecken_auto", "hazard_auto", "jade", "kodac_auto"]:
+            ra_count += 1
+        elif i in ["black_ice", "barbed_auto", "blaze_auto", "m14_chartreuse", "mma_cygento", "mma_octo"]:
+            e_count += 1
+        elif i in ["magnis", "shot_element", "acid_breath", "101_skullbreaker", "haste", "lava_bolt"]:
+            l_count += 1
+        elif i in ["mma_plasma", "neuromance", "awp_pacemaker", "awp_stream", "neon_reaver", "razor"]:
+            rel_count += 1
+        elif i in ["raynb0w", "1ad-da0", "xon-vox", "exos", "futuristic", "izula", "hackusate", "pellucid"]:
+            c_count += 1
+        else:
+            unob_count += 1
+    # return the list of counts and make embed
+    #person_inv = [u_count, ra_count, e_count, l_count, rel_count, c_count, unob_count]
+    the_embed = embed_inv(person_name, u_count, ra_count, e_count, l_count, rel_count, c_count, unob_count)
+    return the_embed
+
+def read_inv_db(person, count=False): #read inventory of any specified person as an optional parameter
     result = query_manage("select user_inv from user_info WHERE user_id = %s", (person,))
     if result != 0 and result != []: # result is [] when the table is empty
-        person_inv = ', '.join(result[0][0])
+        if count == True:
+            person_inv = result[0][0]
+        else:
+            person_inv = ', '.join(result[0][0])
         if len(person_inv) > 0:
             return person_inv
         return "" #"You have nothing atm."
@@ -350,6 +386,19 @@ def embed_roulette(skin_name, skin_image, rarity):
     embed.set_image(url='attachment://%s'%skin_image)
     embed.add_field(name='Rarity:', value=rarity)
     return embed, file
+
+def embed_inv(person_name, u_count, ra_count, e_count, l_count, rel_count, c_count, unob_count):
+    total_count = u_count + ra_count + e_count + l_count + rel_count + c_count + unob_count
+    embed = discord.Embed(color = 0x61cc33)
+    embed.add_field(name=person_name,value=f'{total_count} items in total')
+    embed.add_field(name='Uncommon', value=f'{u_count} skins')
+    embed.add_field(name='Rare', value=f'{ra_count} skins')
+    embed.add_field(name='Epic', value=f'{e_count} skins')
+    embed.add_field(name='Legendary', value=f'{l_count} skins')
+    embed.add_field(name='Relic', value=f'{rel_count} skins')
+    embed.add_field(name='Contraband', value=f'{c_count} skins')
+    embed.add_field(name='Unobtainable', value=f'{unob_count} skins')
+
 
 def embed_guessing_game(actual_skin, skin_image, skin_1, skin_2):
     color = 0x61cc33

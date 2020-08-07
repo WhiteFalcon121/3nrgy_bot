@@ -91,14 +91,16 @@ async def see_inv(ctx, person:discord.Member=None):
         person = str(person.id)
     else:
         person = str(ctx.author.id)
-    result = read_inv_db(person)
+    person_name = str(ctx.author)
+    result = inv_count(person, person_name)
     if result == 0:
         statement = "Error - do you have an inventory?"
+        await ctx.send(embed=embed_it(ctx, statement))
     elif result == "":
         statement = "You have nothing atm."
+        await ctx.send(embed=embed_it(ctx, statement))
     else:
-        statement = result
-    await ctx.send(embed=embed_it(ctx, statement))
+        await ctx.send(embed=result)
 
 @client.command(description="use a spin on the roulette")
 async def roulette(ctx): #Uncommon = 40% Rare = 30% Epic = 15% Legendary = 8% Relic = 4% C = 2% U = 1%**
