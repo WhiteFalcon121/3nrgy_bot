@@ -89,9 +89,10 @@ async def new_inv(ctx): ### ADD DESCRIPTIONS
 async def see_inv(ctx, person:discord.Member=None):
     if person != None:
         person = str(person.id)
+        person = str(client.get_user(int(person)))
     else:
         person = str(ctx.author.id)
-    person_name = str(ctx.author)
+        person_name = str(ctx.author)
     result = inv_count(person, person_name)
     print(result)
     if result == 0:

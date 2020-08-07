@@ -393,14 +393,14 @@ def embed_roulette(skin_name, skin_image, rarity):
 def embed_inv(person_name, u_count, ra_count, e_count, l_count, rel_count, c_count, unob_count):
     total_count = u_count + ra_count + e_count + l_count + rel_count + c_count + unob_count
     embed = discord.Embed(color = 0x61cc33)
-    embed.add_field(name=person_name,value=f'{total_count} items in total')
-    embed.add_field(name='Uncommon', value=f'{u_count} skins')
-    embed.add_field(name='Rare', value=f'{ra_count} skins')
-    embed.add_field(name='Epic', value=f'{e_count} skins')
-    embed.add_field(name='Legendary', value=f'{l_count} skins')
-    embed.add_field(name='Relic', value=f'{rel_count} skins')
-    embed.add_field(name='Contraband', value=f'{c_count} skins')
-    embed.add_field(name='Unobtainable', value=f'{unob_count} skins')
+    embed.add_field(name=person_name,value=f'{total_count} items in total', inline=True)
+    embed.add_field(name='Uncommon', value=f'{u_count} skins', inline=True)
+    embed.add_field(name='Rare', value=f'{ra_count} skins', inline=True)
+    embed.add_field(name='Epic', value=f'{e_count} skins', inline=True)
+    embed.add_field(name='Legendary', value=f'{l_count} skins', inline=True)
+    embed.add_field(name='Relic', value=f'{rel_count} skins', inline=True)
+    embed.add_field(name='Contraband', value=f'{c_count} skins', inline=True)
+    embed.add_field(name='Unobtainable', value=f'{unob_count} skins', inline=True)
     return embed
 
 def embed_guessing_game(actual_skin, skin_image, skin_1, skin_2):
