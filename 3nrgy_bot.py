@@ -107,19 +107,20 @@ async def see_inv(ctx, person:discord.Member=None):
 @client.command(description='get info about a skin')
 async def info(ctx, skin):
     person = str(ctx.author.id)
-    if skin in ["aqua", "bark_auto", "blushed_mma", "carbon_mmr", "commo", "digital_auto", "dropper"]:
+    global uncommon_list, rare_list, epic_list, legendary_list, relic_list, contraband_list, unobtainable_list
+    if skin in uncommon_list:
         rarity = 'uncommon'
-    elif skin in ["arctic_auto", "auto_machinist", "autumn_auto", "bloodripper", "flecken_auto", "hazard_auto", "jade", "kodac_auto"]:
+    elif skin in rare_list:
         rarity ='rare'
-    elif skin in ["black_ice", "barbed_auto", "blaze_auto", "m14_chartreuse", "mma_cygento", "mma_octo"]:
+    elif skin in epic_list:
         rarity = 'epic'
-    elif skin in ["magnis", "shot_element", "acid_breath", "101_skullbreaker", "haste", "lava_bolt"]:
+    elif skin in legendary_list:
         rarity = 'legendary'
-    elif skin in ["mma_plasma", "neuromance", "awp_pacemaker", "awp_stream", "neon_reaver", "razor"]:
+    elif skin in relic_list:
         rarity ='relic'
-    elif skin in ["raynb0w", "1ad-da0", "xon-vox", "exos", "futuristic", "izula", "hackusate", "pellucid"]:
+    elif skin in contraband_list:
         rarity = 'contraband'
-    elif skin in ["disintegrator", "anti-matter", "wutdatime_exclusive"]:
+    elif skin in unobtainable_list:
         rarity = 'unobtainable'
     else:
         await ctx.send('Skin not found - check capitals.')
