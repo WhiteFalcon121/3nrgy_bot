@@ -14,11 +14,11 @@ import psycopg2
 
 # ----- FOR I IN PEOPLE WITH INVS, set_refresh_for(i)
 
-uncommon_list = ["aqua", "bark_auto", "blushed_mma", "carbon_mmr", "commo", "digital_auto", "dropper"]
-rare_list = ["arctic_auto", "auto_machinist", "autumn_auto", "bloodripper", "flecken_auto", "hazard_auto", "jade", "kodac_auto"]
-epic_list = ["black_ice", "barbed_auto", "blaze_auto", "m14_chartreuse", "mma_cygento", "mma_octo"]
-legendary_list = ["magnis", "shot_element", "acid_breath", "101_skullbreaker", "haste", "lava_bolt"]
-relic_list = ["mma_plasma", "neuromance", "awp_pacemaker", "awp_stream", "neon_reaver", "razor"]
+uncommon_list = ["aqua", "bark_auto", "blushed_mma", "carbon_mmr", "commo", "digital_auto", "dropper", "seafarer", "bark_python", "blushed_revolver", "carbon_python", "digital_python"]
+rare_list = ["arctic_auto", "auto_machinist", "autumn_auto", "bloodripper", "flecken_auto", "hazard_auto", "jade", "kodac_auto", "arctic_python", "autumn_python", "flecken_python", "kodac_python", "machinist_python", "mossy_python", "puma_python"]
+epic_list = ["black_ice", "barbed_auto", "blaze_auto", "m14_chartreuse", "mma_cygento", "mma_octo", "barbed_python", "blaze_python", "rev_olympus"]
+legendary_list = ["magnis", "shot_element", "acid_breath", "101_skullbreaker", "haste", "lava_bolt" ,"lava_revolver"]
+relic_list = ["mma_plasma", "neuromance", "awp_pacemaker", "awp_stream", "neon_reaver", "razor", "flame_tamer", "radioactive"]
 contraband_list = ["raynb0w", "1ad-da0", "xon-vox", "exos", "futuristic", "izula", "hackusate", "pellucid"]
 unobtainable_list = ["disintegrator", "anti-matter", "wutdatime_exclusive"]
 
