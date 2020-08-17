@@ -21,6 +21,7 @@ legendary_list = ["magnis", "shot_element", "acid_breath", "101_skullbreaker", "
 relic_list = ["mma_plasma", "neuromance", "awp_pacemaker", "awp_stream", "neon_reaver", "razor", "flame_tamer", "radioactive"]
 contraband_list = ["raynb0w", "1ad-da0", "xon-vox", "exos", "futuristic", "izula", "hackusate", "pellucid"]
 unobtainable_list = ["disintegrator", "anti-matter", "wutdatime_exclusive"]
+all_skins_list = uncommon_list + rare_list+epic_list+legendary_list+relic_list+contraband_list+unobtainable_list
 
 def redeploy_refresh():
     a = query_manage("select user_id from user_info")
@@ -66,23 +67,27 @@ def inv_count(person, person_name):
     c_count = 0
     unob_count = 0
     for i in person_inv:
-        if i in ["aqua", "bark_auto", "blushed_mma", "carbon_mmr", "commo", "digital_auto", "dropper"]:
+        if i in uncommon_list:
             u_count += 1
-        elif i in ["arctic_auto", "auto_machinist", "autumn_auto", "bloodripper", "flecken_auto", "hazard_auto", "jade", "kodac_auto"]:
+        elif i in rare_list:
             ra_count += 1
-        elif i in ["black_ice", "barbed_auto", "blaze_auto", "m14_chartreuse", "mma_cygento", "mma_octo"]:
+        elif i in epic_list:
             e_count += 1
-        elif i in ["magnis", "shot_element", "acid_breath", "101_skullbreaker", "haste", "lava_bolt"]:
+        elif i in legendary_list:
             l_count += 1
-        elif i in ["mma_plasma", "neuromance", "awp_pacemaker", "awp_stream", "neon_reaver", "razor"]:
+        elif i in relic_list:
             rel_count += 1
-        elif i in ["raynb0w", "1ad-da0", "xon-vox", "exos", "futuristic", "izula", "hackusate", "pellucid"]:
+        elif i in contraband_list:
             c_count += 1
         else:
             unob_count += 1
+    missing_num = 0
+    for i in all_skins_list:
+        if i not in person_inv:
+            missing_num += 1
     # return the list of counts and make embed
     #person_inv = [u_count, ra_count, e_count, l_count, rel_count, c_count, unob_count]
-    the_embed = embed_inv(person_name, u_count, ra_count, e_count, l_count, rel_count, c_count, unob_count)
+    the_embed = embed_inv(person_name, u_count, ra_count, e_count, l_count, rel_count, c_count, unob_count, missing_num)
     return the_embed
 
 def read_inv_db(person, count=False): #read inventory of any specified person as an optional parameter
@@ -399,10 +404,10 @@ def embed_roulette(skin_name, skin_image, rarity, dup):
     embed.add_field(name='Duplicate:', value=dup)
     return embed, file
 
-def embed_inv(person_name, u_count, ra_count, e_count, l_count, rel_count, c_count, unob_count):
+def embed_inv(person_name, u_count, ra_count, e_count, l_count, rel_count, c_count, unob_count, missing_num):
     total_count = u_count + ra_count + e_count + l_count + rel_count + c_count + unob_count
     embed = discord.Embed(color = 0x61cc33)
-    embed.add_field(name=person_name,value=f'{total_count} items in total', inline=False)
+    embed.add_field(name=person_name,value=f'{total_count} items in total \n {missing_num} skins left', inline=False)
     embed.add_field(name='Uncommon', value=f'{u_count} skins', inline=True)
     embed.add_field(name='Rare', value=f'{ra_count} skins', inline=True)
     embed.add_field(name='Epic', value=f'{e_count} skins', inline=True)
