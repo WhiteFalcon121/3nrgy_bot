@@ -178,15 +178,15 @@ async def guess_skin(ctx):
                 if read_inv_db(person) != 0:
                     result = query_manage("update user_info set num_of_spins = num_of_spins + 1 where user_id = %s", (person,))
                     if result == 1:
-                        await ctx.send("1 spin added. Use them in roulettes.")
+                        await ctx.send(embed=embed_it(ctx,"1 spin added. Use them in roulettes."))
                     else:
-                        await ctx.send("Spin could not be added.")
+                        await ctx.send(embed=embed_it(ctx,"Spin could not be added."))
                 else:
-                    await ctx.send("You don't have an inventory, so I can't add your well-earned spins.")
+                    await ctx.send(embed=embed_it(ctx, "You don't have an inventory, so I can't add your well-earned spins."))
             else:
-                await ctx.send("Incorrect")
+                await ctx.send(embed=embed_it(ctx,"Incorrect"))
         except asyncio.TimeoutError:
-            await ctx.send("Time's up!")
+            await ctx.send(embed=embed_it(ctx,"Time's up!"))
 
 @client.command(description="ask someone for a trade (trade structure is: the_recipient/other_person, your_skin, their_skin - even when you accept).")
 async def ask_trade(ctx, recipient:discord.Member, skin, trade_skin):
@@ -217,6 +217,16 @@ async def check_spins(ctx):
 async def about_me(ctx):
     person = str(ctx.author)
     statement = "Hey there, %s! I'm 3nrgy and I have a lot of features. If you need help, use the '//help' command to see all my features and '//help *COMMAND_NAME_HERE* to get more info. \n Please bare in mind this bot will be updated regularly, so please report any bugs or ask any questions to WhiteFalcon121#9402 (Discord)\n github profile = https://github.com/WhiteFalcon121'"%person
+    ctx.send(embed=embed_it(ctx, statement))
+
+@client.command(description="get the top 3 latest headlines from BBC News with links")
+async def news(ctx):
+    headlines, links = news()
+    #print("In ", headlines[0], ", ", headlines[1], " - ", links_list[0])
+    #print("In ", headlines[2], ", ", headlines[3], " - ", links_list[1])
+    #print("In ", headlines[4], ", ", headlines[5], " - ", links_list[2])
+    statement = "In ", headlines[0], ", ", headlines[1], " - ", links_list[0], "\n", "In ", headlines[2], ", ", headlines[3], " - ", links_list[1], "\n", "In ", headlines[4], ", ", headlines[5], " - ", links_list[2]
+    await ctx.send(embed = embed_it(ctx, statement))
 
 redeploy_refresh()
 client.run(token) #run client

@@ -11,3 +11,4 @@ asyncpg
 psycopg2
 threaded
 asyncio
+bs4
