@@ -221,7 +221,7 @@ async def about_me(ctx):
 
 @client.command(description="get the top 3 latest headlines from BBC News with links")
 async def news(ctx):
-    headlines, links = bbc_news()
+    headlines, links_list = bbc_news()
     #print("In ", headlines[0], ", ", headlines[1], " - ", links_list[0])
     #print("In ", headlines[2], ", ", headlines[3], " - ", links_list[1])
     #print("In ", headlines[4], ", ", headlines[5], " - ", links_list[2])
