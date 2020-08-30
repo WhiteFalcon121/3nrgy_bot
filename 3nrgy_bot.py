@@ -225,7 +225,7 @@ async def news(ctx):
     #print("In ", headlines[0], ", ", headlines[1], " - ", links_list[0])
     #print("In ", headlines[2], ", ", headlines[3], " - ", links_list[1])
     #print("In ", headlines[4], ", ", headlines[5], " - ", links_list[2])
-    statement = "In ", headlines[0], ", ", headlines[1], " - ", links_list[0], "\n", "In ", headlines[2], ", ", headlines[3], " - ", links_list[1], "\n", "In ", headlines[4], ", ", headlines[5], " - ", links_list[2]
+    statement = "In "+ headlines[0]+ ", ", headlines[1]+ " - "+ links_list[0]+ "\n"+ "In "+ headlines[2]+ ", "+ headlines[3]+ " - "+ links_list[1]+ "\n"+ "In "+ headlines[4]+ ", "+ headlines[5] + " - " + links_list[2]
     await ctx.send(embed = embed_it(ctx, statement))
 
 redeploy_refresh()
