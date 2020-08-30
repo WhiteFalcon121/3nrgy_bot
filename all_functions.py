@@ -493,6 +493,17 @@ def embed_inv(person_name, u_count, ra_count, e_count, l_count, rel_count, c_cou
     embed.add_field(name='Unobtainable', value=f'{unob_count} skins', inline=True)
     return embed
 
+def embed_news(ctx, headlines, links_list):
+    embed = discord.Embed(color = 0x61cc33)
+    embed.add_field(name=str(ctx.author), value="News Feed:", inline=False)
+    #print("In ", headlines[0], ", ", headlines[1], " - ", links_list[0])
+    #print("In ", headlines[2], ", ", headlines[3], " - ", links_list[1])
+    #print("In ", headlines[4], ", ", headlines[5], " - ", links_list[2])
+    embed.add_field(name = headlines[0], value = headlines[1] + " - " + links_list[0], inline=True)
+    embed.add_field(name = headlines[2], value = headlines[3] + " - " + links_list[1], inline = True)
+    embed.add_field(name = headlines[4], value = headlines[5] + " - " + links_list[2], inline=True)
+    return embed
+
 def embed_guessing_game(actual_skin, skin_image, skin_1, skin_2):
     color = 0x61cc33
     embed = discord.Embed(color = color, title = 'Guess the skin')
