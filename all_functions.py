@@ -63,11 +63,11 @@ def bbc_news():
     #print(links)
     full_links = links
 
-    links_matches = re.search("href.*?>", links, re.IGNORECASE) # 1st match
+    links_matches = re.search('class="css-\w\w\w\w\w\w-PromoLink ett16tt7"', links, re.IGNORECASE) # 1st match
     #print(links_matches.group())
     links_list = []
 
-    for i in range(0,3): ### 3 links
+    for i in range(0,4): ### 3 links
         if i == 0:
             links_section = full_links
         start = links_matches.start()
@@ -75,7 +75,8 @@ def bbc_news():
         link = links_section[start:end]
         #print(link)
         #print("\n")
-        links_list.append(link)
+        if i != 0:
+            links_list.append(link)
         links_section = links_section[end:]
         #print(links_section)
         links_matches = re.search("href=.*?>", links_section, re.IGNORECASE)
