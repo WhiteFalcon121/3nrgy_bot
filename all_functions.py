@@ -58,7 +58,7 @@ def bbc_news():
         #print(i)
         headlines[index] = re.sub("___", "", i) # get rid of all the underscores
 
-    links = str(full_html.find_all('a', {"class":"css-1rqiz8d-PromoLink ett16tt7"}))
+    links = str(full_html.find_all('a'))
     links = links[1:-1] # remove square brackets
     #print(links)
     full_links = links
@@ -90,7 +90,7 @@ def bbc_news():
         links_list[index] = re.sub(">", "", i) # get rid of the closing tags
         links_list[index] = i[1:-2] # get rid of quotation marks
     return headlines, links_list
-
+    
 uncommon_list = ["aqua", "bark_auto", "blushed_mma", "carbon_mmr", "commo", "digital_auto", "dropper", "seafarer", "bark_python", "blushed_revolver", "carbon_python", "digital_python"]
 rare_list = ["arctic_auto", "auto_machinist", "autumn_auto", "bloodripper", "flecken_auto", "hazard_auto", "jade", "kodac_auto", "arctic_python", "autumn_python", "flecken_python", "kodac_python", "machinist_python", "mossy_python", "puma_python"]
 epic_list = ["black_ice", "barbed_auto", "blaze_auto", "m14_chartreuse", "mma_cygento", "mma_octo", "barbed_python", "blaze_python", "rev_olympus"]
