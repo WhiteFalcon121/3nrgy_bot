@@ -90,7 +90,7 @@ def bbc_news():
         links_list[index] = re.sub(">", "", i) # get rid of the closing tags
         links_list[index] = i[1:-2] # get rid of quotation marks
     return headlines, links_list
-    
+
 uncommon_list = ["aqua", "bark_auto", "blushed_mma", "carbon_mmr", "commo", "digital_auto", "dropper", "seafarer", "bark_python", "blushed_revolver", "carbon_python", "digital_python"]
 rare_list = ["arctic_auto", "auto_machinist", "autumn_auto", "bloodripper", "flecken_auto", "hazard_auto", "jade", "kodac_auto", "arctic_python", "autumn_python", "flecken_python", "kodac_python", "machinist_python", "mossy_python", "puma_python"]
 epic_list = ["black_ice", "barbed_auto", "blaze_auto", "m14_chartreuse", "mma_cygento", "mma_octo", "barbed_python", "blaze_python", "rev_olympus"]
@@ -127,6 +127,14 @@ def create_new_inventory_db(ctx):
         return "New inventory created."
     return "Error - do you already have an inventory?"
 
+def skin_percentage(inv):
+    my_total = 0
+    for i in all_skins_list:
+        if i in inv:
+            my_total+=1
+    percentage = my_total/len(all_skins_list) * 100
+    percentage = round(percentage, 2)
+
 def inv_count(person, person_name):
     result = read_inv_db(person, True)
     if result == 0:
@@ -136,6 +144,7 @@ def inv_count(person, person_name):
         print('nothing in inv')
         return ""
     person_inv = result
+    percentage = skin_percentage(person_inv)
     u_count = 0
     ra_count = 0
     e_count = 0
@@ -164,7 +173,7 @@ def inv_count(person, person_name):
             missing_num += 1
     # return the list of counts and make embed
     #person_inv = [u_count, ra_count, e_count, l_count, rel_count, c_count, unob_count]
-    the_embed = embed_inv(person_name, u_count, ra_count, e_count, l_count, rel_count, c_count, unob_count, missing_num)
+    the_embed = embed_inv(person_name, percentage, u_count, ra_count, e_count, l_count, rel_count, c_count, unob_count, missing_num)
     return the_embed
 
 def read_inv_db(person, count=False): #read inventory of any specified person as an optional parameter
@@ -481,10 +490,10 @@ def embed_roulette(skin_name, skin_image, rarity, dup):
     embed.add_field(name='Duplicate:', value=dup)
     return embed, file
 
-def embed_inv(person_name, u_count, ra_count, e_count, l_count, rel_count, c_count, unob_count, missing_num):
+def embed_inv(person_name, percentage, u_count, ra_count, e_count, l_count, rel_count, c_count, unob_count, missing_num):
     total_count = u_count + ra_count + e_count + l_count + rel_count + c_count + unob_count
     embed = discord.Embed(color = 0x61cc33)
-    embed.add_field(name=person_name,value=f'{total_count} items in total \n {missing_num} skins left', inline=False)
+    embed.add_field(name=person_name,value=f'{total_count} items in total \n {missing_num} skins left \n {percentage}', inline=False)
     embed.add_field(name='Uncommon', value=f'{u_count} skins', inline=True)
     embed.add_field(name='Rare', value=f'{ra_count} skins', inline=True)
     embed.add_field(name='Epic', value=f'{e_count} skins', inline=True)
