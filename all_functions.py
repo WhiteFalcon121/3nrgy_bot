@@ -134,6 +134,7 @@ def skin_percentage(inv):
             my_total+=1
     percentage = my_total/len(all_skins_list) * 100
     percentage = round(percentage, 2)
+    return percentage
 
 def inv_count(person, person_name):
     result = read_inv_db(person, True)
